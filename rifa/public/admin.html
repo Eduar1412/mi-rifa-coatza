@@ -26,7 +26,8 @@ button:hover,.b:hover{filter:brightness(1.1)}
 .tabs button{background:#fff;color:var(--g2);border:1px solid var(--line);white-space:nowrap}
 .tabs button.on{background:var(--g3);color:#fff;border-color:var(--g3)}
 .pane{display:none}.pane.on{display:block}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat small{display:block;font-size:11px;color:#8aa39c;margin-top:3px}
 .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
 .stat b{display:block;font-size:24px;color:var(--g3)}.stat span{font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase}
 .row{border-top:1px solid var(--line);padding:12px 0}
@@ -58,10 +59,12 @@ button:hover,.b:hover{filter:brightness(1.1)}
   <div class="sp"><a class="b gray" href="/" target="_blank">Ver página</a><button class="gray" onclick="salir()">Salir</button></div></header>
 <div class="wrap">
   <div class="stats">
-    <div class="stat"><b id="s-res">0</b><span>Apartados</span></div>
-    <div class="stat"><b id="s-pag">0</b><span>Pagados</span></div>
-    <div class="stat"><b id="s-num">0/1000</b><span>Números ocupados</span></div>
-    <div class="stat"><b id="s-money">$0</b><span>Cobrado</span></div>
+    <div class="stat"><b id="s-bol">0 / 250</b><span>Boletos apartados</span><small id="s-bol2"></small></div>
+    <div class="stat"><b id="s-bolp">0</b><span>Boletos pagados</span><small id="s-bolp2"></small></div>
+    <div class="stat"><b id="s-num">0 / 1000</b><span>Números ocupados</span><small id="s-num2"></small></div>
+    <div class="stat"><b id="s-res">0</b><span>Compras (personas)</span><small id="s-res2"></small></div>
+    <div class="stat"><b id="s-money">$0</b><span>Cobrado</span><small>dinero ya confirmado</small></div>
+    <div class="stat"><b id="s-pend" style="color:#b7791f">$0</b><span>Por cobrar</span><small id="s-pend2"></small></div>
   </div>
 
   <div class="tabs" id="tabs">
@@ -105,7 +108,7 @@ button:hover,.b:hover{filter:brightness(1.1)}
     <h2>Pagos y contacto</h2><p class="sub">Estos datos aparecen en la sección “Métodos de pago” y en los botones de contacto.</p>
     <div class="g2"><div><label>Banco</label><input id="c-banco"></div><div><label>Titular de la cuenta</label><input id="c-titular"></div>
     <div><label>CLABE / Tarjeta</label><input id="c-clabe"></div><div><label>Tarjeta para depósito en OXXO</label><input id="c-oxxo"></div>
-    <div><label>WhatsApp que recibe los pedidos (52 + 10 dígitos)</label><input id="c-whatsapp"></div><div><label>Enlace de Facebook</label><input id="c-facebook"></div></div>
+    <div><label>WhatsApp que recibe los pedidos (52 + 10 dígitos)</label><input id="c-whatsapp"></div><div><label>Enlace de Facebook (pega el enlace completo de tu página)</label><input id="c-facebook" placeholder="https://www.facebook.com/RifasEntreAmigosCoatza/"></div></div>
     <label>Nota debajo de los métodos de pago</label><textarea id="c-notaPago" style="min-height:70px"></textarea>
     <div class="acts"><button onclick="guardar()">Guardar cambios</button><span class="msg" id="msg-pagos"></span></div>
   </div></div>
@@ -165,8 +168,13 @@ async function cargar(forzar) {
 }
 function pintar() {
   const R = DATA.reservas, q = $("q").value.toLowerCase().trim(), f = $("f").value, pag = R.filter(r => r.pagado);
-  $("s-res").textContent = R.length; $("s-pag").textContent = pag.length;
-  $("s-num").textContent = R.reduce((a, r) => a + r.numeros.length, 0) + "/1000"; $("s-money").textContent = "$" + pag.reduce((a, r) => a + r.total, 0);
+  const numsTot = R.reduce((a, r) => a + r.numeros.length, 0), numsPag = pag.reduce((a, r) => a + r.numeros.length, 0);
+  const cobrado = pag.reduce((a, r) => a + r.total, 0), porCobrar = R.filter(r => !r.pagado).reduce((a, r) => a + r.total, 0);
+  $("s-bol").textContent = numsTot / 4 + " / 250"; $("s-bol2").textContent = "1 boleto = 4 números";
+  $("s-bolp").textContent = numsPag / 4; $("s-bolp2").textContent = (numsTot - numsPag) / 4 + " pendientes de pago";
+  $("s-num").textContent = numsTot + " / 1000"; $("s-num2").textContent = "quedan " + (1000 - numsTot) + " libres";
+  $("s-res").textContent = R.length; $("s-res2").textContent = pag.length + " pagadas · " + (R.length - pag.length) + " pendientes";
+  $("s-money").textContent = "$" + cobrado; $("s-pend").textContent = "$" + porCobrar; $("s-pend2").textContent = "pagos sin confirmar";
   const vis = R.filter(r => (!q || (r.nombre + r.telefono + r.estado + r.numeros.join(" ")).toLowerCase().includes(q)) && (!f || (f === "p") === r.pagado));
   $("lista").innerHTML = vis.map(r => {
     const msg = r.pagado
