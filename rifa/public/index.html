@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Rifas Entre Amigos Coatza | Boletos Digitales</title>
+<meta name="description" content="Rifas Entre Amigos Coatza: elige tus números, aparta tu boleto en segundos y participa por premios en efectivo. De Coatza a todo México.">
+<meta name="theme-color" content="#04332c">
+<link rel="icon" href="assets/favicon.png">
+<meta property="og:title" content="Rifas Entre Amigos Coatza">
+<meta property="og:description" content="¡Tu suerte es nacional! Boletos súper económicos, premios en efectivo.">
+<meta property="og:image" content="assets/banner.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+:root{
+  --g1:#04332c;--g2:#075d4f;--g3:#0a7d6e;--b1:#0a6c80;--b2:#08a6b2;
+  --gold:#f4c95d;--gold2:#d9a526;--gold3:#fff0b3;--green:#25d366;
+  --glass:rgba(255,255,255,.07);--line:rgba(244,201,93,.35);--txt:#eafaf5;--mut:#a9cfc6
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:'Montserrat',Arial,sans-serif;color:var(--txt);padding-bottom:96px;overflow-x:hidden;
+  background:radial-gradient(1200px 600px at 85% -10%,rgba(8,166,178,.35),transparent 60%),radial-gradient(900px 500px at -10% 20%,rgba(10,125,110,.45),transparent 60%),linear-gradient(180deg,#04332c 0%,#05453f 45%,#063a4a 100%);background-attachment:fixed}
+.gold{background:linear-gradient(180deg,var(--gold3),var(--gold) 45%,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.conf{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.conf i{position:absolute;top:-20px;width:8px;height:14px;background:var(--gold);opacity:.7;border-radius:2px;animation:fall linear infinite}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+main,nav,footer{position:relative;z-index:1}
+
+nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:12px;padding:8px 16px;background:rgba(4,40,35,.92);backdrop-filter:blur(10px);border-bottom:2px solid var(--gold);box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.logo{width:50px;height:50px;flex:none;border-radius:50%;border:2px solid var(--gold);background:var(--g2) center/cover}
+.brand{font-weight:900;font-size:13px;line-height:1.1;letter-spacing:.3px}
+.nav-links{margin-left:auto;display:flex;align-items:center;gap:2px;overflow-x:auto}
+.nav-links a{color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:8px 11px;white-space:nowrap;border-radius:20px}
+.nav-links a:hover{color:var(--gold);background:var(--glass)}
+.nav-links a.cta{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#3b2a00;margin-left:6px}
+
+.wrap{max-width:980px;margin:0 auto;padding:0 14px}
+.hero{padding:22px 0 10px;text-align:center}
+.banner{display:block;width:100%;border-radius:18px;border:2px solid var(--gold);box-shadow:0 0 0 5px rgba(244,201,93,.15),0 20px 50px rgba(0,0,0,.5);aspect-ratio:1376/768;object-fit:cover;background:var(--g2)}
+#cuenta{margin:16px auto 0;display:inline-block;font-weight:800;font-size:15px;padding:9px 18px;border-radius:30px;background:var(--glass);border:1px solid var(--line);color:var(--gold3)}
+#cuenta:empty{display:none}
+.cta-big{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:16px 30px;border-radius:50px;border:0;cursor:pointer;text-decoration:none;font-family:inherit;font-weight:900;font-size:17px;letter-spacing:.4px;color:#3b2a00;background:linear-gradient(180deg,var(--gold3),var(--gold) 40%,var(--gold2));box-shadow:0 8px 0 #9a7210,0 16px 30px rgba(0,0,0,.4);animation:pulse 2s infinite}
+.cta-big:active{transform:translateY(4px);box-shadow:0 4px 0 #9a7210}
+@keyframes pulse{50%{filter:brightness(1.12);transform:scale(1.03)}}
+.lead{margin-top:20px}.lead h1{font-size:26px;font-weight:900}.lead p{color:var(--mut);margin-top:6px;font-weight:600;font-size:15px}
+
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 6px}
+.kpi{background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center}
+.kpi b{display:block;font-size:19px;font-weight:900}.kpi span{font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+.prog{margin:12px 0 4px;background:rgba(0,0,0,.35);border-radius:20px;height:16px;overflow:hidden;border:1px solid var(--line)}
+.prog div{height:100%;width:0;border-radius:20px;background:linear-gradient(90deg,var(--g3),var(--b2),var(--gold));transition:width .8s}
+.prog-t{font-size:12px;text-align:center;color:var(--mut);font-weight:700}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}
+.step{background:var(--glass);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 10px;text-align:center;font-size:13px;font-weight:700}
+.step i{display:flex;margin:0 auto 8px;width:40px;height:40px;border-radius:50%;align-items:center;justify-content:center;font-size:17px;color:#3b2a00;background:linear-gradient(180deg,var(--gold3),var(--gold2))}
+
+.card{background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.card h3{font-size:16px;font-weight:900;margin-bottom:12px;display:flex;gap:9px;align-items:center;letter-spacing:.3px}
+.card h3 i{color:var(--gold)}
+.prize{text-align:center;border:2px solid var(--gold);background:radial-gradient(500px 200px at 50% 0,rgba(244,201,93,.22),transparent 70%),linear-gradient(160deg,#06453d,#064a5a)}
+.prize small{font-size:12px;font-weight:800;letter-spacing:2px;color:var(--mut)}
+.prize .big{font-size:34px;font-weight:900;line-height:1.1;margin:4px 0}
+.prize p{font-size:13px;color:var(--mut);font-weight:600}
+
+.tabs{display:flex;gap:8px;margin:6px 0 16px}
+.tab-btn{flex:1;padding:14px 8px;border:1px solid var(--line);background:var(--glass);border-radius:12px;font-family:inherit;font-weight:800;font-size:13px;color:#fff;cursor:pointer}
+.tab-btn.active{background:linear-gradient(180deg,var(--gold3),var(--gold2));color:#3b2a00;border-color:var(--gold)}
+.tab-content{display:none}.tab-content.active{display:block}
+
+.maq{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.btn-quick{background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.05));border:1px solid var(--line);border-radius:12px;padding:12px 4px;font-family:inherit;font-weight:800;font-size:13px;color:#fff;cursor:pointer;line-height:1.35}
+.btn-quick:hover{border-color:var(--gold);background:rgba(244,201,93,.18)}
+.btn-quick b{color:var(--gold);font-size:15px}
+.inp{width:100%;padding:14px;border:1px solid rgba(255,255,255,.2);border-radius:10px;font-family:inherit;font-size:14px;font-weight:600;margin-bottom:10px;outline:0;background:rgba(0,0,0,.28);color:#fff}
+.inp::placeholder{color:#8fb5ac}
+.inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(244,201,93,.2)}
+.legend{display:flex;justify-content:space-around;font-size:11px;font-weight:700;margin-bottom:10px;color:var(--mut)}
+.dot{width:11px;height:11px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:-1px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:6px;max-height:340px;overflow-y:auto;padding:8px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.12);border-radius:12px}
+.num{height:44px;display:flex;align-items:center;justify-content:center;font-family:inherit;font-weight:800;font-size:13px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;cursor:pointer}
+.num:hover{border-color:var(--gold)}
+.num.sel{background:linear-gradient(180deg,var(--gold3),var(--gold2));color:#3b2a00;border-color:var(--gold);transform:scale(1.06)}
+.num.sold{background:rgba(0,0,0,.35);color:#5f7f78;cursor:not-allowed;text-decoration:line-through;border-color:transparent}
+#ticket-box{display:none;margin-top:12px;padding:13px;border-radius:12px;border:1px dashed var(--gold);background:rgba(244,201,93,.1)}
+#ticket-list{font-size:16px;font-weight:900;color:var(--gold3);word-break:break-all}
+
+.pago{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:13px;margin-bottom:10px;font-size:14px;line-height:1.7}
+.pago strong{color:var(--gold)}
+details{border-bottom:1px solid rgba(255,255,255,.12);padding:12px 0}details:last-child{border:0}
+summary{font-weight:800;cursor:pointer;font-size:14px}details p{margin-top:8px;font-size:13.5px;line-height:1.6;color:var(--mut)}
+
+.btn-wa{display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#20c968,var(--green));color:#fff;border:0;border-radius:12px;padding:14px 20px;font-family:inherit;font-weight:900;font-size:14px;cursor:pointer;text-decoration:none;justify-content:center}
+.btn-wa:disabled{opacity:.6}
+.btn-fb{background:linear-gradient(135deg,#1877f2,#0a5bd0)}
+.sticky{position:fixed;bottom:0;left:0;right:0;z-index:999;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(4,40,35,.96);backdrop-filter:blur(10px);border-top:2px solid var(--gold);box-shadow:0 -6px 26px rgba(0,0,0,.45)}
+.total-label{font-size:11px;color:var(--mut);font-weight:700;display:block}.total-amount{font-size:22px;font-weight:900;color:var(--gold)}
+.fab{position:fixed;right:14px;bottom:92px;z-index:998;width:54px;height:54px;border-radius:50%;background:var(--green);color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+.closed{display:none;margin:14px 0;padding:14px;border-radius:12px;background:#7a1f1f;border:1px solid #ff8d8d;text-align:center;font-weight:800}
+footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;font-weight:600}
+@media(max-width:700px){.brand{display:none}.nav-links a.hide-m{display:none}.maq{grid-template-columns:repeat(2,1fr)}.lead h1{font-size:21px}.prize .big{font-size:28px}.kpi b{font-size:16px}.cta-big{font-size:15px;padding:14px 22px}}
+</style></head><body>
+
+<div class="conf" id="conf"></div>
+
+<nav>
+  <div class="logo" id="logo-nav"></div><div class="brand gold">RIFAS ENTRE<br>AMIGOS COATZA</div>
+  <div class="nav-links">
+    <a class="hide-m" href="#inicio">Inicio</a><a href="#comprar">Comprar</a><a class="hide-m" href="#pagos">Pagos</a><a class="hide-m" href="#preguntas">Preguntas</a><a class="cta" href="#contacto"><i class="fa-brands fa-whatsapp"></i> Contacto</a>
+  </div>
+</nav>
+
+<main>
+<section class="wrap hero" id="inicio">
+  <img class="banner" id="banner" alt="Rifas Entre Amigos Coatza — ¡Tu suerte es nacional!" src="assets/banner.webp" fetchpriority="high">
+  <div id="cuenta"></div><br>
+  <a class="cta-big" href="#comprar"><i class="fa-solid fa-ticket"></i> ¡QUIERO MIS BOLETOS!</a>
+  <div class="lead"><h1 class="gold" id="titulo">¡Participa en nuestro sorteo!</h1><p id="subtitulo">Elige tus números de la suerte y aparta tus boletos en segundos</p></div>
+
+  <div class="kpis">
+    <div class="kpi"><b class="gold" id="k-premio">$2,000</b><span>Premio</span></div>
+    <div class="kpi"><b class="gold" id="k-precio">$10</b><span>Por boleto</span></div>
+    <div class="kpi"><b class="gold">4</b><span>Números c/boleto</span></div>
+  </div>
+  <div class="prog"><div id="prog"></div></div>
+  <div class="prog-t" id="prog-t">&nbsp;</div>
+
+  <div class="steps">
+    <div class="step"><i class="fa-solid fa-hand-pointer"></i>1. Elige tus números</div>
+    <div class="step"><i class="fa-brands fa-whatsapp"></i>2. Aparta por WhatsApp</div>
+    <div class="step"><i class="fa-solid fa-trophy"></i>3. Paga y ¡a ganar!</div>
+  </div>
+</section>
+
+<div class="wrap">
+ <div id="comprar" style="scroll-margin-top:84px"></div>
+ <div class="closed" id="closed"><i class="fa-solid fa-lock"></i> La rifa está cerrada por el momento. ¡Síguenos para la próxima!</div>
+ <div class="tabs">
+  <button class="tab-btn active" onclick="tab('comprar',this)"><i class="fa-solid fa-ticket"></i> Comprar boletos</button>
+  <button class="tab-btn" onclick="tab('verificador',this)"><i class="fa-solid fa-magnifying-glass"></i> Consultar mis boletos</button>
+ </div>
+
+ <div id="tab-comprar" class="tab-content active">
+  <div class="card prize"><small>GANA</small><div class="big gold" id="premio">$2,000 EN EFECTIVO</div>
+   <p><strong id="precio-txt">$10 MXN</strong> por boleto · incluye 4 números</p></div>
+
+  <div class="card"><h3><i class="fa-solid fa-dice"></i> LA MAQUINITA DE LA SUERTE</h3>
+   <p style="font-size:12.5px;color:var(--mut);margin-bottom:10px;font-weight:600">Elige cuántos boletos quieres y te damos números al azar:</p>
+   <div class="maq">
+    <button class="btn-quick" onclick="maquinita(1)">+1 Boleto<br><b class="pm" data-k="1"></b></button>
+    <button class="btn-quick" onclick="maquinita(3)">+3 Boletos<br><b class="pm" data-k="3"></b></button>
+    <button class="btn-quick" onclick="maquinita(5)">+5 Boletos<br><b class="pm" data-k="5"></b></button>
+    <button class="btn-quick" onclick="maquinita(10)">+10 Boletos<br><b class="pm" data-k="10"></b></button>
+   </div></div>
+
+  <div class="card"><h3><i class="fa-solid fa-list-ol"></i> ELIGE TUS NÚMEROS</h3>
+   <input id="search" class="inp" inputmode="numeric" maxlength="3" placeholder="🔍 Busca tu número de la suerte (ej. 045)..." oninput="filtrar()">
+   <div class="legend"><span><span class="dot" style="background:rgba(255,255,255,.25)"></span>Disponible</span><span><span class="dot" style="background:var(--gold)"></span>Elegido</span><span><span class="dot" style="background:#3a4f4b"></span>Ocupado</span></div>
+   <div class="grid" id="grid"></div>
+   <div id="ticket-box"><div style="font-size:10px;color:var(--mut);font-weight:800;letter-spacing:1px;margin-bottom:4px">TUS NÚMEROS:</div><div id="ticket-list"></div>
+    <button class="btn-quick" style="margin-top:10px;padding:8px 14px" onclick="limpiar()">Limpiar selección</button></div></div>
+
+  <div class="card"><h3><i class="fa-solid fa-user"></i> TUS DATOS</h3>
+   <input id="nombre" class="inp" placeholder="Nombre completo" autocomplete="name">
+   <input id="telefono" class="inp" type="tel" inputmode="numeric" maxlength="14" placeholder="Tu WhatsApp (10 dígitos)" autocomplete="tel">
+   <input id="estado" class="inp" placeholder="Ciudad / Municipio" style="margin-bottom:0"></div>
+ </div>
+
+ <div id="tab-verificador" class="tab-content">
+  <div class="card" style="text-align:center">
+   <i class="fa-solid fa-shield-halved" style="font-size:42px;color:var(--gold);margin-bottom:10px"></i>
+   <h3 style="justify-content:center">Consulta tus boletos apartados</h3>
+   <p style="font-size:12.5px;color:var(--mut);margin-bottom:14px;font-weight:600">Ingresa tu número de WhatsApp para ver tus números y si tu pago ya fue confirmado.</p>
+   <input id="search-phone" class="inp" type="tel" inputmode="numeric" placeholder="Tu WhatsApp (10 dígitos)" style="text-align:center">
+   <button class="btn-wa" style="width:100%" onclick="consultar()"><i class="fa-solid fa-magnifying-glass"></i> CONSULTAR AHORA</button>
+   <div id="resultado" style="margin-top:14px;font-size:14px"></div></div>
+ </div>
+
+ <div class="card" id="pagos"><h3><i class="fa-solid fa-credit-card"></i> MÉTODOS DE PAGO</h3>
+  <div class="pago" id="pago-banco"></div>
+  <div class="pago" id="pago-oxxo"></div>
+  <p style="font-size:13px;color:var(--mut);font-weight:600" id="nota-pago"></p></div>
+
+ <div class="card"><h3><i class="fa-solid fa-trophy"></i> ¿CÓMO SE ELIGE AL GANADOR?</h3>
+  <p style="font-size:13.5px;line-height:1.6;color:var(--mut);font-weight:600" id="metodo"></p></div>
+
+ <div class="card" id="preguntas"><h3><i class="fa-solid fa-circle-question"></i> PREGUNTAS FRECUENTES</h3><div id="faq"></div></div>
+
+ <div class="card" id="contacto"><h3><i class="fa-solid fa-headset"></i> CONTACTO</h3>
+  <p style="font-size:14px;margin-bottom:12px;font-weight:600">¿Dudas? Escríbenos directamente:</p>
+  <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+   <a class="btn-wa" id="wa-contacto" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> <span id="wa-txt">WhatsApp</span></a>
+   <a class="btn-wa btn-fb" id="fb" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Síguenos en Facebook</a>
+  </div></div>
+</div>
+</main>
+<footer>© Rifas Entre Amigos Coatza · Coatzacoalcos, Veracruz · De Coatza a todo México 🇲🇽<br>Juega con responsabilidad.</footer>
+
+<a class="fab" id="fab" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+
+<div id="ok" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(2,30,26,.94);align-items:center;justify-content:center;padding:20px">
+ <div class="card" style="max-width:400px;width:100%;text-align:center;margin:0;border:2px solid var(--gold)">
+  <i class="fa-solid fa-circle-check" style="font-size:52px;color:var(--gold)"></i>
+  <h3 style="justify-content:center;margin:10px 0 6px;font-size:20px">¡Boletos apartados!</h3>
+  <p style="font-size:13px;color:var(--mut);font-weight:700">Tus números:</p>
+  <p style="font-weight:900;color:var(--gold3);word-break:break-all;margin:4px 0 8px" id="ok-nums"></p>
+  <p style="font-size:16px;font-weight:900;margin-bottom:14px">Total: <span class="gold" id="ok-total"></span></p>
+  <a id="ok-link" class="btn-wa" href="#"><i class="fa-brands fa-whatsapp"></i> ABRIR WHATSAPP</a>
+  <p style="font-size:12px;color:var(--mut);margin-top:10px;font-weight:600">Te llevamos a WhatsApp en un momento. Si no abre, toca el botón verde y envía el mensaje para recibir los datos de pago.</p>
+  <button class="btn-quick" style="margin-top:10px;padding:8px 16px" onclick="location.reload()">Cerrar</button>
+ </div>
+</div>
+
+<div class="sticky" id="sticky">
+ <div><span class="total-label"><span id="cnt">0</span> números elegidos</span><span class="total-amount">$<span id="precio">0</span> MXN</span></div>
+ <button class="btn-wa" id="btn-apartar" onclick="apartar()" style="flex:none"><i class="fa-brands fa-whatsapp" style="font-size:18px"></i> APARTAR AHORA</button>
+</div>
+
+<script>
+let MI_WHATSAPP = "529213073574", FECHA_SORTEO = "", PRECIO = 10, ABIERTA = true;
+let CFG = { premio: "$2,000 EN EFECTIVO" };
+let sel = [], vendidos = new Set();
+const $ = id => document.getElementById(id);
+const esc = s => String(s || "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+const soloDigitos = s => s.replace(/\D/g, "").slice(-10);
+const grid = $("grid"), btns = {};
+for (let i = 0; i < 1000; i++) {
+  const n = String(i).padStart(3, "0"), b = document.createElement("button");
+  b.className = "num"; b.textContent = n; b.onclick = () => toggle(n);
+  grid.appendChild(b); btns[n] = b;
+}
+// confeti decorativo
+for (let i = 0; i < 18; i++) { const e = document.createElement("i"); e.style.cssText = `left:${Math.random()*100}%;animation-duration:${9+Math.random()*10}s;animation-delay:-${Math.random()*14}s;opacity:${.25+Math.random()*.45}`; $("conf").appendChild(e); }
+
+function aplicarConfig(c) {
+  if (!c) return;
+  CFG = c; MI_WHATSAPP = c.whatsapp || MI_WHATSAPP; FECHA_SORTEO = c.fechaSorteo || ""; PRECIO = Number(c.precio) || 10; ABIERTA = c.estado !== "cerrada";
+  $("premio").textContent = c.premio; $("k-premio").textContent = c.premio.split(" EN ")[0];
+  $("k-precio").textContent = "$" + PRECIO; $("precio-txt").textContent = "$" + PRECIO + " MXN";
+  document.querySelectorAll(".pm").forEach(e => e.textContent = "($" + PRECIO * e.dataset.k + ")");
+  $("titulo").textContent = c.titulo; $("subtitulo").textContent = c.subtitulo; $("metodo").textContent = c.metodoSorteo; $("nota-pago").textContent = c.notaPago;
+  $("pago-banco").innerHTML = `<strong>Transferencia / depósito:</strong><br>Banco: ${esc(c.banco) || "—"}<br>Titular: ${esc(c.titular) || "—"}<br>CLABE / Tarjeta: ${esc(c.clabe) || "—"}`;
+  $("pago-oxxo").innerHTML = `<strong>Depósito en OXXO:</strong> ${esc(c.oxxo) || "—"}`;
+  $("faq").innerHTML = String(c.faq || "").split("\n").filter(l => l.includes("|")).map(l => { const [q, ...a] = l.split("|"); return `<details><summary>${esc(q.trim())}</summary><p>${esc(a.join("|").trim())}</p></details>`; }).join("");
+  const wa = "https://wa.me/" + MI_WHATSAPP, num = MI_WHATSAPP.replace(/^52/, "").replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3");
+  $("wa-contacto").href = wa + "?text=" + encodeURIComponent("Hola, tengo una duda sobre la rifa"); $("fab").href = wa; $("wa-txt").textContent = "WhatsApp: " + num;
+  $("fb").href = c.facebook || "#"; $("fb").style.display = c.facebook ? "flex" : "none";
+  if (c.bannerV) $("banner").src = "/api/img/banner?v=" + c.bannerV;
+  if (c.logoV) $("logo-nav").style.backgroundImage = `url(/api/img/logo?v=${c.logoV})`;
+  $("closed").style.display = ABIERTA ? "none" : "block"; $("btn-apartar").disabled = !ABIERTA;
+  resumen(); cuenta();
+}
+$("logo-nav").style.backgroundImage = "url(assets/logo.webp)";
+
+function toggle(n) {
+  if (vendidos.has(n)) return;
+  sel = sel.includes(n) ? sel.filter(x => x !== n) : [...sel, n];
+  btns[n].classList.toggle("sel"); resumen();
+}
+function resumen() {
+  $("cnt").textContent = sel.length;
+  $("precio").textContent = Math.ceil(sel.length / 4) * PRECIO;
+  $("ticket-box").style.display = sel.length ? "block" : "none";
+  $("ticket-list").textContent = [...sel].sort().join(" - ");
+}
+function limpiar() { sel.forEach(n => btns[n].classList.remove("sel")); sel = []; resumen(); }
+function maquinita(k) {
+  limpiar();
+  const libres = Object.keys(btns).filter(n => !vendidos.has(n)), meta = k * 4;
+  if (libres.length < meta) return alert("No hay suficientes números disponibles para esa cantidad.");
+  while (sel.length < meta) { const n = libres.splice(Math.random() * libres.length | 0, 1)[0]; sel.push(n); btns[n].classList.add("sel"); }
+  resumen();
+}
+function filtrar() {
+  const q = $("search").value.trim();
+  for (const n in btns) btns[n].style.display = n.includes(q) ? "flex" : "none";
+}
+function marcarVendido(n) { vendidos.add(n); const b = btns[n]; if (!b) return; b.classList.remove("sel"); b.classList.add("sold"); progreso(); }
+function progreso() {
+  const v = vendidos.size, p = Math.round(v / 10);
+  $("prog").style.width = Math.max(p, v ? 2 : 0) + "%";
+  $("prog-t").textContent = v ? `🔥 ${v} de 1000 números ya apartados · ¡quedan ${1000 - v}!` : "🎟️ ¡Sé el primero en apartar tus números!";
+}
+async function cargar() {
+  try {
+    const r = await fetch("/api/boletos", { cache: "no-store" });
+    if (!r.ok) throw 0;
+    const d = await r.json(), nuevos = new Set(d.vendidos || []);
+    aplicarConfig(d.config);
+    for (const n in btns) { if (nuevos.has(n)) { if (!vendidos.has(n)) marcarVendido(n); } else if (vendidos.has(n)) { vendidos.delete(n); btns[n].classList.remove("sold"); } }
+    progreso();
+    const antes = sel.length; sel = sel.filter(n => !nuevos.has(n)); if (sel.length !== antes) resumen();
+  } catch (e) { console.warn("No se pudo consultar el inventario", e); }
+}
+function tab(t, b) {
+  document.querySelectorAll(".tab-btn").forEach(x => x.classList.remove("active"));
+  document.querySelectorAll(".tab-content").forEach(x => x.classList.remove("active"));
+  b.classList.add("active"); $("tab-" + t).classList.add("active");
+  $("sticky").style.display = t === "comprar" ? "flex" : "none";
+}
+async function consultar() {
+  const tel = soloDigitos($("search-phone").value), out = $("resultado");
+  if (tel.length !== 10) return out.innerHTML = '<span style="color:#ff9b9b">Ingresa un WhatsApp de 10 dígitos.</span>';
+  out.textContent = "Consultando…";
+  try {
+    const r = await fetch("/api/consultar?telefono=" + tel, { cache: "no-store" }), d = await r.json();
+    if (!r.ok) throw new Error(d.error);
+    out.innerHTML = d.boletos?.length
+      ? `<div style="background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.5);padding:14px;border-radius:12px;text-align:left"><strong>${d.boletos.length / 4} boleto(s) · ${d.boletos.length} números:</strong><br><span style="color:var(--gold3);font-weight:800;word-break:break-all">${d.boletos.join(" - ")}</span><br><br><strong>Pago confirmado:</strong> ${d.pagados?.length ? d.pagados.join(" - ") : "aún no"}</div>`
+      : '<div style="background:rgba(255,255,255,.08);padding:12px;border-radius:12px">No encontramos boletos apartados con ese número.</div>';
+  } catch (e) { out.innerHTML = '<span style="color:#ff9b9b">No se pudo consultar el servidor.</span>'; }
+}
+async function apartar() {
+  const nombre = $("nombre").value.trim(), tel = soloDigitos($("telefono").value), estado = $("estado").value.trim();
+  if (!ABIERTA) return alert("La rifa está cerrada por el momento.");
+  if (!sel.length) return alert("Selecciona al menos 1 boleto o usa La Maquinita de la suerte.");
+  if (sel.length % 4) return alert(`Has elegido ${sel.length} números. Cada boleto ($${PRECIO}) incluye 4 números.`);
+  if (nombre.length < 3) { $("nombre").focus(); return alert("Escribe tu nombre completo."); }
+  if (tel.length !== 10) { $("telefono").focus(); return alert("Tu WhatsApp debe tener 10 dígitos."); }
+  const nums = [...sel].sort(), total = nums.length / 4 * PRECIO, b = $("btn-apartar");
+  b.disabled = true;
+  try {
+    const r = await fetch("/api/reservar", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ nombre, telefono: tel, estado, numeros: nums }) });
+    const d = await r.json();
+    if (!r.ok || !d.ok) {
+      if (d.ocupados?.length) { d.ocupados.forEach(marcarVendido); sel = sel.filter(n => !d.ocupados.includes(n)); resumen(); return alert(`Estos números ya se ocuparon: ${d.ocupados.join(", ")}. Elige otros.`); }
+      throw new Error(d.error || "No fue posible apartar los boletos.");
+    }
+    nums.forEach(marcarVendido); sel = []; resumen();
+    const msj = `¡Hola! Quiero apartar mi boleto para la Rifa de ${CFG.premio}.\n\n👤 Nombre: ${nombre}\n📱 WhatsApp: ${tel}\n📍 Ciudad: ${estado || "No especificada"}\n🎟️ Mis números (${nums.length}): ${nums.join(", ")}\n💰 Total a pagar: $${total} MXN\n🔖 Folio: ${d.id}\n\nPor favor envíame las cuentas para realizar mi depósito.`;
+    const url = `https://wa.me/${MI_WHATSAPP}?text=${encodeURIComponent(msj)}`;
+    $("ok-nums").textContent = nums.join(" - "); $("ok-total").textContent = "$" + total + " MXN"; $("ok-link").href = url; $("ok").style.display = "flex";
+    setTimeout(() => { location.href = url; }, 1500);
+  } catch (e) { alert(e.message || "No se pudo conectar con el servidor."); }
+  finally { b.disabled = !ABIERTA; }
+}
+function cuenta() {
+  const el = $("cuenta");
+  if (!FECHA_SORTEO) return el.textContent = "";
+  const ms = new Date(FECHA_SORTEO) - Date.now();
+  if (isNaN(ms)) return el.textContent = "";
+  if (ms <= 0) return el.textContent = "¡El sorteo ya se realizó!";
+  const d = ms / 864e5 | 0, h = ms / 36e5 % 24 | 0, m = ms / 6e4 % 60 | 0, s = ms / 1e3 % 60 | 0;
+  el.textContent = `⏳ Faltan ${d}d ${h}h ${m}m ${s}s para el sorteo`;
+}
+aplicarConfig({ premio: "$2,000 EN EFECTIVO", precio: 10, titulo: "¡Participa en nuestro sorteo!", subtitulo: "Elige tus números de la suerte y aparta tus boletos en segundos", whatsapp: MI_WHATSAPP, facebook: "", faq: "", metodoSorteo: "", notaPago: "", estado: "abierta" });
+setInterval(cuenta, 1000);
+cargar(); setInterval(() => { if (!document.hidden) cargar(); }, 10000);
+</script></body></html>

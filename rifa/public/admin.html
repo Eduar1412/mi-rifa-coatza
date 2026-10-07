@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Panel de control | Rifas Entre Amigos Coatza</title>
+<link rel="icon" href="assets/favicon.png">
+<style>
+:root{--g1:#04332c;--g2:#075d4f;--g3:#0a7d6e;--b2:#08a6b2;--gold:#f4c95d;--gold2:#d9a526;--green:#25d366;--bg:#eef5f3;--ink:#10302b;--mut:#5d7a73;--line:#d3e3de}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif}
+body{background:var(--bg);color:var(--ink);min-height:100vh}
+header{background:linear-gradient(100deg,var(--g1),var(--g2) 60%,#0a6c80);color:#fff;border-bottom:4px solid var(--gold);padding:10px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50}
+header img{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold)}
+header h1{font-size:16px;line-height:1.15}header small{opacity:.75;font-size:11px}
+header .sp{margin-left:auto;display:flex;gap:8px}
+.wrap{max-width:1000px;margin:0 auto;padding:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,60,50,.06)}
+.card h2{font-size:16px;color:var(--g2);margin-bottom:4px}.card .sub{font-size:12.5px;color:var(--mut);margin-bottom:12px}
+label{font-size:12px;font-weight:700;color:var(--mut);display:block;margin:8px 0 3px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #c3d5cf;border-radius:8px;font-size:14px;outline:0;background:#fff;color:var(--ink)}
+textarea{resize:vertical;min-height:90px}
+input:focus,select:focus,textarea:focus{border-color:var(--g3);box-shadow:0 0 0 3px rgba(10,125,110,.15)}
+button,.b{border:0;border-radius:8px;padding:10px 14px;font-weight:700;font-size:13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;color:#fff;background:var(--g3)}
+button:hover,.b:hover{filter:brightness(1.1)}
+.b.wa{background:var(--green)}.b.red{background:#c0392b}.b.gray{background:#64767a}.b.gold{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#3b2a00}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:2px}
+.tabs button{background:#fff;color:var(--g2);border:1px solid var(--line);white-space:nowrap}
+.tabs button.on{background:var(--g3);color:#fff;border-color:var(--g3)}
+.pane{display:none}.pane.on{display:block}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+.stat b{display:block;font-size:24px;color:var(--g3)}.stat span{font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase}
+.row{border-top:1px solid var(--line);padding:12px 0}
+.row .top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:14px;align-items:center}
+.nums{font-size:13px;color:#33524b;margin:6px 0 2px;word-break:break-all;font-weight:600}
+.meta{font-size:11px;color:#8aa39c}
+.tag{font-size:11px;font-weight:900;padding:3px 9px;border-radius:12px;margin-right:6px}.tag.p{background:#d1fae5;color:#065f46}.tag.n{background:#fef3c7;color:#92400e}
+.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.imgbox{display:flex;gap:14px;align-items:center;flex-wrap:wrap;border:1px dashed #b4cdc6;border-radius:10px;padding:12px;margin-top:8px}
+.imgbox img{max-height:90px;max-width:160px;border-radius:8px;border:1px solid var(--line);background:#f2f2f2}
+.msg{font-size:13px;font-weight:700;margin-left:8px}.ok{color:var(--g3)}.er{color:#c0392b}
+.login{max-width:380px;margin:12vh auto;text-align:center}
+.login img{width:110px;height:110px;border-radius:50%;border:3px solid var(--gold);margin-bottom:10px}
+#app{display:none}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}header small{display:none}}
+</style></head><body>
+
+<div id="login" class="wrap"><div class="card login">
+  <img src="assets/logo.webp" alt="">
+  <h2 style="font-size:19px">Panel de control</h2><p class="sub">Rifas Entre Amigos Coatza</p>
+  <input id="pass" type="password" placeholder="Contraseña de administrador" onkeydown="if(event.key==='Enter')entrar()">
+  <button style="width:100%;margin-top:10px;justify-content:center" onclick="entrar()">Entrar</button>
+  <p id="err" class="er" style="font-size:13px;margin-top:10px"></p>
+</div></div>
+
+<div id="app">
+<header><img src="assets/logo.webp" alt=""><div><h1>Panel de control</h1><small>Rifas Entre Amigos Coatza</small></div>
+  <div class="sp"><a class="b gray" href="/" target="_blank">Ver página</a><button class="gray" onclick="salir()">Salir</button></div></header>
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><b id="s-res">0</b><span>Apartados</span></div>
+    <div class="stat"><b id="s-pag">0</b><span>Pagados</span></div>
+    <div class="stat"><b id="s-num">0/1000</b><span>Números ocupados</span></div>
+    <div class="stat"><b id="s-money">$0</b><span>Cobrado</span></div>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="on" data-t="res">📋 Reservaciones</button>
+    <button data-t="venta">➕ Venta manual</button>
+    <button data-t="web">✏️ Textos y premio</button>
+    <button data-t="pagos">💳 Pagos y contacto</button>
+    <button data-t="img">🖼️ Imágenes</button>
+    <button data-t="adv">⚙️ Avanzado</button>
+  </div>
+
+  <div class="pane on" id="p-res"><div class="card">
+    <h2>Reservaciones</h2><p class="sub">Marca como pagado, avisa por WhatsApp o libera los números.</p>
+    <div class="g2"><input id="q" placeholder="Buscar nombre, teléfono o número…" oninput="pintar()">
+    <select id="f" onchange="pintar()"><option value="">Todas</option><option value="n">Pendientes de pago</option><option value="p">Pagadas</option></select></div>
+    <div id="lista" style="margin-top:8px"></div>
+    <div class="acts"><button class="gray" onclick="csv()">⬇ Descargar Excel (CSV)</button></div>
+  </div></div>
+
+  <div class="pane" id="p-venta"><div class="card">
+    <h2>Registrar venta manual</h2><p class="sub">Para boletos que vendiste en persona o por mensaje. Los números se bloquean al instante en la página.</p>
+    <div class="g2"><div><label>Nombre</label><input id="m-nombre"></div><div><label>WhatsApp (10 dígitos)</label><input id="m-tel" inputmode="numeric"></div>
+    <div><label>Ciudad</label><input id="m-estado"></div><div><label>¿Ya pagó?</label><select id="m-pagado"><option value="0">Pendiente</option><option value="1">Pagado</option></select></div></div>
+    <label>Números de 3 dígitos separados por coma o espacio (múltiplos de 4, ej. 001 045 120 777)</label><textarea id="m-nums"></textarea>
+    <div class="acts"><button onclick="manual()">Guardar venta</button><span id="m-msg" class="msg"></span></div>
+  </div></div>
+
+  <div class="pane" id="p-web"><div class="card">
+    <h2>Textos y premio</h2><p class="sub">Lo que cambies aquí se actualiza en la página en segundos.</p>
+    <div class="g2"><div><label>Premio (ej. $2,000 EN EFECTIVO)</label><input id="c-premio"></div>
+    <div><label>Precio por boleto (MXN, incluye 4 números)</label><input id="c-precio" type="number" min="1"></div>
+    <div><label>Título principal</label><input id="c-titulo"></div><div><label>Subtítulo</label><input id="c-subtitulo"></div>
+    <div><label>Fecha y hora del sorteo (cuenta regresiva)</label><input id="c-fechaSorteo" type="datetime-local"></div>
+    <div><label>Estado de la rifa</label><select id="c-estado"><option value="abierta">🟢 Abierta (se pueden apartar boletos)</option><option value="cerrada">🔴 Cerrada (nadie puede apartar)</option></select></div></div>
+    <label>¿Cómo se elige al ganador?</label><textarea id="c-metodoSorteo"></textarea>
+    <label>Preguntas frecuentes — una por línea, con el formato: Pregunta | Respuesta</label><textarea id="c-faq" style="min-height:200px"></textarea>
+    <div class="acts"><button onclick="guardar()">Guardar cambios</button><span class="msg" id="msg-web"></span></div>
+  </div></div>
+
+  <div class="pane" id="p-pagos"><div class="card">
+    <h2>Pagos y contacto</h2><p class="sub">Estos datos aparecen en la sección “Métodos de pago” y en los botones de contacto.</p>
+    <div class="g2"><div><label>Banco</label><input id="c-banco"></div><div><label>Titular de la cuenta</label><input id="c-titular"></div>
+    <div><label>CLABE / Tarjeta</label><input id="c-clabe"></div><div><label>Tarjeta para depósito en OXXO</label><input id="c-oxxo"></div>
+    <div><label>WhatsApp que recibe los pedidos (52 + 10 dígitos)</label><input id="c-whatsapp"></div><div><label>Enlace de Facebook</label><input id="c-facebook"></div></div>
+    <label>Nota debajo de los métodos de pago</label><textarea id="c-notaPago" style="min-height:70px"></textarea>
+    <div class="acts"><button onclick="guardar()">Guardar cambios</button><span class="msg" id="msg-pagos"></span></div>
+  </div></div>
+
+  <div class="pane" id="p-img"><div class="card">
+    <h2>Imágenes de la página</h2><p class="sub">Sube una nueva y se cambia en toda la página. Se optimizan solas.</p>
+    <label>Banner principal (recomendado 1376×768)</label>
+    <div class="imgbox"><img id="pv-banner" src="assets/banner.webp"><div><input type="file" id="f-banner" accept="image/*"><div class="acts"><button onclick="subir('banner')">Subir banner</button><button class="gray" onclick="quitarImg('banner')">Volver al original</button></div></div></div>
+    <label style="margin-top:14px">Logo (cuadrado)</label>
+    <div class="imgbox"><img id="pv-logo" src="assets/logo.webp"><div><input type="file" id="f-logo" accept="image/*"><div class="acts"><button onclick="subir('logo')">Subir logo</button><button class="gray" onclick="quitarImg('logo')">Volver al original</button></div></div></div>
+    <span class="msg" id="msg-img"></span>
+  </div></div>
+
+  <div class="pane" id="p-adv"><div class="card">
+    <h2>Zona de peligro</h2><p class="sub">Para empezar una rifa nueva: borra todas las reservaciones y libera los 1000 números. No se puede deshacer.</p>
+    <label>Escribe BORRAR para confirmar</label><input id="r-conf" style="max-width:260px">
+    <div class="acts"><button class="red" onclick="reiniciar()">Reiniciar rifa</button><span class="msg" id="msg-adv"></span></div>
+    <p class="sub" style="margin-top:16px">La contraseña de este panel se cambia en Netlify → Site configuration → Environment variables → <b>ADMIN_PASSWORD</b> (y vuelves a publicar).</p>
+  </div></div>
+</div></div>
+
+<script>
+const $ = id => document.getElementById(id);
+let KEY = sessionStorage.getItem("k") || "", DATA = { reservas: [], config: {} };
+const esc = s => String(s ?? "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+const FIELDS = ["premio", "precio", "titulo", "subtitulo", "fechaSorteo", "estado", "metodoSorteo", "faq", "banco", "titular", "clabe", "oxxo", "whatsapp", "facebook", "notaPago"];
+
+async function api(body) {
+  const r = await fetch("/api/admin", { method: "POST", headers: { "Content-Type": "application/json", "x-admin-key": KEY }, body: JSON.stringify(body) });
+  let d = {}; try { d = await r.json(); } catch {}
+  if (!r.ok) throw new Error(d.error || (r.status === 404 ? "El servidor no está activo: sube el proyecto completo (con la carpeta netlify)." : "Error " + r.status));
+  return d;
+}
+function flash(id, t, ok = true) { const e = $(id); e.textContent = t; e.className = "msg " + (ok ? "ok" : "er"); setTimeout(() => e.textContent = "", 4000); }
+async function entrar() {
+  KEY = $("pass").value || KEY; $("err").textContent = "";
+  try { await cargar(true); sessionStorage.setItem("k", KEY); $("login").style.display = "none"; $("app").style.display = "block"; }
+  catch (e) { $("err").textContent = e.message; sessionStorage.removeItem("k"); }
+}
+function salir() { sessionStorage.removeItem("k"); location.reload(); }
+
+document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
+  document.querySelectorAll("#tabs button").forEach(x => x.classList.remove("on")); document.querySelectorAll(".pane").forEach(x => x.classList.remove("on"));
+  b.classList.add("on"); $("p-" + b.dataset.t).classList.add("on");
+});
+
+function llenar(c) {
+  FIELDS.forEach(k => { const el = $("c-" + k); if (!el || document.activeElement === el) return; el.value = k === "fechaSorteo" ? (c[k] || "").slice(0, 16) : (c[k] ?? ""); });
+  if (c.bannerV) $("pv-banner").src = "/api/img/banner?v=" + c.bannerV; else $("pv-banner").src = "assets/banner.webp";
+  if (c.logoV) $("pv-logo").src = "/api/img/logo?v=" + c.logoV; else $("pv-logo").src = "assets/logo.webp";
+}
+let primera = true;
+async function cargar(forzar) {
+  DATA = await api({ action: "list" });
+  if (primera || forzar) { llenar(DATA.config); primera = false; }
+  pintar();
+}
+function pintar() {
+  const R = DATA.reservas, q = $("q").value.toLowerCase().trim(), f = $("f").value, pag = R.filter(r => r.pagado);
+  $("s-res").textContent = R.length; $("s-pag").textContent = pag.length;
+  $("s-num").textContent = R.reduce((a, r) => a + r.numeros.length, 0) + "/1000"; $("s-money").textContent = "$" + pag.reduce((a, r) => a + r.total, 0);
+  const vis = R.filter(r => (!q || (r.nombre + r.telefono + r.estado + r.numeros.join(" ")).toLowerCase().includes(q)) && (!f || (f === "p") === r.pagado));
+  $("lista").innerHTML = vis.map(r => {
+    const msg = r.pagado
+      ? `¡Hola ${r.nombre}! ✅ Confirmamos tu pago de $${r.total} MXN. Tus números para la rifa (${DATA.config.premio}) son: ${r.numeros.join(", ")}. ¡Mucha suerte! 🍀`
+      : `¡Hola ${r.nombre}! 🎟️ Apartamos tus números: ${r.numeros.join(", ")}. Total: $${r.total} MXN.\n\nPara pagar:\nBanco: ${DATA.config.banco || "-"}\nTitular: ${DATA.config.titular || "-"}\nCLABE/Tarjeta: ${DATA.config.clabe || "-"}\n\nEnvíanos tu comprobante para confirmar tu boleto. ¡Gracias!`;
+    const wa = `https://wa.me/52${r.telefono}?text=${encodeURIComponent(msg)}`;
+    return `<div class="row"><div class="top"><span><b>${esc(r.nombre)}</b> · ${esc(r.telefono)} · ${esc(r.estado)}</span>
+      <span><span class="tag ${r.pagado ? "p" : "n"}">${r.pagado ? "PAGADO" : "PENDIENTE"}</span><b>$${r.total}</b></span></div>
+      <div class="nums">${r.numeros.join(" - ")}</div><div class="meta">${new Date(r.creado).toLocaleString("es-MX")} · folio ${esc(r.id)}</div>
+      <div class="acts"><a class="b wa" target="_blank" rel="noopener" href="${wa}">${r.pagado ? "Enviar confirmación" : "Enviar datos de pago"}</a>
+      <button onclick="pagar('${esc(r.id)}',${!r.pagado})">${r.pagado ? "Marcar pendiente" : "✔ Marcar pagado"}</button>
+      <button class="red" onclick="liberar('${esc(r.id)}')">Liberar</button></div></div>`;
+  }).join("") || "<p class='sub' style='margin-top:12px'>Sin reservaciones.</p>";
+}
+async function pagar(id, pagado) { try { await api({ action: "pagar", id, pagado }); await cargar(); } catch (e) { alert(e.message); } }
+async function liberar(id) { if (!confirm("¿Liberar estos números? Volverán a estar disponibles y se borra la reservación.")) return; try { await api({ action: "liberar", id }); await cargar(); } catch (e) { alert(e.message); } }
+async function manual() {
+  const numeros = $("m-nums").value.split(/[\s,;]+/).filter(Boolean).map(n => n.padStart(3, "0"));
+  try { await api({ action: "manual", nombre: $("m-nombre").value, telefono: $("m-tel").value, estado: $("m-estado").value, pagado: $("m-pagado").value === "1", numeros });
+    ["m-nombre", "m-tel", "m-estado", "m-nums"].forEach(i => $(i).value = ""); flash("m-msg", "✔ Venta guardada"); await cargar(); }
+  catch (e) { flash("m-msg", e.message, false); }
+}
+async function guardar() {
+  const cfg = {}; FIELDS.forEach(k => { const el = $("c-" + k); if (el) cfg[k] = el.value.trim(); });
+  try { await api({ action: "config", config: cfg }); flash("msg-web", "✔ Guardado"); flash("msg-pagos", "✔ Guardado"); }
+  catch (e) { flash("msg-web", e.message, false); flash("msg-pagos", e.message, false); }
+}
+function redimensionar(file, max) {
+  return new Promise((ok, no) => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => { const k = Math.min(1, max / Math.max(img.width, img.height)), c = document.createElement("canvas");
+      c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      let d = c.toDataURL("image/webp", .86); if (!d.startsWith("data:image/webp")) d = c.toDataURL("image/jpeg", .86); URL.revokeObjectURL(url); ok(d); };
+    img.onerror = () => no(new Error("No se pudo leer la imagen")); img.src = url;
+  });
+}
+async function subir(nombre) {
+  const f = $("f-" + nombre).files[0]; if (!f) return flash("msg-img", "Elige una imagen primero", false);
+  try { const data = await redimensionar(f, nombre === "logo" ? 700 : 1600); await api({ action: "imagen", nombre, data }); flash("msg-img", "✔ Imagen actualizada"); await cargar(true); }
+  catch (e) { flash("msg-img", e.message, false); }
+}
+async function quitarImg(nombre) { try { await api({ action: "imagen", nombre, quitar: true }); flash("msg-img", "✔ Se restauró la original"); await cargar(true); } catch (e) { flash("msg-img", e.message, false); } }
+async function reiniciar() {
+  if (!confirm("¿Seguro? Se borran TODAS las reservaciones.")) return;
+  try { await api({ action: "reiniciar", confirmar: $("r-conf").value }); $("r-conf").value = ""; flash("msg-adv", "✔ Rifa reiniciada"); await cargar(); } catch (e) { flash("msg-adv", e.message, false); }
+}
+function csv() {
+  const q = v => '"' + String(v).replace(/"/g, '""') + '"';
+  const rows = [["Folio", "Nombre", "WhatsApp", "Ciudad", "Números", "Total", "Pagado", "Fecha"], ...DATA.reservas.map(r => [r.id, r.nombre, r.telefono, r.estado, r.numeros.join(" "), r.total, r.pagado ? "Sí" : "No", r.creado])];
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿" + rows.map(r => r.map(q).join(",")).join("\n")], { type: "text/csv" })); a.download = "rifa-reservaciones.csv"; a.click();
+}
+if (KEY) entrar();
+setInterval(() => { if (KEY && $("app").style.display === "block" && !document.hidden) cargar().catch(() => {}); }, 20000);
+</script></body></html>
