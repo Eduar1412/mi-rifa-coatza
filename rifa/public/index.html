@@ -204,7 +204,7 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
   <p style="font-size:14px;margin-bottom:12px;font-weight:600">¿Dudas? Escríbenos directamente:</p>
   <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
    <a class="btn-wa" id="wa-contacto" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> <span id="wa-txt">WhatsApp</span></a>
-   <a class="btn-wa btn-fb" id="fb" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Síguenos en Facebook</a>
+   <a class="btn-wa btn-fb" id="fb" href="https://www.facebook.com/RifasEntreAmigosCoatza/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Síguenos en Facebook</a>
   </div></div>
 </div>
 </main>
@@ -245,6 +245,15 @@ for (let i = 0; i < 1000; i++) {
 // confeti decorativo
 for (let i = 0; i < 18; i++) { const e = document.createElement("i"); e.style.cssText = `left:${Math.random()*100}%;animation-duration:${9+Math.random()*10}s;animation-delay:-${Math.random()*14}s;opacity:${.25+Math.random()*.45}`; $("conf").appendChild(e); }
 
+const FB_DEFAULT = "https://www.facebook.com/RifasEntreAmigosCoatza/";
+// Acepta enlace completo, "facebook.com/..." o solo el nombre de la página (con o sin @)
+function fbUrl(v) {
+  v = String(v || "").trim();
+  if (!v || v === "#") return FB_DEFAULT;
+  if (/^https?:\/\//i.test(v)) return v;
+  if (/facebook\.com|fb\.com|fb\.me/i.test(v)) return "https://" + v.replace(/^\/+/, "");
+  return "https://www.facebook.com/" + v.replace(/^@/, "");
+}
 function aplicarConfig(c) {
   if (!c) return;
   CFG = c; MI_WHATSAPP = c.whatsapp || MI_WHATSAPP; FECHA_SORTEO = c.fechaSorteo || ""; PRECIO = Number(c.precio) || 10; ABIERTA = c.estado !== "cerrada";
@@ -257,7 +266,7 @@ function aplicarConfig(c) {
   $("faq").innerHTML = String(c.faq || "").split("\n").filter(l => l.includes("|")).map(l => { const [q, ...a] = l.split("|"); return `<details><summary>${esc(q.trim())}</summary><p>${esc(a.join("|").trim())}</p></details>`; }).join("");
   const wa = "https://wa.me/" + MI_WHATSAPP, num = MI_WHATSAPP.replace(/^52/, "").replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3");
   $("wa-contacto").href = wa + "?text=" + encodeURIComponent("Hola, tengo una duda sobre la rifa"); $("fab").href = wa; $("wa-txt").textContent = "WhatsApp: " + num;
-  $("fb").href = c.facebook || "#"; $("fb").style.display = c.facebook ? "flex" : "none";
+  $("fb").href = fbUrl(c.facebook);
   if (c.bannerV) $("banner").src = "/api/img/banner?v=" + c.bannerV;
   if (c.logoV) $("logo-nav").style.backgroundImage = `url(/api/img/logo?v=${c.logoV})`;
   $("closed").style.display = ABIERTA ? "none" : "block"; $("btn-apartar").disabled = !ABIERTA;
