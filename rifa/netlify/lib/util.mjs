@@ -31,7 +31,7 @@ export const DEFAULT_CONFIG = {
   fechaSorteo: "",
   metodoSorteo: "Se define con los 3 dígitos de la Lotería Nacional (o el método anunciado en la fecha del sorteo).",
   whatsapp: "529213073574",
-  facebook: "https://www.facebook.com/RifasEntreAmigosCoatza",
+  facebook: "https://www.facebook.com/RifasEntreAmigosCoatza/",
   banco: "",
   titular: "",
   clabe: "",
