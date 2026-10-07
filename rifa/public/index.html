@@ -96,7 +96,7 @@ summary{font-weight:800;cursor:pointer;font-size:14px}details p{margin-top:8px;f
 .btn-fb{background:linear-gradient(135deg,#1877f2,#0a5bd0)}
 .sticky{position:fixed;bottom:0;left:0;right:0;z-index:999;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(4,40,35,.96);backdrop-filter:blur(10px);border-top:2px solid var(--gold);box-shadow:0 -6px 26px rgba(0,0,0,.45)}
 .total-label{font-size:11px;color:var(--mut);font-weight:700;display:block}.total-amount{font-size:22px;font-weight:900;color:var(--gold)}
-.fab{position:fixed;right:14px;bottom:92px;z-index:998;width:54px;height:54px;border-radius:50%;background:var(--green);color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+.fab{position:fixed;right:14px;bottom:16px;z-index:1001;width:54px;height:54px;border-radius:50%;background:var(--green);color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.4)}
 .closed{display:none;margin:14px 0;padding:14px;border-radius:12px;background:#7a1f1f;border:1px solid #ff8d8d;text-align:center;font-weight:800}
 footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;font-weight:600}
 @media(max-width:700px){.brand{display:none}.nav-links a.hide-m{display:none}.maq{grid-template-columns:repeat(2,1fr)}.lead h1{font-size:21px}.prize .big{font-size:28px}.kpi b{font-size:16px}.cta-big{font-size:15px;padding:14px 22px}}
@@ -164,7 +164,14 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
   <div class="card"><h3><i class="fa-solid fa-user"></i> TUS DATOS</h3>
    <input id="nombre" class="inp" placeholder="Nombre completo" autocomplete="name">
    <input id="telefono" class="inp" type="tel" inputmode="numeric" maxlength="14" placeholder="Tu WhatsApp (10 dígitos)" autocomplete="tel">
-   <input id="estado" class="inp" placeholder="Ciudad / Municipio" style="margin-bottom:0"></div>
+   <input id="estado" class="inp" placeholder="Ciudad / Municipio">
+   <div style="margin:4px 0 14px;padding:13px;border-radius:12px;background:rgba(244,201,93,.1);border:1px dashed var(--gold);display:flex;justify-content:space-between;align-items:center;gap:10px">
+    <span class="total-label" style="font-size:12px"><span id="cnt2">0</span> números elegidos</span>
+    <span class="total-amount">$<span id="precio2">0</span> MXN</span>
+   </div>
+   <button class="btn-wa" id="btn-apartar" onclick="apartar()" style="width:100%;font-size:17px;padding:17px;box-shadow:0 8px 22px rgba(37,211,102,.35)"><i class="fa-brands fa-whatsapp" style="font-size:22px"></i> APARTAR AHORA</button>
+   <p style="font-size:12px;color:var(--mut);text-align:center;margin-top:10px;font-weight:600">Al apartar te llevamos a WhatsApp para recibir los datos de pago.</p>
+  </div>
  </div>
 
  <div id="tab-verificador" class="tab-content">
@@ -212,9 +219,8 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
  </div>
 </div>
 
-<div class="sticky" id="sticky">
+<div class="sticky" id="sticky" style="display:none">
  <div><span class="total-label"><span id="cnt">0</span> números elegidos</span><span class="total-amount">$<span id="precio">0</span> MXN</span></div>
- <button class="btn-wa" id="btn-apartar" onclick="apartar()" style="flex:none"><i class="fa-brands fa-whatsapp" style="font-size:18px"></i> APARTAR AHORA</button>
 </div>
 
 <script>
@@ -259,8 +265,10 @@ function toggle(n) {
   btns[n].classList.toggle("sel"); resumen();
 }
 function resumen() {
-  $("cnt").textContent = sel.length;
-  $("precio").textContent = Math.ceil(sel.length / 4) * PRECIO;
+  const tot = Math.ceil(sel.length / 4) * PRECIO;
+  $("cnt").textContent = $("cnt2").textContent = sel.length;
+  $("precio").textContent = $("precio2").textContent = tot;
+  $("sticky").style.display = sel.length && $("tab-comprar").classList.contains("active") ? "flex" : "none";
   $("ticket-box").style.display = sel.length ? "block" : "none";
   $("ticket-list").textContent = [...sel].sort().join(" - ");
 }
@@ -297,7 +305,7 @@ function tab(t, b) {
   document.querySelectorAll(".tab-btn").forEach(x => x.classList.remove("active"));
   document.querySelectorAll(".tab-content").forEach(x => x.classList.remove("active"));
   b.classList.add("active"); $("tab-" + t).classList.add("active");
-  $("sticky").style.display = t === "comprar" ? "flex" : "none";
+  resumen();
 }
 async function consultar() {
   const tel = soloDigitos($("search-phone").value), out = $("resultado");
