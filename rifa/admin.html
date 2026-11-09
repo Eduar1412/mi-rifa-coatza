@@ -170,7 +170,8 @@ button:hover,.b:hover{filter:brightness(1.1)}button:disabled{opacity:.5;cursor:n
     <div class="g2"><div><label>Tu nombre (organizador)</label><input id="c-organizador" placeholder="Ej. Eduardo Luna"></div></div>
     <label>Mensaje del organizador</label><textarea id="c-mensajeOrganizador" style="min-height:70px"></textarea>
     <label>Ganadores anteriores — uno por línea: Nombre | Premio | Fecha | Enlace al video (opcional)</label><textarea id="c-ganadores" placeholder="María G. | $2,000 | 28 nov 2026 | https://www.facebook.com/..."></textarea>
-    <div class="acts"><button onclick="guardar()">💾 Guardar cambios</button></div>
+    <div class="acts"><button onclick="guardar()">💾 Guardar cambios</button><button class="ghost" onclick="recomendados()">↺ Usar reglas y textos recomendados</button></div>
+    <p class="hint">“Reglas y textos recomendados” pone: premio fijo de $1,000, mínimo de 100 boletos, la regla del número vendido más cercano hacia arriba y las preguntas frecuentes. No toca tus datos de pago, fecha ni imágenes.</p>
   </div></div>
 
   <!-- PAGOS -->
@@ -402,6 +403,10 @@ async function subir(nombre) {
   catch (e) { toast(e.message, false); }
 }
 async function quitarImg(nombre) { try { await api({ action: "imagen", nombre, quitar: true }); toast("✔ Listo"); await cargar(true); } catch (e) { toast(e.message, false); } }
+async function recomendados() {
+  if (!confirm("¿Reemplazar premio, mínimo, título, reglas y preguntas frecuentes por los recomendados (premio fijo de $1,000, mínimo 100 boletos)?")) return;
+  try { await api({ action: "recomendados" }); dirty = false; toast("✔ Reglas y textos actualizados"); await cargar(true); } catch (e) { toast(e.message, false); }
+}
 async function reiniciar() {
   if (!confirm("¿Seguro? Se borran TODOS los apartados y se liberan los 1000 números.")) return;
   try { await api({ action: "reiniciar", confirmar: $("r-conf").value }); $("r-conf").value = ""; toast("✔ Rifa reiniciada"); await cargar(); } catch (e) { toast(e.message, false); }

@@ -36,6 +36,15 @@ export default async (req) => {
     return json({ ok: true });
   }
 
+  if (action === "recomendados") {
+    const cur = await leerConfig(s);
+    const keys = ["premio", "minimo", "titulo", "subtitulo", "escalones", "metodoSorteo", "faq", "notaPago"];
+    const nueva = { ...cur };
+    for (const k of keys) nueva[k] = DEFAULT_CONFIG[k];
+    await s.setJSON("config", nueva);
+    return json({ ok: true });
+  }
+
   if (action === "vencidos") {
     const cfg = await leerConfig(s);
     const horas = Math.max(1, Number(cfg.horasPago) || 24);
