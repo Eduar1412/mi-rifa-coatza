@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Rifas Entre Amigos Coatza | Gana $2,000 con boletos de $12</title>
-<meta name="description" content="Rifas Entre Amigos Coatza: elige tus números, aparta tu boleto en segundos y participa por premios en efectivo. De Coatza a todo México.">
-<meta name="theme-color" content="#04332c">
+<title>Sorteos Entre Amigos Coatza | Gana $2,000 con boletos de $12</title>
+<meta name="description" content="Sorteos Entre Amigos Coatza: elige tus números, aparta tu boleto en segundos y participa por premios en efectivo. De Coatza a todo México.">
+<meta name="theme-color" content="#071a33">
 <link rel="icon" href="assets/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="🍀 Gana $2,000 en efectivo con un boleto de $12">
-<meta property="og:description" content="Rifas Entre Amigos Coatza · Cada boleto trae 4 números · El ganador lo decide la Lotería Nacional · Sorteo en vivo por Facebook.">
+<meta property="og:description" content="Sorteos Entre Amigos Coatza · Cada boleto trae 4 números · El ganador lo decide la Lotería Nacional · Sorteo en vivo por Facebook.">
 <meta property="og:image" content="https://raw.githubusercontent.com/Eduar1412/mi-rifa-coatza/main/rifa/public/assets/og.jpg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -16,21 +16,21 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
 :root{
-  --g1:#04332c;--g2:#075d4f;--g3:#0a7d6e;--b1:#0a6c80;--b2:#08a6b2;
+  --g1:#071a33;--g2:#0d2b4e;--g3:#1a4f86;--b1:#1d5f9b;--b2:#5aa0d8;
   --gold:#f4c95d;--gold2:#d9a526;--gold3:#fff0b3;--green:#25d366;
-  --glass:rgba(255,255,255,.07);--line:rgba(244,201,93,.35);--txt:#eafaf5;--mut:#a9cfc6
+  --glass:rgba(255,255,255,.07);--line:rgba(244,201,93,.35);--txt:#f3f7fc;--mut:#b8c9de
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
 body{font-family:'Montserrat',Arial,sans-serif;color:var(--txt);padding-bottom:96px;overflow-x:hidden;
-  background:radial-gradient(1200px 600px at 85% -10%,rgba(8,166,178,.35),transparent 60%),radial-gradient(900px 500px at -10% 20%,rgba(10,125,110,.45),transparent 60%),linear-gradient(180deg,#04332c 0%,#05453f 45%,#063a4a 100%);background-attachment:fixed}
+  background:radial-gradient(1200px 600px at 85% -10%,rgba(90,160,216,.28),transparent 60%),radial-gradient(900px 500px at -10% 20%,rgba(26,79,134,.55),transparent 60%),linear-gradient(180deg,#071a33 0%,#0b2442 45%,#0d2b4e 100%);background-attachment:fixed}
 .gold{background:linear-gradient(180deg,var(--gold3),var(--gold) 45%,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .conf{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .conf i{position:absolute;top:-20px;width:8px;height:14px;background:var(--gold);opacity:.7;border-radius:2px;animation:fall linear infinite}
 @keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
 main,nav,footer{position:relative;z-index:1}
 
-nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:12px;padding:8px 16px;background:rgba(4,40,35,.92);backdrop-filter:blur(10px);border-bottom:2px solid var(--gold);box-shadow:0 6px 24px rgba(0,0,0,.35)}
+nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:12px;padding:8px 16px;background:rgba(7,26,51,.94);backdrop-filter:blur(10px);border-bottom:2px solid var(--gold);box-shadow:0 6px 24px rgba(0,0,0,.35)}
 .logo{width:50px;height:50px;flex:none;border-radius:50%;border:2px solid var(--gold);background:var(--g2) center/cover}
 .brand{font-weight:900;font-size:13px;line-height:1.1;letter-spacing:.3px}
 .nav-links{margin-left:auto;display:flex;align-items:center;gap:2px;overflow-x:auto}
@@ -62,7 +62,7 @@ nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:12px;
 .card{background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .card h3{font-size:16px;font-weight:900;margin-bottom:12px;display:flex;gap:9px;align-items:center;letter-spacing:.3px}
 .card h3 i{color:var(--gold)}
-.prize{text-align:center;border:2px solid var(--gold);background:radial-gradient(500px 200px at 50% 0,rgba(244,201,93,.22),transparent 70%),linear-gradient(160deg,#06453d,#064a5a)}
+.prize{text-align:center;border:2px solid var(--gold);background:radial-gradient(500px 200px at 50% 0,rgba(244,201,93,.22),transparent 70%),linear-gradient(160deg,#0d2b4e,#16406f)}
 .prize small{font-size:12px;font-weight:800;letter-spacing:2px;color:var(--mut)}
 .prize .big{font-size:34px;font-weight:900;line-height:1.1;margin:4px 0}
 .prize p{font-size:13px;color:var(--mut);font-weight:600}
@@ -77,7 +77,7 @@ nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:12px;
 .btn-quick:hover{border-color:var(--gold);background:rgba(244,201,93,.18)}
 .btn-quick b{color:var(--gold);font-size:15px}
 .inp{width:100%;padding:14px;border:1px solid rgba(255,255,255,.2);border-radius:10px;font-family:inherit;font-size:14px;font-weight:600;margin-bottom:10px;outline:0;background:rgba(0,0,0,.28);color:#fff}
-.inp::placeholder{color:#8fb5ac}
+.inp::placeholder{color:#91a7c2}
 .inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(244,201,93,.2)}
 .legend{display:flex;justify-content:space-around;font-size:11px;font-weight:700;margin-bottom:10px;color:var(--mut)}
 .dot{width:11px;height:11px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:-1px}
@@ -85,7 +85,7 @@ nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:12px;
 .num{height:44px;display:flex;align-items:center;justify-content:center;font-family:inherit;font-weight:800;font-size:13px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;cursor:pointer}
 .num:hover{border-color:var(--gold)}
 .num.sel{background:linear-gradient(180deg,var(--gold3),var(--gold2));color:#3b2a00;border-color:var(--gold);transform:scale(1.06)}
-.num.sold{background:rgba(0,0,0,.35);color:#5f7f78;cursor:not-allowed;text-decoration:line-through;border-color:transparent}
+.num.sold{background:rgba(0,0,0,.35);color:#6d7f96;cursor:not-allowed;text-decoration:line-through;border-color:transparent}
 #ticket-box{display:none;margin-top:12px;padding:13px;border-radius:12px;border:1px dashed var(--gold);background:rgba(244,201,93,.1)}
 #ticket-list{font-size:16px;font-weight:900;color:var(--gold3);word-break:break-all}
 
@@ -97,7 +97,7 @@ summary{font-weight:800;cursor:pointer;font-size:14px}details p{margin-top:8px;f
 .btn-wa{display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#20c968,var(--green));color:#fff;border:0;border-radius:12px;padding:14px 20px;font-family:inherit;font-weight:900;font-size:14px;cursor:pointer;text-decoration:none;justify-content:center}
 .btn-wa:disabled{opacity:.6}
 .btn-fb{background:linear-gradient(135deg,#1877f2,#0a5bd0)}
-.sticky{position:fixed;bottom:0;left:0;right:0;z-index:999;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(4,40,35,.96);backdrop-filter:blur(10px);border-top:2px solid var(--gold);box-shadow:0 -6px 26px rgba(0,0,0,.45)}
+.sticky{position:fixed;bottom:0;left:0;right:0;z-index:999;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(7,26,51,.97);backdrop-filter:blur(10px);border-top:2px solid var(--gold);box-shadow:0 -6px 26px rgba(0,0,0,.45)}
 .total-label{font-size:11px;color:var(--mut);font-weight:700;display:block}.total-amount{font-size:22px;font-weight:900;color:var(--gold)}
 .fab{position:fixed;right:14px;bottom:16px;z-index:1001;width:54px;height:54px;border-radius:50%;background:var(--green);color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.4)}
 .closed{display:none;margin:14px 0;padding:14px;border-radius:12px;background:#7a1f1f;border:1px solid #ff8d8d;text-align:center;font-weight:800}
@@ -105,7 +105,7 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
 
 .fecha{margin:14px auto 0;display:inline-flex;gap:8px;align-items:center;font-weight:800;font-size:14px;padding:8px 16px;border-radius:30px;background:rgba(244,201,93,.14);border:1px solid var(--gold);color:#fff}
 .fecha:empty{display:none}
-.termo{margin:18px 0 6px;padding:16px;border-radius:16px;border:2px solid var(--gold);background:radial-gradient(500px 200px at 50% 0,rgba(244,201,93,.18),transparent 70%),linear-gradient(160deg,#06453d,#064a5a);text-align:center}
+.termo{margin:18px 0 6px;padding:16px;border-radius:16px;border:2px solid var(--gold);background:radial-gradient(500px 200px at 50% 0,rgba(244,201,93,.18),transparent 70%),linear-gradient(160deg,#0d2b4e,#16406f);text-align:center}
 .termo small{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--mut)}
 .termo .now{font-size:40px;font-weight:900;line-height:1.05;margin:2px 0}
 .termo .next{font-size:13.5px;font-weight:700;color:var(--gold3);margin-bottom:12px}
@@ -140,7 +140,7 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
 <div class="conf" id="conf"></div>
 
 <nav>
-  <div class="logo" id="logo-nav"></div><div class="brand gold">RIFAS ENTRE<br>AMIGOS COATZA</div>
+  <div class="logo" id="logo-nav"></div><div class="brand gold">SORTEOS ENTRE<br>AMIGOS COATZA</div>
   <div class="nav-links">
     <a href="#inicio">Inicio</a><a href="#comprar">Comprar</a><a href="#pagos">Pagos</a><a href="#preguntas">Preguntas</a><a class="cta" href="#contacto"><i class="fa-brands fa-whatsapp"></i><span class="ct"> Contacto</span></a>
   </div>
@@ -148,7 +148,7 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
 
 <main>
 <section class="wrap hero" id="inicio">
-  <img class="banner" id="banner" alt="Rifas Entre Amigos Coatza — ¡Tu suerte es nacional!" src="assets/banner.webp" fetchpriority="high">
+  <img class="banner" id="banner" alt="Sorteos Entre Amigos Coatza — ¡Tu suerte es nacional!" src="assets/banner.webp" fetchpriority="high">
   <div class="fecha" id="fecha"></div><br>
   <div id="cuenta"></div><br>
   <a class="cta-big" href="#comprar"><i class="fa-solid fa-ticket"></i> ¡QUIERO MIS BOLETOS!</a>
@@ -209,7 +209,7 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
 
   <div class="card"><h3><i class="fa-solid fa-list-ol"></i> ELIGE TUS NÚMEROS</h3>
    <input id="search" class="inp" inputmode="numeric" maxlength="3" placeholder="🔍 Busca tu número de la suerte (ej. 045)..." oninput="filtrar()">
-   <div class="legend"><span><span class="dot" style="background:rgba(255,255,255,.25)"></span>Disponible</span><span><span class="dot" style="background:var(--gold)"></span>Elegido</span><span><span class="dot" style="background:#3a4f4b"></span>Ocupado</span></div>
+   <div class="legend"><span><span class="dot" style="background:rgba(255,255,255,.25)"></span>Disponible</span><span><span class="dot" style="background:var(--gold)"></span>Elegido</span><span><span class="dot" style="background:#34465e"></span>Ocupado</span></div>
    <div class="grid" id="grid"></div>
    <div id="ticket-box"><div style="font-size:10px;color:var(--mut);font-weight:800;letter-spacing:1px;margin-bottom:4px">TUS NÚMEROS:</div><div id="ticket-list"></div>
     <button class="btn-quick" style="margin-top:10px;padding:8px 14px" onclick="limpiar()">Limpiar selección</button></div></div>
@@ -239,7 +239,7 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
 
 
  <div class="card" id="confianza"><h3><i class="fa-solid fa-shield-heart"></i> ¿POR QUÉ CONFIAR EN NOSOTROS?</h3>
-  <div class="org"><div class="ph" id="org-foto"></div><div><h4 id="org-nombre">Rifas Entre Amigos Coatza</h4><p id="org-msg"></p></div></div>
+  <div class="org"><div class="ph" id="org-foto"></div><div><h4 id="org-nombre">Sorteos Entre Amigos Coatza</h4><p id="org-msg"></p></div></div>
   <div class="trust">
    <div class="tr"><b><i class="fa-solid fa-building-columns"></i> Lo decide la Lotería Nacional</b>Nadie elige al ganador: son los últimos 3 dígitos del premio mayor. Puedes revisarlo tú en <a href="https://www.lotenal.gob.mx/" target="_blank" rel="noopener">lotenal.gob.mx</a>.</div>
    <div class="tr"><b><i class="fa-solid fa-video"></i> Sorteo en vivo</b>Transmitimos el resultado en vivo por Facebook y publicamos el video de la entrega del premio.</div>
@@ -267,11 +267,11 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
   </div></div>
 </div>
 </main>
-<footer>© Rifas Entre Amigos Coatza · Coatzacoalcos, Veracruz · De Coatza a todo México 🇲🇽<br>Rifa entre amigos · Solo mayores de 18 años · Juega con responsabilidad.</footer>
+<footer>© Sorteos Entre Amigos Coatza · Coatzacoalcos, Veracruz · De Coatza a todo México 🇲🇽<br>Rifa entre amigos · Solo mayores de 18 años · Juega con responsabilidad.</footer>
 
 <a class="fab" id="fab" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
-<div id="ok" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(2,30,26,.94);align-items:center;justify-content:center;padding:20px">
+<div id="ok" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(4,16,32,.95);align-items:center;justify-content:center;padding:20px">
  <div class="card" style="max-width:400px;width:100%;text-align:center;margin:0;border:2px solid var(--gold)">
   <i class="fa-solid fa-circle-check" style="font-size:52px;color:var(--gold)"></i>
   <h3 style="justify-content:center;margin:10px 0 6px;font-size:20px">¡Boletos apartados!</h3>
@@ -333,7 +333,7 @@ function aplicarConfig(c) {
   const premioMax = ESC.length ? ESC[ESC.length - 1].premio : c.premio.split(" EN ")[0];
   $("k-premio").textContent = premioMax;
   $("fecha").innerHTML = fechaBonita(FECHA_SORTEO) ? `<i class="fa-solid fa-calendar-day" style="color:var(--gold)"></i> Sorteo: ${esc(fechaBonita(FECHA_SORTEO))}${c.sorteoNombre ? " · " + esc(c.sorteoNombre) : ""}` : "";
-  $("org-nombre").textContent = c.organizador ? c.organizador + " · Organizador" : "Rifas Entre Amigos Coatza";
+  $("org-nombre").textContent = c.organizador ? c.organizador + " · Organizador" : "Sorteos Entre Amigos Coatza";
   $("org-msg").textContent = c.mensajeOrganizador || "";
   $("org-foto").style.backgroundImage = c.organizadorV ? `url(/api/img/organizador?v=${c.organizadorV})` : "url(assets/logo.webp)";
   const gan = String(c.ganadores || "").split("\n").filter(l => l.trim()).map(l => { const [n, p, f, v] = l.split("|").map(x => (x || "").trim());

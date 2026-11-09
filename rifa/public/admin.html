@@ -2,13 +2,13 @@
 <html lang="es"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Panel de control | Rifas Entre Amigos Coatza</title>
+<title>Panel de control | Sorteos Entre Amigos Coatza</title>
 <link rel="icon" href="assets/favicon.png">
 <style>
-:root{--g1:#04332c;--g2:#075d4f;--g3:#0a7d6e;--b2:#08a6b2;--gold:#f4c95d;--gold2:#d9a526;--green:#25d366;--bg:#eef5f3;--ink:#10302b;--mut:#5d7a73;--line:#d3e3de}
+:root{--g1:#071a33;--g2:#0d2b4e;--g3:#1a4f86;--b2:#08a6b2;--gold:#f4c95d;--gold2:#d9a526;--green:#25d366;--bg:#eef3f9;--ink:#0f2440;--mut:#5b6f88;--line:#d3deeb}
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif}
 body{background:var(--bg);color:var(--ink);min-height:100vh}
-header{background:linear-gradient(100deg,var(--g1),var(--g2) 60%,#0a6c80);color:#fff;border-bottom:4px solid var(--gold);padding:10px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50}
+header{background:linear-gradient(100deg,var(--g1),var(--g2) 60%,#1d5f9b);color:#fff;border-bottom:4px solid var(--gold);padding:10px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50}
 header img{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold)}
 header h1{font-size:16px;line-height:1.15}header small{opacity:.75;font-size:11px}
 header .sp{margin-left:auto;display:flex;gap:8px}
@@ -18,7 +18,7 @@ header .sp{margin-left:auto;display:flex;gap:8px}
 label{font-size:12px;font-weight:700;color:var(--mut);display:block;margin:8px 0 3px}
 input,select,textarea{width:100%;padding:11px;border:1px solid #c3d5cf;border-radius:8px;font-size:14px;outline:0;background:#fff;color:var(--ink)}
 textarea{resize:vertical;min-height:90px}
-input:focus,select:focus,textarea:focus{border-color:var(--g3);box-shadow:0 0 0 3px rgba(10,125,110,.15)}
+input:focus,select:focus,textarea:focus{border-color:var(--g3);box-shadow:0 0 0 3px rgba(26,79,134,.15)}
 button,.b{border:0;border-radius:8px;padding:10px 14px;font-weight:700;font-size:13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;color:#fff;background:var(--g3)}
 button:hover,.b:hover{filter:brightness(1.1)}
 .b.wa{background:var(--green)}.b.red{background:#c0392b}.b.gray{background:#64767a}.b.gold{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#3b2a00}
@@ -48,14 +48,14 @@ button:hover,.b:hover{filter:brightness(1.1)}
 
 <div id="login" class="wrap"><div class="card login">
   <img src="assets/logo.webp" alt="">
-  <h2 style="font-size:19px">Panel de control</h2><p class="sub">Rifas Entre Amigos Coatza</p>
+  <h2 style="font-size:19px">Panel de control</h2><p class="sub">Sorteos Entre Amigos Coatza</p>
   <input id="pass" type="password" placeholder="Contraseña de administrador" onkeydown="if(event.key==='Enter')entrar()">
   <button style="width:100%;margin-top:10px;justify-content:center" onclick="entrar()">Entrar</button>
   <p id="err" class="er" style="font-size:13px;margin-top:10px"></p>
 </div></div>
 
 <div id="app">
-<header><img src="assets/logo.webp" alt=""><div><h1>Panel de control</h1><small>Rifas Entre Amigos Coatza</small></div>
+<header><img src="assets/logo.webp" alt=""><div><h1>Panel de control</h1><small>Sorteos Entre Amigos Coatza</small></div>
   <div class="sp"><a class="b gray" href="/" target="_blank">Ver página</a><button class="gray" onclick="salir()">Salir</button></div></header>
 <div class="wrap">
   <div class="stats">
