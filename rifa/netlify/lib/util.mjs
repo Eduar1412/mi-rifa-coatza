@@ -26,6 +26,7 @@ export const DEFAULT_CONFIG = {
   estado: "abierta", // abierta | cerrada
   premio: "$2,000 EN EFECTIVO",
   precio: 12,
+  horasPago: 24,
   titulo: "¡Gana $2,000 en efectivo con solo $12!",
   subtitulo: "Cada boleto trae 4 números. El ganador lo decide la Lotería Nacional: nadie puede hacer trampa.",
   fechaSorteo: "",

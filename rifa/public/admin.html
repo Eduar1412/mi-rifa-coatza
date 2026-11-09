@@ -5,214 +5,369 @@
 <title>Panel de control | Sorteos Entre Amigos Coatza</title>
 <link rel="icon" href="assets/favicon.png">
 <style>
-:root{--g1:#071a33;--g2:#0d2b4e;--g3:#1a4f86;--b2:#08a6b2;--gold:#f4c95d;--gold2:#d9a526;--green:#25d366;--bg:#eef3f9;--ink:#0f2440;--mut:#5b6f88;--line:#d3deeb}
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif}
-body{background:var(--bg);color:var(--ink);min-height:100vh}
+:root{--g1:#071a33;--g2:#0d2b4e;--g3:#1a4f86;--b2:#5aa0d8;--gold:#f4c95d;--gold2:#d9a526;--green:#16a34a;--wa:#25d366;--red:#c0392b;--amber:#b7791f;
+--bg:#eef3f9;--card:#fff;--ink:#0f2440;--mut:#5b6f88;--line:#d3deeb;--soft:#f5f8fc}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',system-ui,Arial,sans-serif}
+body{background:var(--bg);color:var(--ink);min-height:100vh;font-size:14px}
 header{background:linear-gradient(100deg,var(--g1),var(--g2) 60%,#1d5f9b);color:#fff;border-bottom:4px solid var(--gold);padding:10px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50}
 header img{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold)}
 header h1{font-size:16px;line-height:1.15}header small{opacity:.75;font-size:11px}
-header .sp{margin-left:auto;display:flex;gap:8px}
-.wrap{max-width:1000px;margin:0 auto;padding:14px}
-.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,60,50,.06)}
-.card h2{font-size:16px;color:var(--g2);margin-bottom:4px}.card .sub{font-size:12.5px;color:var(--mut);margin-bottom:12px}
-label{font-size:12px;font-weight:700;color:var(--mut);display:block;margin:8px 0 3px}
-input,select,textarea{width:100%;padding:11px;border:1px solid #c3d5cf;border-radius:8px;font-size:14px;outline:0;background:#fff;color:var(--ink)}
-textarea{resize:vertical;min-height:90px}
+header .sp{margin-left:auto;display:flex;gap:8px;align-items:center}
+.live{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.12)}
+.live.on{background:#16a34a}.live.off{background:var(--red)}
+.wrap{max-width:1080px;margin:0 auto;padding:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(10,40,80,.06)}
+.card h2{font-size:16px;color:var(--g2);margin-bottom:4px;display:flex;align-items:center;gap:8px}.card .sub{font-size:12.5px;color:var(--mut);margin-bottom:12px;line-height:1.5}
+label{font-size:12px;font-weight:700;color:var(--mut);display:block;margin:10px 0 4px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #c3d2e3;border-radius:8px;font-size:14px;outline:0;background:#fff;color:var(--ink)}
+textarea{resize:vertical;min-height:90px;line-height:1.5}
 input:focus,select:focus,textarea:focus{border-color:var(--g3);box-shadow:0 0 0 3px rgba(26,79,134,.15)}
-button,.b{border:0;border-radius:8px;padding:10px 14px;font-weight:700;font-size:13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;color:#fff;background:var(--g3)}
-button:hover,.b:hover{filter:brightness(1.1)}
-.b.wa{background:var(--green)}.b.red{background:#c0392b}.b.gray{background:#64767a}.b.gold{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#3b2a00}
+.hint{font-size:11.5px;color:var(--mut);margin-top:4px;line-height:1.45}
+button,.b{border:0;border-radius:8px;padding:10px 14px;font-weight:700;font-size:13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;color:#fff;background:var(--g3);white-space:nowrap}
+button:hover,.b:hover{filter:brightness(1.1)}button:disabled{opacity:.5;cursor:not-allowed}
+.b.wa,button.wa{background:var(--wa)}.red{background:var(--red)!important}.gray{background:#64748b!important}.ghost{background:#fff!important;color:var(--g2)!important;border:1px solid var(--line)!important}
+.gold{background:linear-gradient(180deg,var(--gold),var(--gold2))!important;color:#3b2a00!important}
 .tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:2px}
-.tabs button{background:#fff;color:var(--g2);border:1px solid var(--line);white-space:nowrap}
-.tabs button.on{background:var(--g3);color:#fff;border-color:var(--g3)}
+.tabs button{background:#fff;color:var(--g2);border:1px solid var(--line)}
+.tabs button.on{background:var(--g2);color:#fff;border-color:var(--g2)}
+.tabs .badge{background:var(--amber);color:#fff;border-radius:10px;font-size:10px;padding:1px 6px}
 .pane{display:none}.pane.on{display:block}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.stat small{display:block;font-size:11px;color:#8aa39c;margin-top:3px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
 .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
-.stat b{display:block;font-size:24px;color:var(--g3)}.stat span{font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase}
+.stat b{display:block;font-size:24px;color:var(--g3)}.stat span{font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+.stat small{display:block;font-size:11px;color:#8aa0b8;margin-top:3px}
+.stat.hl{background:linear-gradient(160deg,var(--g2),var(--g3));border:0}.stat.hl b{color:var(--gold)}.stat.hl span,.stat.hl small{color:#cfe0f3}
+.bar{position:relative;height:18px;background:#e5edf6;border-radius:20px;margin:30px 4px 28px}
+.bar .fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--g3),var(--b2),var(--gold));transition:width .6s}
+.mk{position:absolute;top:-5px;width:3px;height:28px;background:var(--gold2);transform:translateX(-50%)}
+.mk span{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;font-weight:800}
+.mk .p{top:-18px;color:var(--g2)}.mk .n{top:30px;color:var(--mut);font-weight:600}.mk.ok{background:var(--green)}.mk.ok .p{color:var(--green)}
+.mk.last span{left:auto;right:-2px;transform:none}
 .row{border-top:1px solid var(--line);padding:12px 0}
 .row .top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:14px;align-items:center}
-.nums{font-size:13px;color:#33524b;margin:6px 0 2px;word-break:break-all;font-weight:600}
-.meta{font-size:11px;color:#8aa39c}
-.tag{font-size:11px;font-weight:900;padding:3px 9px;border-radius:12px;margin-right:6px}.tag.p{background:#d1fae5;color:#065f46}.tag.n{background:#fef3c7;color:#92400e}
-.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.imgbox{display:flex;gap:14px;align-items:center;flex-wrap:wrap;border:1px dashed #b4cdc6;border-radius:10px;padding:12px;margin-top:8px}
-.imgbox img{max-height:90px;max-width:160px;border-radius:8px;border:1px solid var(--line);background:#f2f2f2}
-.msg{font-size:13px;font-weight:700;margin-left:8px}.ok{color:var(--g3)}.er{color:#c0392b}
+.nums{font-size:13px;color:#33465e;margin:6px 0 2px;word-break:break-all;font-weight:600;font-family:Consolas,monospace}
+.meta{font-size:11.5px;color:#8aa0b8}
+.tag{font-size:11px;font-weight:900;padding:3px 9px;border-radius:12px;margin-right:6px}.tag.p{background:#dcfce7;color:#166534}.tag.n{background:#fef3c7;color:#92400e}.tag.v{background:#fee2e2;color:#991b1b}
+.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.imgbox{display:flex;gap:14px;align-items:center;flex-wrap:wrap;border:1px dashed #b4c7dd;border-radius:10px;padding:12px;margin-top:6px}
+.imgbox img{height:90px;max-width:160px;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:#f2f2f2}
 .login{max-width:380px;margin:12vh auto;text-align:center}
 .login img{width:110px;height:110px;border-radius:50%;border:3px solid var(--gold);margin-bottom:10px}
 #app{display:none}
-@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}header small{display:none}}
+.map{display:grid;grid-template-columns:repeat(20,1fr);gap:3px}
+.map i{font-style:normal;font-size:10px;font-weight:700;text-align:center;padding:4px 0;border-radius:4px;background:#eef3f9;color:#8aa0b8;cursor:default}
+.map i.a{background:#fde68a;color:#78350f;cursor:pointer}.map i.p{background:#86efac;color:#14532d;cursor:pointer}.map i.w{outline:3px solid var(--red)}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--mut);margin-bottom:10px;flex-wrap:wrap}.legend b{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:4px}
+.win{margin-top:12px;padding:14px;border-radius:10px;font-size:14px;line-height:1.6}
+.win.ok{background:#dcfce7;border:1px solid #86efac}.win.no{background:#fef3c7;border:1px solid #fde68a}.win.bad{background:#fee2e2;border:1px solid #fca5a5}
+.promo{white-space:pre-wrap;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13.5px;line-height:1.55;min-height:120px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(120px);background:var(--g1);color:#fff;padding:12px 18px;border-radius:10px;font-weight:700;font-size:13px;z-index:999;transition:transform .25s,opacity .25s;opacity:0;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}.toast.err{background:var(--red)}
+.dirty{display:none;font-size:12px;font-weight:700;color:var(--amber)}.dirty.on{display:inline}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:6px 0}.check i{font-style:normal;width:20px}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.g2,.g3{grid-template-columns:1fr}header small,.hide-m{display:none}.map{grid-template-columns:repeat(10,1fr)}}
 </style></head><body>
 
 <div id="login" class="wrap"><div class="card login">
   <img src="assets/logo.webp" alt="">
-  <h2 style="font-size:19px">Panel de control</h2><p class="sub">Sorteos Entre Amigos Coatza</p>
-  <input id="pass" type="password" placeholder="Contraseña de administrador" onkeydown="if(event.key==='Enter')entrar()">
+  <h2 style="font-size:19px;justify-content:center">Panel de control</h2><p class="sub">Sorteos Entre Amigos Coatza</p>
+  <input id="pass" type="password" placeholder="Contraseña de administrador" autocomplete="current-password" onkeydown="if(event.key==='Enter')entrar()">
   <button style="width:100%;margin-top:10px;justify-content:center" onclick="entrar()">Entrar</button>
-  <p id="err" class="er" style="font-size:13px;margin-top:10px"></p>
+  <p id="err" style="font-size:13px;margin-top:10px;color:var(--red)"></p>
 </div></div>
 
 <div id="app">
 <header><img src="assets/logo.webp" alt=""><div><h1>Panel de control</h1><small>Sorteos Entre Amigos Coatza</small></div>
-  <div class="sp"><a class="b gray" href="/" target="_blank">Ver página</a><button class="gray" onclick="salir()">Salir</button></div></header>
+  <div class="sp"><span class="live" id="live">…</span><a class="b ghost hide-m" href="/" target="_blank">Ver página ↗</a><button class="gray" onclick="salir()">Salir</button></div></header>
 <div class="wrap">
   <div class="stats">
+    <div class="stat hl"><b id="s-premio">$0</b><span>Premio actual</span><small id="s-premio2"></small></div>
     <div class="stat"><b id="s-bol">0 / 250</b><span>Boletos apartados</span><small id="s-bol2"></small></div>
-    <div class="stat"><b id="s-bolp">0</b><span>Boletos pagados</span><small id="s-bolp2"></small></div>
-    <div class="stat"><b id="s-num">0 / 1000</b><span>Números ocupados</span><small id="s-num2"></small></div>
-    <div class="stat"><b id="s-res">0</b><span>Compras (personas)</span><small id="s-res2"></small></div>
-    <div class="stat"><b id="s-money">$0</b><span>Cobrado</span><small>dinero ya confirmado</small></div>
-    <div class="stat"><b id="s-pend" style="color:#b7791f">$0</b><span>Por cobrar</span><small id="s-pend2"></small></div>
+    <div class="stat"><b id="s-money" style="color:var(--green)">$0</b><span>Cobrado</span><small id="s-money2"></small></div>
+    <div class="stat"><b id="s-gan">$0</b><span>Ganancia</span><small id="s-gan2">cobrado − premio actual</small></div>
   </div>
 
   <div class="tabs" id="tabs">
-    <button class="on" data-t="res">📋 Reservaciones</button>
+    <button class="on" data-t="inicio">🏠 Resumen</button>
+    <button data-t="res">📋 Apartados <span class="badge" id="b-pend" style="display:none"></span></button>
+    <button data-t="mapa">🔢 Números</button>
     <button data-t="venta">➕ Venta manual</button>
-    <button data-t="web">✏️ Textos y premio</button>
+    <button data-t="web">✏️ Rifa y textos</button>
     <button data-t="pagos">💳 Pagos y contacto</button>
     <button data-t="img">🖼️ Imágenes</button>
     <button data-t="adv">⚙️ Avanzado</button>
   </div>
 
-  <div class="pane on" id="p-res"><div class="card">
-    <h2>Reservaciones</h2><p class="sub">Marca como pagado, avisa por WhatsApp o libera los números.</p>
-    <div class="g2"><input id="q" placeholder="Buscar nombre, teléfono o número…" oninput="pintar()">
-    <select id="f" onchange="pintar()"><option value="">Todas</option><option value="n">Pendientes de pago</option><option value="p">Pagadas</option></select></div>
+  <!-- RESUMEN -->
+  <div class="pane on" id="p-inicio">
+    <div class="card"><h2>📈 Avance del premio</h2><p class="sub" id="r-next"></p>
+      <div class="bar" id="bar"><div class="fill" id="fill"></div></div>
+      <div class="g3" style="font-size:13px">
+        <div><b>Por cobrar:</b> <span id="r-pend">$0</span></div>
+        <div><b>Compradores:</b> <span id="r-comp">0</span></div>
+        <div><b>Sorteo:</b> <span id="r-fecha">sin fecha</span></div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card"><h2>🏆 Buscar ganador</h2><p class="sub">Escribe los <b>últimos 3 dígitos</b> del premio mayor de la Lotería Nacional.</p>
+        <div style="display:flex;gap:8px"><input id="w-num" inputmode="numeric" maxlength="3" placeholder="Ej. 045" style="font-size:20px;font-weight:800;text-align:center;letter-spacing:4px" onkeydown="if(event.key==='Enter')ganador()"><button class="gold" onclick="ganador()">Buscar</button></div>
+        <div id="w-res"></div>
+      </div>
+      <div class="card"><h2>✅ Lista antes de vender</h2><p class="sub">Lo que la gente necesita ver para confiar y comprar.</p><div id="checklist"></div></div>
+    </div>
+    <div class="card"><h2>📣 Publicación para Facebook / WhatsApp</h2><p class="sub">Se arma sola con tus números reales. Cópiala y pégala en tu página, en grupos o en tus estados.</p>
+      <div class="acts" style="margin:0 0 10px"><select id="promo-tipo" onchange="promo()" style="max-width:280px"><option value="avance">Avance: cuánto falta para subir el premio</option><option value="lanzamiento">Lanzamiento del sorteo</option><option value="ultimos">Últimos boletos / último día</option><option value="envivo">Aviso de transmisión en vivo</option><option value="ganador">Anuncio del ganador</option></select>
+      <button onclick="copiar($('promo').innerText)">📋 Copiar texto</button></div>
+      <div class="promo" id="promo"></div>
+    </div>
+  </div>
+
+  <!-- APARTADOS -->
+  <div class="pane" id="p-res"><div class="card">
+    <h2>📋 Apartados</h2><p class="sub">Confirma pagos, manda mensajes por WhatsApp o libera números. Los <span class="tag v">VENCIDO</span> pasaron el tiempo para pagar.</p>
+    <div class="g2"><input id="q" placeholder="🔍 Buscar nombre, teléfono o número…" oninput="pintar()">
+    <select id="f" onchange="pintar()"><option value="">Todos</option><option value="n">Pendientes de pago</option><option value="v">Vencidos</option><option value="p">Pagados</option></select></div>
+    <div class="acts"><button class="gray" onclick="csv()">⬇ Descargar Excel (CSV)</button><button class="red" id="btn-venc" onclick="vencidos()">Liberar vencidos</button></div>
     <div id="lista" style="margin-top:8px"></div>
-    <div class="acts"><button class="gray" onclick="csv()">⬇ Descargar Excel (CSV)</button></div>
   </div></div>
 
+  <!-- MAPA -->
+  <div class="pane" id="p-mapa"><div class="card">
+    <h2>🔢 Mapa de los 1000 números</h2><p class="sub">Toca un número de color para ver de quién es.</p>
+    <div class="legend"><span><b style="background:#eef3f9;border:1px solid #d3deeb"></b>Libre</span><span><b style="background:#fde68a"></b>Apartado (sin pagar)</span><span><b style="background:#86efac"></b>Pagado</span></div>
+    <div class="map" id="map"></div><div id="map-info" class="win no" style="display:none"></div>
+  </div></div>
+
+  <!-- VENTA MANUAL -->
   <div class="pane" id="p-venta"><div class="card">
-    <h2>Registrar venta manual</h2><p class="sub">Para boletos que vendiste en persona o por mensaje. Los números se bloquean al instante en la página.</p>
+    <h2>➕ Registrar venta manual</h2><p class="sub">Para boletos que vendiste en persona o por mensaje. Los números se bloquean al instante en la página.</p>
     <div class="g2"><div><label>Nombre</label><input id="m-nombre"></div><div><label>WhatsApp (10 dígitos)</label><input id="m-tel" inputmode="numeric"></div>
-    <div><label>Ciudad</label><input id="m-estado"></div><div><label>¿Ya pagó?</label><select id="m-pagado"><option value="0">Pendiente</option><option value="1">Pagado</option></select></div></div>
-    <label>Números de 3 dígitos separados por coma o espacio (múltiplos de 4, ej. 001 045 120 777)</label><textarea id="m-nums"></textarea>
-    <div class="acts"><button onclick="manual()">Guardar venta</button><span id="m-msg" class="msg"></span></div>
+    <div><label>Ciudad / colonia</label><input id="m-estado"></div><div><label>¿Ya pagó?</label><select id="m-pagado"><option value="1">Sí, pagado</option><option value="0">Pendiente</option></select></div></div>
+    <label>Números de 3 dígitos separados por coma o espacio (de 4 en 4 por boleto)</label><textarea id="m-nums" placeholder="001 045 120 777"></textarea>
+    <div class="acts"><button class="gray" onclick="azar()">🎲 Elegir 4 al azar</button><button onclick="manual()">Guardar venta</button></div>
   </div></div>
 
+  <!-- RIFA Y TEXTOS -->
   <div class="pane" id="p-web"><div class="card">
-    <h2>Textos y premio</h2><p class="sub">Lo que cambies aquí se actualiza en la página en segundos.</p>
-    <div class="g2"><div><label>Premio (ej. $2,000 EN EFECTIVO)</label><input id="c-premio"></div>
-    <div><label>Precio por boleto (MXN, incluye 4 números)</label><input id="c-precio" type="number" min="1"></div>
-    <div><label>Título principal</label><input id="c-titulo"></div><div><label>Subtítulo</label><input id="c-subtitulo"></div>
-    <div><label>Fecha y hora del sorteo (cuenta regresiva)</label><input id="c-fechaSorteo" type="datetime-local"></div>
-    <div><label>¿Qué sorteo de la Lotería Nacional? (ej. Sorteo Superior No. 2850)</label><input id="c-sorteoNombre"></div>
-    <div><label>Estado de la rifa</label><select id="c-estado"><option value="abierta">🟢 Abierta (se pueden apartar boletos)</option><option value="cerrada">🔴 Cerrada (nadie puede apartar)</option></select></div></div>
-    <label>Premio que crece — una línea por escalón con el formato: boletos vendidos | premio (déjalo vacío para premio fijo)</label><textarea id="c-escalones" placeholder="80 | $700&#10;130 | $1,200&#10;180 | $1,600&#10;250 | $2,000"></textarea>
-    <p class="sub" style="margin-top:4px">Tip: que el premio de cada escalón sea menor a lo que juntas con esos boletos (boletos × precio) para nunca perder.</p>
-    <label>¿Cómo se elige al ganador? (cada línea es un párrafo)</label><textarea id="c-metodoSorteo"></textarea>
-    <label>Preguntas frecuentes — una por línea, con el formato: Pregunta | Respuesta</label><textarea id="c-faq" style="min-height:200px"></textarea>
-    <h2 style="margin-top:18px">Confianza</h2><p class="sub">Esto aparece en la sección “¿Por qué confiar en nosotros?”. Tu foto se sube en la pestaña Imágenes.</p>
-    <div class="g2"><div><label>Tu nombre (organizador)</label><input id="c-organizador" placeholder="Ej. Eduardo López"></div></div>
+    <h2>✏️ Rifa y textos <span class="dirty" id="dirty">● cambios sin guardar</span></h2><p class="sub">Lo que guardes aquí se ve en la página en segundos.</p>
+    <div class="g2">
+      <div><label>Estado de la rifa</label><select id="c-estado"><option value="abierta">🟢 Abierta (se pueden apartar boletos)</option><option value="cerrada">🔴 Cerrada (nadie puede apartar)</option></select></div>
+      <div><label>Precio por boleto (MXN, incluye 4 números)</label><input id="c-precio" type="number" min="1"></div>
+      <div><label>Fecha y hora del sorteo</label><input id="c-fechaSorteo" type="datetime-local"><p class="hint">Activa la cuenta regresiva en la página.</p></div>
+      <div><label>¿Qué sorteo de la Lotería Nacional?</label><input id="c-sorteoNombre" placeholder="Ej. Sorteo Superior No. 2850"></div>
+      <div><label>Horas para pagar después de apartar</label><input id="c-horasPago" type="number" min="1"><p class="hint">Pasado ese tiempo, el apartado se marca como VENCIDO.</p></div>
+      <div><label>Premio (texto)</label><input id="c-premio" placeholder="$2,000 EN EFECTIVO"><p class="hint">Se usa si no pones escalones.</p></div>
+    </div>
+    <label>Premio que crece — una línea por escalón: boletos vendidos | premio</label><textarea id="c-escalones" placeholder="80 | $700&#10;130 | $1,200&#10;180 | $1,600&#10;250 | $2,000"></textarea>
+    <p class="hint" id="esc-check"></p>
+    <div class="g2"><div><label>Título principal</label><input id="c-titulo"></div><div><label>Subtítulo</label><input id="c-subtitulo"></div></div>
+    <label>¿Cómo se elige al ganador? (cada línea es un párrafo)</label><textarea id="c-metodoSorteo" style="min-height:130px"></textarea>
+    <label>Preguntas frecuentes — una por línea: Pregunta | Respuesta</label><textarea id="c-faq" style="min-height:200px"></textarea>
+    <h2 style="margin-top:18px">🤝 Confianza</h2><p class="sub">Aparece en “¿Por qué confiar en nosotros?”. Tu foto se sube en Imágenes.</p>
+    <div class="g2"><div><label>Tu nombre (organizador)</label><input id="c-organizador" placeholder="Ej. Eduardo Luna"></div></div>
     <label>Mensaje del organizador</label><textarea id="c-mensajeOrganizador" style="min-height:70px"></textarea>
-    <label>Ganadores anteriores — uno por línea: Nombre | Premio | Fecha | Enlace al video de la entrega (opcional)</label><textarea id="c-ganadores" placeholder="María G. | $2,000 | 28 nov 2026 | https://www.facebook.com/..."></textarea>
-    <div class="acts"><button onclick="guardar()">Guardar cambios</button><span class="msg" id="msg-web"></span></div>
+    <label>Ganadores anteriores — uno por línea: Nombre | Premio | Fecha | Enlace al video (opcional)</label><textarea id="c-ganadores" placeholder="María G. | $2,000 | 28 nov 2026 | https://www.facebook.com/..."></textarea>
+    <div class="acts"><button onclick="guardar()">💾 Guardar cambios</button></div>
   </div></div>
 
+  <!-- PAGOS -->
   <div class="pane" id="p-pagos"><div class="card">
-    <h2>Pagos y contacto</h2><p class="sub">Estos datos aparecen en la sección “Métodos de pago” y en los botones de contacto.</p>
+    <h2>💳 Pagos y contacto</h2><p class="sub">Aparece en “Métodos de pago” y en los mensajes que mandas desde Apartados.</p>
     <div class="g2"><div><label>Banco</label><input id="c-banco"></div><div><label>Titular de la cuenta</label><input id="c-titular"></div>
-    <div><label>CLABE / Tarjeta</label><input id="c-clabe"></div><div><label>Tarjeta para depósito en OXXO</label><input id="c-oxxo"></div>
-    <div><label>WhatsApp que recibe los pedidos (52 + 10 dígitos)</label><input id="c-whatsapp"></div><div><label>Enlace de Facebook (pega el enlace completo de tu página)</label><input id="c-facebook" placeholder="https://www.facebook.com/SorteosEntreAmigosCoatza"></div></div>
+    <div><label>CLABE / número de tarjeta</label><input id="c-clabe"></div><div><label>Tarjeta para depósito en OXXO</label><input id="c-oxxo"></div>
+    <div><label>WhatsApp que recibe los pedidos (52 + 10 dígitos)</label><input id="c-whatsapp"></div><div><label>Enlace de tu página de Facebook</label><input id="c-facebook"></div></div>
     <label>Nota debajo de los métodos de pago</label><textarea id="c-notaPago" style="min-height:70px"></textarea>
-    <div class="acts"><button onclick="guardar()">Guardar cambios</button><span class="msg" id="msg-pagos"></span></div>
+    <div class="acts"><button onclick="guardar()">💾 Guardar cambios</button></div>
   </div></div>
 
+  <!-- IMÁGENES -->
   <div class="pane" id="p-img"><div class="card">
-    <h2>Imágenes de la página</h2><p class="sub">Sube una nueva y se cambia en toda la página. Se optimizan solas.</p>
-    <label>Banner principal (recomendado 1376×768)</label>
-    <div class="imgbox"><img id="pv-banner" src="assets/banner.webp"><div><input type="file" id="f-banner" accept="image/*"><div class="acts"><button onclick="subir('banner')">Subir banner</button><button class="gray" onclick="quitarImg('banner')">Volver al original</button></div></div></div>
-    <label style="margin-top:14px">Logo (cuadrado)</label>
-    <div class="imgbox"><img id="pv-logo" src="assets/logo.webp"><div><input type="file" id="f-logo" accept="image/*"><div class="acts"><button onclick="subir('logo')">Subir logo</button><button class="gray" onclick="quitarImg('logo')">Volver al original</button></div></div></div>
-    <label style="margin-top:14px">Tu foto (organizador) — una foto tuya, de frente y sonriendo, da mucha confianza</label>
-    <div class="imgbox"><img id="pv-organizador" src="assets/logo.webp"><div><input type="file" id="f-organizador" accept="image/*"><div class="acts"><button onclick="subir('organizador')">Subir foto</button><button class="gray" onclick="quitarImg('organizador')">Quitar</button></div></div></div>
-    <label style="margin-top:14px">Foto de la entrega del premio (aparece en “Ganadores”)</label>
-    <div class="imgbox"><img id="pv-ganador" src="assets/logo.webp"><div><input type="file" id="f-ganador" accept="image/*"><div class="acts"><button onclick="subir('ganador')">Subir foto</button><button class="gray" onclick="quitarImg('ganador')">Quitar</button></div></div></div>
-    <span class="msg" id="msg-img"></span>
+    <h2>🖼️ Imágenes</h2><p class="sub">Sube una nueva y se cambia en toda la página. Se optimizan solas.</p>
+    <label>Banner principal (horizontal, ej. 1376×768)</label>
+    <div class="imgbox"><img id="pv-banner" src="assets/banner.webp"><div><input type="file" id="f-banner" accept="image/*"><div class="acts"><button onclick="subir('banner')">Subir</button><button class="gray" onclick="quitarImg('banner')">Volver al original</button></div></div></div>
+    <label>Logo (cuadrado)</label>
+    <div class="imgbox"><img id="pv-logo" src="assets/logo.webp"><div><input type="file" id="f-logo" accept="image/*"><div class="acts"><button onclick="subir('logo')">Subir</button><button class="gray" onclick="quitarImg('logo')">Volver al original</button></div></div></div>
+    <label>Tu foto (organizador) — de frente y sonriendo da mucha confianza</label>
+    <div class="imgbox"><img id="pv-organizador" src="assets/logo.webp"><div><input type="file" id="f-organizador" accept="image/*"><div class="acts"><button onclick="subir('organizador')">Subir</button><button class="gray" onclick="quitarImg('organizador')">Quitar</button></div></div></div>
+    <label>Foto de la entrega del premio (sección Ganadores)</label>
+    <div class="imgbox"><img id="pv-ganador" src="assets/logo.webp"><div><input type="file" id="f-ganador" accept="image/*"><div class="acts"><button onclick="subir('ganador')">Subir</button><button class="gray" onclick="quitarImg('ganador')">Quitar</button></div></div></div>
   </div></div>
 
+  <!-- AVANZADO -->
   <div class="pane" id="p-adv"><div class="card">
-    <h2>Zona de peligro</h2><p class="sub">Para empezar una rifa nueva: borra todas las reservaciones y libera los 1000 números. No se puede deshacer.</p>
+    <h2>⚙️ Empezar una rifa nueva</h2><p class="sub">Borra todos los apartados y libera los 1000 números. Antes descarga el Excel desde Apartados. No se puede deshacer.</p>
     <label>Escribe BORRAR para confirmar</label><input id="r-conf" style="max-width:260px">
-    <div class="acts"><button class="red" onclick="reiniciar()">Reiniciar rifa</button><span class="msg" id="msg-adv"></span></div>
-    <p class="sub" style="margin-top:16px">La contraseña de este panel se cambia en Netlify → Site configuration → Environment variables → <b>ADMIN_PASSWORD</b> (y vuelves a publicar).</p>
+    <div class="acts"><button class="red" onclick="reiniciar()">Reiniciar rifa</button></div>
+    <p class="sub" style="margin-top:16px">La contraseña de este panel se cambia en Netlify → Project configuration → Environment variables → <b>ADMIN_PASSWORD</b> (y vuelves a publicar).</p>
   </div></div>
 </div></div>
+<div class="toast" id="toast"></div>
 
 <script>
 const $ = id => document.getElementById(id);
-let KEY = sessionStorage.getItem("k") || "", DATA = { reservas: [], config: {} };
+const TOTAL = 250;
+let KEY = sessionStorage.getItem("k") || "", DATA = { reservas: [], config: {} }, dirty = false;
 const esc = s => String(s ?? "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
-const FIELDS = ["premio", "precio", "titulo", "subtitulo", "fechaSorteo", "sorteoNombre", "estado", "escalones", "metodoSorteo", "faq", "organizador", "mensajeOrganizador", "ganadores", "banco", "titular", "clabe", "oxxo", "whatsapp", "facebook", "notaPago"];
+const money = n => "$" + Math.round(n).toLocaleString("es-MX");
+const num = s => Number(String(s || "").replace(/[^\d.]/g, "")) || 0;
+const FIELDS = ["premio", "precio", "horasPago", "titulo", "subtitulo", "fechaSorteo", "sorteoNombre", "estado", "escalones", "metodoSorteo", "faq", "organizador", "mensajeOrganizador", "ganadores", "banco", "titular", "clabe", "oxxo", "whatsapp", "facebook", "notaPago"];
+const URL_SITIO = location.origin;
 
+function toast(t, ok = true) { const e = $("toast"); e.textContent = t; e.className = "toast show" + (ok ? "" : " err"); clearTimeout(e._t); e._t = setTimeout(() => e.className = "toast", 3200); }
+function copiar(t) { navigator.clipboard.writeText(t).then(() => toast("📋 Copiado")).catch(() => toast("No se pudo copiar", false)); }
 async function api(body) {
   const r = await fetch("/api/admin", { method: "POST", headers: { "Content-Type": "application/json", "x-admin-key": KEY }, body: JSON.stringify(body) });
   let d = {}; try { d = await r.json(); } catch {}
   if (!r.ok) throw new Error(d.error || (r.status === 404 ? "El servidor no está activo: sube el proyecto completo (con la carpeta netlify)." : "Error " + r.status));
   return d;
 }
-function flash(id, t, ok = true) { const e = $(id); e.textContent = t; e.className = "msg " + (ok ? "ok" : "er"); setTimeout(() => e.textContent = "", 4000); }
 async function entrar() {
   KEY = $("pass").value || KEY; $("err").textContent = "";
   try { await cargar(true); sessionStorage.setItem("k", KEY); $("login").style.display = "none"; $("app").style.display = "block"; }
   catch (e) { $("err").textContent = e.message; sessionStorage.removeItem("k"); }
 }
 function salir() { sessionStorage.removeItem("k"); location.reload(); }
+function irA(t) { document.querySelectorAll("#tabs button").forEach(x => x.classList.toggle("on", x.dataset.t === t)); document.querySelectorAll(".pane").forEach(x => x.classList.toggle("on", x.id === "p-" + t)); }
+document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => irA(b.dataset.t));
 
-document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
-  document.querySelectorAll("#tabs button").forEach(x => x.classList.remove("on")); document.querySelectorAll(".pane").forEach(x => x.classList.remove("on"));
-  b.classList.add("on"); $("p-" + b.dataset.t).classList.add("on");
-});
+// --- cálculos ---
+const escalones = c => String(c.escalones || "").split("\n").map(l => l.split("|")).filter(p => p.length >= 2 && !isNaN(parseInt(p[0])))
+  .map(p => ({ min: parseInt(p[0]), premio: p.slice(1).join("|").trim() })).sort((a, b) => a.min - b.min);
+const horas = () => Math.max(1, Number(DATA.config.horasPago) || 24);
+const vencida = r => !r.pagado && Date.now() - new Date(r.creado) > horas() * 3600e3;
+function hace(f) { const m = Math.round((Date.now() - new Date(f)) / 6e4); return m < 60 ? `hace ${m} min` : m < 1440 ? `hace ${Math.round(m / 60)} h` : `hace ${Math.round(m / 1440)} días`; }
+function fechaBonita(f) { const d = new Date(f); return f && !isNaN(d) ? d.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" }) + ", " + d.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit" }) : ""; }
+function calc() {
+  const R = DATA.reservas, c = DATA.config, E = escalones(c), precio = Number(c.precio) || 12;
+  const bol = R.reduce((a, r) => a + r.numeros.length, 0) / 4, bolPag = R.filter(r => r.pagado).reduce((a, r) => a + r.numeros.length, 0) / 4;
+  const alc = E.filter(e => bol >= e.min), sig = E.find(e => bol < e.min);
+  const premioTxt = alc.length ? alc[alc.length - 1].premio : (E.length ? "Por arrancar" : String(c.premio || "").split(" EN ")[0]);
+  const cobrado = R.filter(r => r.pagado).reduce((a, r) => a + r.total, 0), pend = R.filter(r => !r.pagado).reduce((a, r) => a + r.total, 0);
+  return { R, c, E, precio, bol, bolPag, alc, sig, premioTxt, premioNum: num(premioTxt), cobrado, pend, max: E.length ? E[E.length - 1].premio : premioTxt };
+}
 
+// --- carga ---
 function llenar(c) {
   FIELDS.forEach(k => { const el = $("c-" + k); if (!el || document.activeElement === el) return; el.value = k === "fechaSorteo" ? (c[k] || "").slice(0, 16) : (c[k] ?? ""); });
-  if (c.bannerV) $("pv-banner").src = "/api/img/banner?v=" + c.bannerV; else $("pv-banner").src = "assets/banner.webp";
-  if (c.logoV) $("pv-logo").src = "/api/img/logo?v=" + c.logoV; else $("pv-logo").src = "assets/logo.webp";
-  ["organizador", "ganador"].forEach(n => $("pv-" + n).src = c[n + "V"] ? `/api/img/${n}?v=${c[n + "V"]}` : "assets/logo.webp");
+  ["banner", "logo", "organizador", "ganador"].forEach(n => $("pv-" + n).src = c[n + "V"] ? `/api/img/${n}?v=${c[n + "V"]}` : (n === "banner" ? "assets/banner.webp" : "assets/logo.webp"));
+  dirty = false; $("dirty").classList.remove("on"); revisarEsc();
 }
 let primera = true;
 async function cargar(forzar) {
   DATA = await api({ action: "list" });
-  if (primera || forzar) { llenar(DATA.config); primera = false; }
-  pintar();
+  if ((primera || forzar) && !dirty) { llenar(DATA.config); primera = false; }
+  pintarTodo();
 }
+function pintarTodo() { resumen(); pintar(); mapa(); checklist(); promo(); }
+
+function resumen() {
+  const k = calc();
+  $("live").textContent = k.c.estado === "cerrada" ? "🔴 Rifa cerrada" : "🟢 Rifa abierta"; $("live").className = "live " + (k.c.estado === "cerrada" ? "off" : "on");
+  $("s-premio").textContent = k.premioTxt; $("s-premio2").textContent = !k.E.length ? "" : !k.alc.length ? `arranca con ${k.E[0].premio} al llegar a ${k.E[0].min} boletos` : k.sig ? `sube a ${k.sig.premio} con ${k.sig.min - k.bol} boletos más` : "¡premio máximo!";
+  $("s-bol").textContent = `${k.bol} / ${TOTAL}`; $("s-bol2").textContent = `${k.bolPag} pagados · ${k.bol - k.bolPag} sin pagar`;
+  $("s-money").textContent = money(k.cobrado); $("s-money2").textContent = `${money(k.pend)} por cobrar`;
+  const gan = k.cobrado - k.premioNum; $("s-gan").textContent = money(gan); $("s-gan").style.color = gan >= 0 ? "var(--green)" : "var(--red)";
+  $("r-next").textContent = !k.E.length ? "Premio fijo (sin escalones)." : !k.alc.length ? `Faltan ${k.E[0].min - k.bol} boletos para arrancar con ${k.E[0].premio}. Si no se llega, el sorteo se pospone o se devuelve el dinero.` : k.sig ? `Faltan ${k.sig.min - k.bol} boletos para que el premio suba a ${k.sig.premio}.` : "🏆 Se alcanzó el premio máximo.";
+  $("fill").style.width = Math.min(100, k.bol / TOTAL * 100) + "%";
+  $("bar").querySelectorAll(".mk").forEach(m => m.remove());
+  k.E.forEach(e => { if (e.min <= 0 || e.min > TOTAL) return; const m = document.createElement("div"); m.className = "mk" + (k.bol >= e.min ? " ok" : "") + (e.min / TOTAL > .9 ? " last" : ""); m.style.left = e.min / TOTAL * 100 + "%"; m.innerHTML = `<span class="p">${esc(e.premio)}</span><span class="n">${e.min}</span>`; $("bar").appendChild(m); });
+  $("r-pend").textContent = money(k.pend); $("r-comp").textContent = k.R.length; $("r-fecha").textContent = fechaBonita(k.c.fechaSorteo) || "sin fecha";
+  const pend = k.R.filter(r => !r.pagado).length, venc = k.R.filter(vencida).length;
+  $("b-pend").style.display = pend ? "inline" : "none"; $("b-pend").textContent = pend; $("btn-venc").textContent = `Liberar vencidos (${venc})`; $("btn-venc").disabled = !venc;
+}
+
+function msgPago(r) {
+  const c = DATA.config;
+  return `¡Hola ${r.nombre}! 🎟️ Apartamos tus números para el sorteo de Sorteos Entre Amigos Coatza:\n${r.numeros.join(", ")}\n\n💰 Total: $${r.total} MXN\n\nPuedes pagar por:\n🏦 ${c.banco || "-"} · ${c.titular || "-"}\nCLABE/Tarjeta: ${c.clabe || "-"}${c.oxxo ? "\n🏪 OXXO: " + c.oxxo : ""}\n\n⏰ Tienes ${horas()} horas para pagar. Mándame tu comprobante por aquí y te confirmo. ¡Gracias y mucha suerte! 🍀`;
+}
+function msgOk(r) { const c = DATA.config; return `¡Hola ${r.nombre}! ✅ Confirmamos tu pago de $${r.total} MXN.\n\nTus números: ${r.numeros.join(", ")}\n${c.fechaSorteo ? "📅 Sorteo: " + fechaBonita(c.fechaSorteo) + "\n" : ""}Puedes revisarlos en ${URL_SITIO} (pestaña “Consultar mis boletos”).\n\n¡Mucha suerte! 🍀`; }
+function msgRecordatorio(r) { return `¡Hola ${r.nombre}! 👋 Te recuerdo que tus números ${r.numeros.join(", ")} siguen apartados. Total: $${r.total} MXN. Si ya no los quieres, avísame para liberarlos. ¡Gracias! 🍀`; }
+const wa = (tel, m) => `https://wa.me/52${tel}?text=${encodeURIComponent(m)}`;
+
 function pintar() {
-  const R = DATA.reservas, q = $("q").value.toLowerCase().trim(), f = $("f").value, pag = R.filter(r => r.pagado);
-  const numsTot = R.reduce((a, r) => a + r.numeros.length, 0), numsPag = pag.reduce((a, r) => a + r.numeros.length, 0);
-  const cobrado = pag.reduce((a, r) => a + r.total, 0), porCobrar = R.filter(r => !r.pagado).reduce((a, r) => a + r.total, 0);
-  $("s-bol").textContent = numsTot / 4 + " / 250"; $("s-bol2").textContent = "1 boleto = 4 números";
-  $("s-bolp").textContent = numsPag / 4; $("s-bolp2").textContent = (numsTot - numsPag) / 4 + " pendientes de pago";
-  $("s-num").textContent = numsTot + " / 1000"; $("s-num2").textContent = "quedan " + (1000 - numsTot) + " libres";
-  $("s-res").textContent = R.length; $("s-res2").textContent = pag.length + " pagadas · " + (R.length - pag.length) + " pendientes";
-  $("s-money").textContent = "$" + cobrado; $("s-pend").textContent = "$" + porCobrar; $("s-pend2").textContent = "pagos sin confirmar";
-  const vis = R.filter(r => (!q || (r.nombre + r.telefono + r.estado + r.numeros.join(" ")).toLowerCase().includes(q)) && (!f || (f === "p") === r.pagado));
+  const R = DATA.reservas, q = $("q").value.toLowerCase().trim(), f = $("f").value;
+  const vis = R.filter(r => (!q || (r.nombre + r.telefono + r.estado + r.numeros.join(" ")).toLowerCase().includes(q)) && (!f || (f === "p" && r.pagado) || (f === "n" && !r.pagado) || (f === "v" && vencida(r))));
   $("lista").innerHTML = vis.map(r => {
-    const msg = r.pagado
-      ? `¡Hola ${r.nombre}! ✅ Confirmamos tu pago de $${r.total} MXN. Tus números para la rifa (${DATA.config.premio}) son: ${r.numeros.join(", ")}. ¡Mucha suerte! 🍀`
-      : `¡Hola ${r.nombre}! 🎟️ Apartamos tus números: ${r.numeros.join(", ")}. Total: $${r.total} MXN.\n\nPara pagar:\nBanco: ${DATA.config.banco || "-"}\nTitular: ${DATA.config.titular || "-"}\nCLABE/Tarjeta: ${DATA.config.clabe || "-"}\n\nEnvíanos tu comprobante para confirmar tu boleto. ¡Gracias!`;
-    const wa = `https://wa.me/52${r.telefono}?text=${encodeURIComponent(msg)}`;
-    return `<div class="row"><div class="top"><span><b>${esc(r.nombre)}</b> · ${esc(r.telefono)} · ${esc(r.estado)}</span>
-      <span><span class="tag ${r.pagado ? "p" : "n"}">${r.pagado ? "PAGADO" : "PENDIENTE"}</span><b>$${r.total}</b></span></div>
-      <div class="nums">${r.numeros.join(" - ")}</div><div class="meta">${new Date(r.creado).toLocaleString("es-MX")} · folio ${esc(r.id)}</div>
-      <div class="acts"><a class="b wa" target="_blank" rel="noopener" href="${wa}">${r.pagado ? "Enviar confirmación" : "Enviar datos de pago"}</a>
-      <button onclick="pagar('${esc(r.id)}',${!r.pagado})">${r.pagado ? "Marcar pendiente" : "✔ Marcar pagado"}</button>
+    const v = vencida(r), tag = r.pagado ? '<span class="tag p">PAGADO</span>' : v ? '<span class="tag v">VENCIDO</span>' : '<span class="tag n">PENDIENTE</span>';
+    return `<div class="row"><div class="top"><span><b>${esc(r.nombre)}</b> · ${esc(r.telefono)}${r.estado ? " · " + esc(r.estado) : ""}</span><span>${tag}<b>$${r.total}</b></span></div>
+      <div class="nums">${r.numeros.join(" · ")}</div><div class="meta">${r.numeros.length / 4} boleto(s) · ${hace(r.creado)} · folio ${esc(r.id)}</div>
+      <div class="acts">${r.pagado
+        ? `<a class="b wa" target="_blank" rel="noopener" href="${wa(r.telefono, msgOk(r))}">Enviar confirmación</a><button class="ghost" onclick="pagar('${esc(r.id)}',false)">Marcar pendiente</button>`
+        : `<button onclick="pagar('${esc(r.id)}',true)">✔ Marcar pagado</button><a class="b wa" target="_blank" rel="noopener" href="${wa(r.telefono, msgPago(r))}">Datos de pago</a><a class="b ghost" target="_blank" rel="noopener" href="${wa(r.telefono, msgRecordatorio(r))}">Recordatorio</a>`}
       <button class="red" onclick="liberar('${esc(r.id)}')">Liberar</button></div></div>`;
-  }).join("") || "<p class='sub' style='margin-top:12px'>Sin reservaciones.</p>";
+  }).join("") || "<p class='sub' style='margin-top:12px'>No hay apartados con ese filtro.</p>";
 }
-async function pagar(id, pagado) { try { await api({ action: "pagar", id, pagado }); await cargar(); } catch (e) { alert(e.message); } }
-async function liberar(id) { if (!confirm("¿Liberar estos números? Volverán a estar disponibles y se borra la reservación.")) return; try { await api({ action: "liberar", id }); await cargar(); } catch (e) { alert(e.message); } }
+
+function mapa(ganadorNum) {
+  const due = {}; DATA.reservas.forEach(r => r.numeros.forEach(n => due[n] = r));
+  let h = ""; for (let i = 0; i < 1000; i++) { const n = String(i).padStart(3, "0"), r = due[n]; h += `<i class="${r ? (r.pagado ? "p" : "a") : ""}${n === ganadorNum ? " w" : ""}" data-n="${n}">${n}</i>`; }
+  $("map").innerHTML = h;
+}
+$("map").onclick = e => { const n = e.target.dataset?.n; if (!n) return; const r = DATA.reservas.find(x => x.numeros.includes(n)); const box = $("map-info");
+  if (!r) { box.style.display = "none"; return; } box.style.display = "block"; box.innerHTML = `<b>${n}</b> → ${esc(r.nombre)} · ${esc(r.telefono)} · ${r.pagado ? "✅ pagado" : "⏳ sin pagar"}`; };
+
+function ganador() {
+  const n = $("w-num").value.replace(/\D/g, "").padStart(3, "0").slice(-3); $("w-num").value = n;
+  const r = DATA.reservas.find(x => x.numeros.includes(n)), box = $("w-res"); mapa(n);
+  if (!r) { box.innerHTML = `<div class="win no">El <b>${n}</b> <b>no se vendió</b>. Según tus reglas, se usa el resultado del siguiente sorteo de la Lotería Nacional.</div>`; return; }
+  const m = `🎉 ¡FELICIDADES ${r.nombre}! 🎉\n\nTu número ${n} es el GANADOR del sorteo de Sorteos Entre Amigos Coatza (${calc().premioTxt}). 🏆\n\nEscríbeme para coordinar la entrega de tu premio. ¡Gracias por participar! 🍀`;
+  box.innerHTML = r.pagado
+    ? `<div class="win ok">🏆 <b>${n}</b> es de <b>${esc(r.nombre)}</b> · ${esc(r.telefono)}${r.estado ? " · " + esc(r.estado) : ""}<br>✅ Pago confirmado · folio ${esc(r.id)}<div class="acts"><a class="b wa" target="_blank" rel="noopener" href="${wa(r.telefono, m)}">Avisar al ganador</a><button class="ghost" onclick="$('promo-tipo').value='ganador';promo('${esc(r.nombre)}','${n}')">Armar publicación</button></div></div>`
+    : `<div class="win bad">⚠️ <b>${n}</b> está apartado por <b>${esc(r.nombre)}</b> · ${esc(r.telefono)}, pero <b>NO está pagado</b>. Revisa tus reglas antes de entregar el premio.</div>`;
+}
+
+function checklist() {
+  const c = DATA.config, items = [
+    [!!c.fechaSorteo, "Fecha y hora del sorteo", "web"], [!!c.sorteoNombre, "Qué sorteo de la Lotería Nacional", "web"],
+    [!!(c.banco && c.titular && c.clabe), "Datos de pago (banco, titular, CLABE/tarjeta)", "pagos"], [!!c.organizador, "Tu nombre como organizador", "web"],
+    [!!c.organizadorV, "Tu foto (da mucha confianza)", "img"], [c.estado !== "cerrada", "Rifa abierta", "web"]];
+  $("checklist").innerHTML = items.map(([ok, t, tab]) => `<div class="check"><i>${ok ? "✅" : "⬜"}</i><span>${ok ? t : `<a href="#" onclick="irA('${tab}');return false">${t}</a>`}</span></div>`).join("");
+}
+
+function promo(nombreGan, numGan) {
+  const k = calc(), c = k.c, f = fechaBonita(c.fechaSorteo), lot = c.sorteoNombre ? ` (${c.sorteoNombre})` : "", t = $("promo-tipo").value;
+  const quedan = TOTAL - k.bol, sube = !k.alc.length && k.E.length ? `🔥 ¡Faltan ${k.E[0].min - k.bol} boletos para arrancar con ${k.E[0].premio}! Después sigue subiendo hasta ${k.max}.` : k.sig ? `🔥 ¡Faltan solo ${k.sig.min - k.bol} boletos para que el premio suba a ${k.sig.premio}!` : "🏆 ¡Ya alcanzamos el premio máximo!";
+  const T = {
+    avance: `🍀 SORTEOS ENTRE AMIGOS COATZA 🍀\n\n💰 ${k.alc.length ? "Premio actual: " + k.premioTxt : "Premio: hasta " + k.max} en efectivo\n${sube}\n\n🎟️ Boleto: $${k.precio} = 4 números\n📊 Van ${k.bol} de ${TOTAL} boletos · quedan ${quedan}\n${f ? "📅 Sorteo: " + f + lot + "\n" : ""}🎯 Gana con los últimos 3 dígitos de la Lotería Nacional\n\n👉 Elige tus números: ${URL_SITIO}\n📲 Dudas por WhatsApp\n\n¡Comparte para que el premio crezca para todos! 🙌`,
+    lanzamiento: `🍀 ¡ARRANCA EL SORTEO! 🍀\n\nGana hasta ${k.max} EN EFECTIVO con un boleto de solo $${k.precio} (trae 4 números).\n\n📈 El premio crece con cada boleto vendido: ¡comparte para que suba!\n🎯 Gana quien tenga los últimos 3 dígitos del premio mayor de la Lotería Nacional${f ? " del " + f + lot : ""}. Nadie puede hacer trampa.\n📺 Transmisión EN VIVO aquí mismo.\n\n👉 Aparta tus números: ${URL_SITIO}`,
+    ultimos: `⏰ ¡ÚLTIMOS BOLETOS! ⏰\n\nQuedan ${quedan} boletos para el sorteo de ${k.alc.length ? k.premioTxt : "hasta " + k.max} en efectivo.\n${f ? "📅 Se sortea el " + f + lot + "\n" : ""}${sube}\n\n🎟️ $${k.precio} = 4 oportunidades\n👉 ${URL_SITIO}`,
+    envivo: `📺 ¡HOY ES EL SORTEO! 📺\n\nTransmitimos EN VIVO por esta página el resultado de la Lotería Nacional${lot}${f ? " · " + f : ""}.\n\n🏆 Premio: ${k.alc.length || !k.E.length ? k.premioTxt : "según boletos vendidos"} en efectivo\n🔎 Revisa tus números en ${URL_SITIO} (pestaña “Consultar mis boletos”)\n\n¡Mucha suerte a todos! 🍀`,
+    ganador: `🎉 ¡TENEMOS GANADOR! 🎉\n\nFelicidades a ${nombreGan || "[nombre del ganador]"} 🏆 con el número ${numGan || "[número]"}, que coincidió con los últimos 3 dígitos de la Lotería Nacional${lot}.\n\nSe lleva ${k.premioTxt} en efectivo 💰\n📹 Pronto subimos el video de la entrega.\n\n¡Gracias a todos por participar! El próximo sorteo viene pronto 🍀\n👉 ${URL_SITIO}`
+  };
+  $("promo").textContent = T[t];
+}
+
+// --- acciones ---
+async function pagar(id, pagado) { try { await api({ action: "pagar", id, pagado }); toast(pagado ? "✔ Marcado como pagado" : "Marcado como pendiente"); await cargar(); } catch (e) { toast(e.message, false); } }
+async function liberar(id) { if (!confirm("¿Liberar estos números? Vuelven a estar disponibles y se borra el apartado.")) return; try { await api({ action: "liberar", id }); toast("Números liberados"); await cargar(); } catch (e) { toast(e.message, false); } }
+async function vencidos() { const n = DATA.reservas.filter(vencida).length; if (!n || !confirm(`¿Liberar ${n} apartado(s) vencido(s) (más de ${horas()} h sin pagar)?`)) return; try { const d = await api({ action: "vencidos" }); toast(`Se liberaron ${d.liberadas} apartados (${d.numeros} números)`); await cargar(); } catch (e) { toast(e.message, false); } }
+function azar() { const usados = new Set(DATA.reservas.flatMap(r => r.numeros)), actuales = $("m-nums").value.split(/[\s,;]+/).filter(Boolean).map(n => n.padStart(3, "0")); actuales.forEach(n => usados.add(n));
+  const libres = []; for (let i = 0; i < 1000; i++) { const n = String(i).padStart(3, "0"); if (!usados.has(n)) libres.push(n); }
+  if (libres.length < 4) return toast("No hay suficientes números libres", false);
+  const sel = []; while (sel.length < 4) sel.push(libres.splice(Math.random() * libres.length | 0, 1)[0]);
+  $("m-nums").value = [...actuales, ...sel.sort()].join(" "); }
 async function manual() {
   const numeros = $("m-nums").value.split(/[\s,;]+/).filter(Boolean).map(n => n.padStart(3, "0"));
   try { await api({ action: "manual", nombre: $("m-nombre").value, telefono: $("m-tel").value, estado: $("m-estado").value, pagado: $("m-pagado").value === "1", numeros });
-    ["m-nombre", "m-tel", "m-estado", "m-nums"].forEach(i => $(i).value = ""); flash("m-msg", "✔ Venta guardada"); await cargar(); }
-  catch (e) { flash("m-msg", e.message, false); }
+    ["m-nombre", "m-tel", "m-estado", "m-nums"].forEach(i => $(i).value = ""); toast("✔ Venta guardada"); await cargar(); }
+  catch (e) { toast(e.message, false); }
 }
+function revisarEsc() {
+  const c = { escalones: $("c-escalones").value }, E = escalones(c), precio = Number($("c-precio").value) || 12;
+  const malos = E.filter(e => num(e.premio) > e.min * precio);
+  $("esc-check").innerHTML = !E.length ? "Sin escalones: se usa el premio fijo." : malos.length
+    ? `<span style="color:var(--red);font-weight:700">⚠️ Ojo: en ${malos.map(e => e.min + " boletos").join(", ")} el premio es mayor a lo que juntas (${malos.map(e => money(e.min * precio)).join(", ")}). Podrías perder dinero.</span>`
+    : `<span style="color:var(--green);font-weight:700">✔ En todos los escalones juntas más de lo que pagas de premio.</span> ` + E.map(e => `${e.min} boletos = ${money(e.min * precio)} → ganas ${money(e.min * precio - num(e.premio))}`).join(" · ");
+}
+document.querySelectorAll("#p-web input,#p-web select,#p-web textarea,#p-pagos input,#p-pagos textarea").forEach(el => el.addEventListener("input", () => { dirty = true; $("dirty").classList.add("on"); if (el.id === "c-escalones" || el.id === "c-precio") revisarEsc(); }));
+window.addEventListener("beforeunload", e => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
 async function guardar() {
   const cfg = {}; FIELDS.forEach(k => { const el = $("c-" + k); if (el) cfg[k] = el.value.trim(); });
-  try { await api({ action: "config", config: cfg }); flash("msg-web", "✔ Guardado"); flash("msg-pagos", "✔ Guardado"); }
-  catch (e) { flash("msg-web", e.message, false); flash("msg-pagos", e.message, false); }
+  if (cfg.whatsapp && !/^52\d{10}$/.test(cfg.whatsapp.replace(/\D/g, ""))) return toast("El WhatsApp debe ser 52 + 10 dígitos (ej. 529211234567)", false);
+  cfg.whatsapp = cfg.whatsapp.replace(/\D/g, "");
+  try { await api({ action: "config", config: cfg }); dirty = false; $("dirty").classList.remove("on"); toast("💾 Cambios guardados"); await cargar(true); }
+  catch (e) { toast(e.message, false); }
 }
 function redimensionar(file, max) {
   return new Promise((ok, no) => {
@@ -224,19 +379,19 @@ function redimensionar(file, max) {
   });
 }
 async function subir(nombre) {
-  const f = $("f-" + nombre).files[0]; if (!f) return flash("msg-img", "Elige una imagen primero", false);
-  try { const data = await redimensionar(f, nombre === "logo" || nombre === "organizador" ? 700 : 1600); await api({ action: "imagen", nombre, data }); flash("msg-img", "✔ Imagen actualizada"); await cargar(true); }
-  catch (e) { flash("msg-img", e.message, false); }
+  const f = $("f-" + nombre).files[0]; if (!f) return toast("Elige una imagen primero", false);
+  try { const data = await redimensionar(f, nombre === "logo" || nombre === "organizador" ? 700 : 1600); await api({ action: "imagen", nombre, data }); toast("✔ Imagen actualizada"); await cargar(true); }
+  catch (e) { toast(e.message, false); }
 }
-async function quitarImg(nombre) { try { await api({ action: "imagen", nombre, quitar: true }); flash("msg-img", "✔ Se restauró la original"); await cargar(true); } catch (e) { flash("msg-img", e.message, false); } }
+async function quitarImg(nombre) { try { await api({ action: "imagen", nombre, quitar: true }); toast("✔ Listo"); await cargar(true); } catch (e) { toast(e.message, false); } }
 async function reiniciar() {
-  if (!confirm("¿Seguro? Se borran TODAS las reservaciones.")) return;
-  try { await api({ action: "reiniciar", confirmar: $("r-conf").value }); $("r-conf").value = ""; flash("msg-adv", "✔ Rifa reiniciada"); await cargar(); } catch (e) { flash("msg-adv", e.message, false); }
+  if (!confirm("¿Seguro? Se borran TODOS los apartados y se liberan los 1000 números.")) return;
+  try { await api({ action: "reiniciar", confirmar: $("r-conf").value }); $("r-conf").value = ""; toast("✔ Rifa reiniciada"); await cargar(); } catch (e) { toast(e.message, false); }
 }
 function csv() {
   const q = v => '"' + String(v).replace(/"/g, '""') + '"';
-  const rows = [["Folio", "Nombre", "WhatsApp", "Ciudad", "Números", "Total", "Pagado", "Fecha"], ...DATA.reservas.map(r => [r.id, r.nombre, r.telefono, r.estado, r.numeros.join(" "), r.total, r.pagado ? "Sí" : "No", r.creado])];
-  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿" + rows.map(r => r.map(q).join(",")).join("\n")], { type: "text/csv" })); a.download = "rifa-reservaciones.csv"; a.click();
+  const rows = [["Folio", "Nombre", "WhatsApp", "Ciudad", "Números", "Boletos", "Total", "Pagado", "Fecha"], ...DATA.reservas.map(r => [r.id, r.nombre, r.telefono, r.estado, r.numeros.join(" "), r.numeros.length / 4, r.total, r.pagado ? "Sí" : "No", new Date(r.creado).toLocaleString("es-MX")])];
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿" + rows.map(r => r.map(q).join(",")).join("\n")], { type: "text/csv" })); a.download = "sorteo-apartados.csv"; a.click();
 }
 if (KEY) entrar();
 setInterval(() => { if (KEY && $("app").style.display === "block" && !document.hidden) cargar().catch(() => {}); }, 20000);

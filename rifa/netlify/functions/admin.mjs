@@ -4,7 +4,7 @@ import {
 
 export const config = { path: "/api/admin" };
 
-const NUM_KEYS = ["precio"];
+const NUM_KEYS = ["precio", "horasPago"];
 
 export default async (req) => {
   if (!isAdmin(req)) return json({ error: "Contraseña incorrecta" }, 401);
@@ -34,6 +34,20 @@ export default async (req) => {
     await Promise.all(r.numeros.map((n) => s.delete("num:" + n)));
     await s.delete("res:" + b.id);
     return json({ ok: true });
+  }
+
+  if (action === "vencidos") {
+    const cfg = await leerConfig(s);
+    const horas = Math.max(1, Number(cfg.horasPago) || 24);
+    const limite = Date.now() - horas * 3600e3;
+    const { blobs } = await s.list({ prefix: "res:" });
+    const todas = (await Promise.all(blobs.map((x) => s.get(x.key, { type: "json" })))).filter(Boolean);
+    const venc = todas.filter((r) => !r.pagado && new Date(r.creado).getTime() < limite);
+    for (const r of venc) {
+      await Promise.all(r.numeros.map((n) => s.delete("num:" + n)));
+      await s.delete("res:" + r.id);
+    }
+    return json({ ok: true, liberadas: venc.length, numeros: venc.reduce((a, r) => a + r.numeros.length, 0) });
   }
 
   if (action === "manual") {
