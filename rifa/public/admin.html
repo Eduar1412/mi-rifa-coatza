@@ -98,9 +98,16 @@ button:hover,.b:hover{filter:brightness(1.1)}
     <div><label>Precio por boleto (MXN, incluye 4 números)</label><input id="c-precio" type="number" min="1"></div>
     <div><label>Título principal</label><input id="c-titulo"></div><div><label>Subtítulo</label><input id="c-subtitulo"></div>
     <div><label>Fecha y hora del sorteo (cuenta regresiva)</label><input id="c-fechaSorteo" type="datetime-local"></div>
+    <div><label>¿Qué sorteo de la Lotería Nacional? (ej. Sorteo Superior No. 2850)</label><input id="c-sorteoNombre"></div>
     <div><label>Estado de la rifa</label><select id="c-estado"><option value="abierta">🟢 Abierta (se pueden apartar boletos)</option><option value="cerrada">🔴 Cerrada (nadie puede apartar)</option></select></div></div>
-    <label>¿Cómo se elige al ganador?</label><textarea id="c-metodoSorteo"></textarea>
+    <label>Premio que crece — una línea por escalón con el formato: boletos vendidos | premio (déjalo vacío para premio fijo)</label><textarea id="c-escalones" placeholder="80 | $700&#10;130 | $1,200&#10;180 | $1,600&#10;250 | $2,000"></textarea>
+    <p class="sub" style="margin-top:4px">Tip: que el premio de cada escalón sea menor a lo que juntas con esos boletos (boletos × precio) para nunca perder.</p>
+    <label>¿Cómo se elige al ganador? (cada línea es un párrafo)</label><textarea id="c-metodoSorteo"></textarea>
     <label>Preguntas frecuentes — una por línea, con el formato: Pregunta | Respuesta</label><textarea id="c-faq" style="min-height:200px"></textarea>
+    <h2 style="margin-top:18px">Confianza</h2><p class="sub">Esto aparece en la sección “¿Por qué confiar en nosotros?”. Tu foto se sube en la pestaña Imágenes.</p>
+    <div class="g2"><div><label>Tu nombre (organizador)</label><input id="c-organizador" placeholder="Ej. Eduardo López"></div></div>
+    <label>Mensaje del organizador</label><textarea id="c-mensajeOrganizador" style="min-height:70px"></textarea>
+    <label>Ganadores anteriores — uno por línea: Nombre | Premio | Fecha | Enlace al video de la entrega (opcional)</label><textarea id="c-ganadores" placeholder="María G. | $2,000 | 28 nov 2026 | https://www.facebook.com/..."></textarea>
     <div class="acts"><button onclick="guardar()">Guardar cambios</button><span class="msg" id="msg-web"></span></div>
   </div></div>
 
@@ -108,7 +115,7 @@ button:hover,.b:hover{filter:brightness(1.1)}
     <h2>Pagos y contacto</h2><p class="sub">Estos datos aparecen en la sección “Métodos de pago” y en los botones de contacto.</p>
     <div class="g2"><div><label>Banco</label><input id="c-banco"></div><div><label>Titular de la cuenta</label><input id="c-titular"></div>
     <div><label>CLABE / Tarjeta</label><input id="c-clabe"></div><div><label>Tarjeta para depósito en OXXO</label><input id="c-oxxo"></div>
-    <div><label>WhatsApp que recibe los pedidos (52 + 10 dígitos)</label><input id="c-whatsapp"></div><div><label>Enlace de Facebook (pega el enlace completo de tu página)</label><input id="c-facebook" placeholder="https://www.facebook.com/RifasEntreAmigosCoatza/"></div></div>
+    <div><label>WhatsApp que recibe los pedidos (52 + 10 dígitos)</label><input id="c-whatsapp"></div><div><label>Enlace de Facebook (pega el enlace completo de tu página)</label><input id="c-facebook" placeholder="https://www.facebook.com/profile.php?id=61595407075224"></div></div>
     <label>Nota debajo de los métodos de pago</label><textarea id="c-notaPago" style="min-height:70px"></textarea>
     <div class="acts"><button onclick="guardar()">Guardar cambios</button><span class="msg" id="msg-pagos"></span></div>
   </div></div>
@@ -119,6 +126,10 @@ button:hover,.b:hover{filter:brightness(1.1)}
     <div class="imgbox"><img id="pv-banner" src="assets/banner.webp"><div><input type="file" id="f-banner" accept="image/*"><div class="acts"><button onclick="subir('banner')">Subir banner</button><button class="gray" onclick="quitarImg('banner')">Volver al original</button></div></div></div>
     <label style="margin-top:14px">Logo (cuadrado)</label>
     <div class="imgbox"><img id="pv-logo" src="assets/logo.webp"><div><input type="file" id="f-logo" accept="image/*"><div class="acts"><button onclick="subir('logo')">Subir logo</button><button class="gray" onclick="quitarImg('logo')">Volver al original</button></div></div></div>
+    <label style="margin-top:14px">Tu foto (organizador) — una foto tuya, de frente y sonriendo, da mucha confianza</label>
+    <div class="imgbox"><img id="pv-organizador" src="assets/logo.webp"><div><input type="file" id="f-organizador" accept="image/*"><div class="acts"><button onclick="subir('organizador')">Subir foto</button><button class="gray" onclick="quitarImg('organizador')">Quitar</button></div></div></div>
+    <label style="margin-top:14px">Foto de la entrega del premio (aparece en “Ganadores”)</label>
+    <div class="imgbox"><img id="pv-ganador" src="assets/logo.webp"><div><input type="file" id="f-ganador" accept="image/*"><div class="acts"><button onclick="subir('ganador')">Subir foto</button><button class="gray" onclick="quitarImg('ganador')">Quitar</button></div></div></div>
     <span class="msg" id="msg-img"></span>
   </div></div>
 
@@ -134,7 +145,7 @@ button:hover,.b:hover{filter:brightness(1.1)}
 const $ = id => document.getElementById(id);
 let KEY = sessionStorage.getItem("k") || "", DATA = { reservas: [], config: {} };
 const esc = s => String(s ?? "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
-const FIELDS = ["premio", "precio", "titulo", "subtitulo", "fechaSorteo", "estado", "metodoSorteo", "faq", "banco", "titular", "clabe", "oxxo", "whatsapp", "facebook", "notaPago"];
+const FIELDS = ["premio", "precio", "titulo", "subtitulo", "fechaSorteo", "sorteoNombre", "estado", "escalones", "metodoSorteo", "faq", "organizador", "mensajeOrganizador", "ganadores", "banco", "titular", "clabe", "oxxo", "whatsapp", "facebook", "notaPago"];
 
 async function api(body) {
   const r = await fetch("/api/admin", { method: "POST", headers: { "Content-Type": "application/json", "x-admin-key": KEY }, body: JSON.stringify(body) });
@@ -159,6 +170,7 @@ function llenar(c) {
   FIELDS.forEach(k => { const el = $("c-" + k); if (!el || document.activeElement === el) return; el.value = k === "fechaSorteo" ? (c[k] || "").slice(0, 16) : (c[k] ?? ""); });
   if (c.bannerV) $("pv-banner").src = "/api/img/banner?v=" + c.bannerV; else $("pv-banner").src = "assets/banner.webp";
   if (c.logoV) $("pv-logo").src = "/api/img/logo?v=" + c.logoV; else $("pv-logo").src = "assets/logo.webp";
+  ["organizador", "ganador"].forEach(n => $("pv-" + n).src = c[n + "V"] ? `/api/img/${n}?v=${c[n + "V"]}` : "assets/logo.webp");
 }
 let primera = true;
 async function cargar(forzar) {
@@ -213,7 +225,7 @@ function redimensionar(file, max) {
 }
 async function subir(nombre) {
   const f = $("f-" + nombre).files[0]; if (!f) return flash("msg-img", "Elige una imagen primero", false);
-  try { const data = await redimensionar(f, nombre === "logo" ? 700 : 1600); await api({ action: "imagen", nombre, data }); flash("msg-img", "✔ Imagen actualizada"); await cargar(true); }
+  try { const data = await redimensionar(f, nombre === "logo" || nombre === "organizador" ? 700 : 1600); await api({ action: "imagen", nombre, data }); flash("msg-img", "✔ Imagen actualizada"); await cargar(true); }
   catch (e) { flash("msg-img", e.message, false); }
 }
 async function quitarImg(nombre) { try { await api({ action: "imagen", nombre, quitar: true }); flash("msg-img", "✔ Se restauró la original"); await cargar(true); } catch (e) { flash("msg-img", e.message, false); } }

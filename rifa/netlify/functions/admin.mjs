@@ -1,5 +1,5 @@
 import {
-  store, json, isAdmin, leerConfig, DEFAULT_CONFIG, esNumero, soloDigitos, crearReserva,
+  store, json, isAdmin, leerConfig, DEFAULT_CONFIG, esNumero, soloDigitos, crearReserva, IMAGENES,
 } from "../lib/util.mjs";
 
 export const config = { path: "/api/admin" };
@@ -45,7 +45,7 @@ export default async (req) => {
     if (!numeros.length || numeros.length % 4 || !numeros.every(esNumero))
       return json({ error: "Los números deben ser de 3 dígitos (ej. 045) y en múltiplos de 4." }, 400);
     const cfg = await leerConfig(s);
-    const r = await crearReserva(s, { nombre, telefono, estado: String(b.estado || "").slice(0, 60), numeros, pagado: !!b.pagado }, Number(cfg.precio) || 10);
+    const r = await crearReserva(s, { nombre, telefono, estado: String(b.estado || "").slice(0, 60), numeros, pagado: !!b.pagado }, Number(cfg.precio) || 12);
     if (!r.ok) return json({ error: "Ya ocupados: " + r.ocupados.join(", ") }, 409);
     return json({ ok: true, id: r.id });
   }
@@ -54,9 +54,9 @@ export default async (req) => {
     const cur = await leerConfig(s);
     const nueva = {};
     for (const k of Object.keys(DEFAULT_CONFIG)) {
-      if (k === "logoV" || k === "bannerV") continue;
+      if (k.endsWith("V")) continue;
       if (b.config && k in b.config) {
-        nueva[k] = NUM_KEYS.includes(k) ? Math.max(1, Number(b.config[k]) || 10) : String(b.config[k]).slice(0, 2000);
+        nueva[k] = NUM_KEYS.includes(k) ? Math.max(1, Number(b.config[k]) || 12) : String(b.config[k]).slice(0, 2000);
       }
     }
     if (nueva.estado && !["abierta", "cerrada"].includes(nueva.estado)) nueva.estado = "abierta";
@@ -65,7 +65,7 @@ export default async (req) => {
   }
 
   if (action === "imagen") {
-    const nombre = b.nombre === "logo" ? "logo" : b.nombre === "banner" ? "banner" : null;
+    const nombre = IMAGENES.includes(b.nombre) ? b.nombre : null;
     if (!nombre) return json({ error: "Imagen inválida" }, 400);
     const cfg = await leerConfig(s);
     const key = nombre + "V";

@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="es"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Rifas Entre Amigos Coatza | Boletos Digitales</title>
+<title>Rifas Entre Amigos Coatza | Gana $2,000 con boletos de $12</title>
 <meta name="description" content="Rifas Entre Amigos Coatza: elige tus números, aparta tu boleto en segundos y participa por premios en efectivo. De Coatza a todo México.">
 <meta name="theme-color" content="#04332c">
 <link rel="icon" href="assets/favicon.png">
-<meta property="og:title" content="Rifas Entre Amigos Coatza">
-<meta property="og:description" content="¡Tu suerte es nacional! Boletos súper económicos, premios en efectivo.">
-<meta property="og:image" content="assets/banner.webp">
+<meta property="og:type" content="website">
+<meta property="og:title" content="🍀 Gana $2,000 en efectivo con un boleto de $12">
+<meta property="og:description" content="Rifas Entre Amigos Coatza · Cada boleto trae 4 números · El ganador lo decide la Lotería Nacional · Sorteo en vivo por Facebook.">
+<meta property="og:image" content="https://raw.githubusercontent.com/Eduar1412/mi-rifa-coatza/main/rifa/public/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -99,6 +102,37 @@ summary{font-weight:800;cursor:pointer;font-size:14px}details p{margin-top:8px;f
 .fab{position:fixed;right:14px;bottom:16px;z-index:1001;width:54px;height:54px;border-radius:50%;background:var(--green);color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.4)}
 .closed{display:none;margin:14px 0;padding:14px;border-radius:12px;background:#7a1f1f;border:1px solid #ff8d8d;text-align:center;font-weight:800}
 footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;font-weight:600}
+
+.fecha{margin:14px auto 0;display:inline-flex;gap:8px;align-items:center;font-weight:800;font-size:14px;padding:8px 16px;border-radius:30px;background:rgba(244,201,93,.14);border:1px solid var(--gold);color:#fff}
+.fecha:empty{display:none}
+.termo{margin:18px 0 6px;padding:16px;border-radius:16px;border:2px solid var(--gold);background:radial-gradient(500px 200px at 50% 0,rgba(244,201,93,.18),transparent 70%),linear-gradient(160deg,#06453d,#064a5a);text-align:center}
+.termo small{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--mut)}
+.termo .now{font-size:40px;font-weight:900;line-height:1.05;margin:2px 0}
+.termo .next{font-size:13.5px;font-weight:700;color:var(--gold3);margin-bottom:12px}
+.bar{position:relative;height:22px;background:rgba(0,0,0,.35);border-radius:20px;border:1px solid var(--line);margin:30px 6px 34px}
+.bar .fill{height:100%;width:0;border-radius:20px;background:linear-gradient(90deg,var(--g3),var(--b2),var(--gold));transition:width .8s}
+.mk{position:absolute;top:-4px;width:3px;height:30px;background:var(--gold);transform:translateX(-50%);border-radius:2px}
+.mk span{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;font-weight:900}
+.mk .p{top:-20px;color:var(--gold3)}.mk .b{top:33px;color:var(--mut);font-weight:700}
+.mk.ok{background:var(--green)}
+.mk.last span{left:auto;right:-2px;transform:none}.mk.ok .p{color:var(--green)}
+.share{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.tr{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:13px;font-size:13px;line-height:1.5;color:var(--mut);font-weight:600}
+.tr b{display:flex;gap:8px;align-items:center;color:#fff;font-size:14px;margin-bottom:4px}.tr b i{color:var(--gold)}
+.tr a{color:var(--gold3)}
+.org{display:flex;gap:14px;align-items:center;margin-bottom:14px}
+.org .ph{width:84px;height:84px;flex:none;border-radius:50%;border:3px solid var(--gold);background:var(--g2) center/cover}
+.org p{font-size:13.5px;line-height:1.55;color:var(--mut);font-weight:600}.org h4{font-size:16px;font-weight:900;margin-bottom:4px}
+.gan{display:flex;gap:12px;align-items:center;padding:12px;border-radius:12px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.4);margin-top:8px;font-size:13.5px;font-weight:700}
+.gan i{font-size:24px;color:var(--gold)}.gan a{color:var(--gold3)}
+.gan-img{width:100%;border-radius:12px;border:2px solid var(--gold);margin-top:10px;display:none}
+.badge{display:block;font-size:10px;font-weight:900;background:var(--gold);color:#3b2a00;border-radius:10px;padding:2px 6px;margin:0 auto 4px;width:max-content}
+.btn-quick.pop{border:2px solid var(--gold);background:rgba(244,201,93,.16)}
+.odds{font-size:12.5px;text-align:center;color:var(--gold3);font-weight:700;margin-top:10px}
+.sticky .go{background:linear-gradient(180deg,var(--gold3),var(--gold) 40%,var(--gold2));color:#3b2a00;border:0;border-radius:30px;padding:12px 20px;font-family:inherit;font-weight:900;font-size:14px;cursor:pointer;margin-right:62px}
+.legal{font-size:11px;color:var(--mut);text-align:center;margin-top:6px}
+@media(max-width:700px){.termo .now{font-size:32px}.mk span{font-size:10px}}
 @media(max-width:700px){nav{gap:8px;padding:8px 10px}.logo{width:40px;height:40px}.brand{display:none}.nav-links{flex:1;justify-content:space-between;margin-left:0}.nav-links a{font-size:12px;padding:8px 7px}.nav-links a.cta{margin-left:2px;padding:8px 10px}.maq{grid-template-columns:repeat(2,1fr)}.lead h1{font-size:21px}.prize .big{font-size:28px}.kpi b{font-size:16px}.cta-big{font-size:15px;padding:14px 22px}}
 @media(max-width:420px){.ct{display:none}.nav-links a.cta{padding:7px 12px;font-size:16px}.nav-links a{font-size:11.5px;padding:8px 5px}}
 </style></head><body>
@@ -115,17 +149,29 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
 <main>
 <section class="wrap hero" id="inicio">
   <img class="banner" id="banner" alt="Rifas Entre Amigos Coatza — ¡Tu suerte es nacional!" src="assets/banner.webp" fetchpriority="high">
+  <div class="fecha" id="fecha"></div><br>
   <div id="cuenta"></div><br>
   <a class="cta-big" href="#comprar"><i class="fa-solid fa-ticket"></i> ¡QUIERO MIS BOLETOS!</a>
   <div class="lead"><h1 class="gold" id="titulo">¡Participa en nuestro sorteo!</h1><p id="subtitulo">Elige tus números de la suerte y aparta tus boletos en segundos</p></div>
 
   <div class="kpis">
-    <div class="kpi"><b class="gold" id="k-premio">$2,000</b><span>Premio</span></div>
-    <div class="kpi"><b class="gold" id="k-precio">$10</b><span>Por boleto</span></div>
+    <div class="kpi"><b class="gold" id="k-premio">$2,000</b><span>Premio hasta</span></div>
+    <div class="kpi"><b class="gold" id="k-precio">$12</b><span>Por boleto</span></div>
     <div class="kpi"><b class="gold">4</b><span>Números c/boleto</span></div>
   </div>
-  <div class="prog"><div id="prog"></div></div>
-  <div class="prog-t" id="prog-t">&nbsp;</div>
+
+  <div class="termo" id="termo">
+    <small>PREMIO ACTUAL</small>
+    <div class="now gold" id="t-now">$2,000</div>
+    <div class="next" id="t-next"></div>
+    <div class="bar" id="bar"><div class="fill" id="t-fill"></div></div>
+    <div class="prog-t" id="prog-t">&nbsp;</div>
+    <div class="share">
+      <a class="btn-wa" id="sh-wa" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+      <a class="btn-wa btn-fb" id="sh-fb" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Compartir</a>
+    </div>
+    <p class="legal" style="margin-top:8px">Comparte: mientras más boletos se vendan, ¡más grande es el premio para todos!</p>
+  </div>
 
   <div class="steps">
     <div class="step"><i class="fa-solid fa-hand-pointer"></i>1. Elige tus números</div>
@@ -143,14 +189,15 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
  </div>
 
  <div id="tab-comprar" class="tab-content active">
-  <div class="card prize"><small>GANA</small><div class="big gold" id="premio">$2,000 EN EFECTIVO</div>
-   <p><strong id="precio-txt">$10 MXN</strong> por boleto · incluye 4 números</p></div>
+  <div class="card prize"><small>PREMIO EN EFECTIVO</small><div class="big gold" id="premio">$2,000</div>
+   <p><strong id="precio-txt">$12 MXN</strong> por boleto · incluye 4 números</p>
+   <p class="odds">🎯 Cada boleto = 4 oportunidades de 1000. ¡Mucho más fácil que la Lotería!</p></div>
 
   <div class="card"><h3><i class="fa-solid fa-dice"></i> LA MAQUINITA DE LA SUERTE</h3>
    <p style="font-size:12.5px;color:var(--mut);margin-bottom:10px;font-weight:600">Elige cuántos boletos quieres y te damos números al azar:</p>
    <div class="maq">
     <button class="btn-quick" onclick="maquinita(1)">+1 Boleto<br><b class="pm" data-k="1"></b></button>
-    <button class="btn-quick" onclick="maquinita(3)">+3 Boletos<br><b class="pm" data-k="3"></b></button>
+    <button class="btn-quick pop" onclick="maquinita(3)"><span class="badge">⭐ MÁS ELEGIDO</span>+3 Boletos<br><b class="pm" data-k="3"></b></button>
     <button class="btn-quick" onclick="maquinita(5)">+5 Boletos<br><b class="pm" data-k="5"></b></button>
     <button class="btn-quick" onclick="maquinita(10)">+10 Boletos<br><b class="pm" data-k="10"></b></button>
    </div>
@@ -167,7 +214,7 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
    <div id="ticket-box"><div style="font-size:10px;color:var(--mut);font-weight:800;letter-spacing:1px;margin-bottom:4px">TUS NÚMEROS:</div><div id="ticket-list"></div>
     <button class="btn-quick" style="margin-top:10px;padding:8px 14px" onclick="limpiar()">Limpiar selección</button></div></div>
 
-  <div class="card"><h3><i class="fa-solid fa-user"></i> TUS DATOS</h3>
+  <div class="card" id="datos" style="scroll-margin-top:84px"><h3><i class="fa-solid fa-user"></i> TUS DATOS</h3>
    <input id="nombre" class="inp" placeholder="Nombre completo" autocomplete="name">
    <input id="telefono" class="inp" type="tel" inputmode="numeric" maxlength="14" placeholder="Tu WhatsApp (10 dígitos)" autocomplete="tel">
    <input id="estado" class="inp" placeholder="Ciudad / Municipio">
@@ -190,13 +237,25 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
    <div id="resultado" style="margin-top:14px;font-size:14px"></div></div>
  </div>
 
+
+ <div class="card" id="confianza"><h3><i class="fa-solid fa-shield-heart"></i> ¿POR QUÉ CONFIAR EN NOSOTROS?</h3>
+  <div class="org"><div class="ph" id="org-foto"></div><div><h4 id="org-nombre">Rifas Entre Amigos Coatza</h4><p id="org-msg"></p></div></div>
+  <div class="trust">
+   <div class="tr"><b><i class="fa-solid fa-building-columns"></i> Lo decide la Lotería Nacional</b>Nadie elige al ganador: son los últimos 3 dígitos del premio mayor. Puedes revisarlo tú en <a href="https://www.lotenal.gob.mx/" target="_blank" rel="noopener">lotenal.gob.mx</a>.</div>
+   <div class="tr"><b><i class="fa-solid fa-video"></i> Sorteo en vivo</b>Transmitimos el resultado en vivo por Facebook y publicamos el video de la entrega del premio.</div>
+   <div class="tr"><b><i class="fa-solid fa-magnifying-glass"></i> Tus boletos, siempre a la vista</b>Consulta con tu WhatsApp tus números y si tu pago ya está confirmado.</div>
+   <div class="tr"><b><i class="fa-solid fa-hand-holding-dollar"></i> Siempre hay ganador</b>Si el número no se vendió, se usa el siguiente sorteo. Si la rifa no arranca, te devolvemos tu dinero.</div>
+  </div>
+  <div id="ganadores"></div>
+  <img class="gan-img" id="gan-img" alt="Entrega del premio">
+ </div>
  <div class="card" id="pagos"><h3><i class="fa-solid fa-credit-card"></i> MÉTODOS DE PAGO</h3>
   <div class="pago" id="pago-banco"></div>
   <div class="pago" id="pago-oxxo"></div>
   <p style="font-size:13px;color:var(--mut);font-weight:600" id="nota-pago"></p></div>
 
  <div class="card"><h3><i class="fa-solid fa-trophy"></i> ¿CÓMO SE ELIGE AL GANADOR?</h3>
-  <p style="font-size:13.5px;line-height:1.6;color:var(--mut);font-weight:600" id="metodo"></p></div>
+  <div style="font-size:13.5px;line-height:1.6;color:var(--mut);font-weight:600" id="metodo"></div></div>
 
  <div class="card" id="preguntas"><h3><i class="fa-solid fa-circle-question"></i> PREGUNTAS FRECUENTES</h3><div id="faq"></div></div>
 
@@ -204,11 +263,11 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
   <p style="font-size:14px;margin-bottom:12px;font-weight:600">¿Dudas? Escríbenos directamente:</p>
   <div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
    <a class="btn-wa" id="wa-contacto" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> <span id="wa-txt">WhatsApp</span></a>
-   <a class="btn-wa btn-fb" id="fb" href="https://www.facebook.com/RifasEntreAmigosCoatza/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Síguenos en Facebook</a>
+   <a class="btn-wa btn-fb" id="fb" href="https://www.facebook.com/profile.php?id=61595407075224" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Síguenos en Facebook</a>
   </div></div>
 </div>
 </main>
-<footer>© Rifas Entre Amigos Coatza · Coatzacoalcos, Veracruz · De Coatza a todo México 🇲🇽<br>Juega con responsabilidad.</footer>
+<footer>© Rifas Entre Amigos Coatza · Coatzacoalcos, Veracruz · De Coatza a todo México 🇲🇽<br>Rifa entre amigos · Solo mayores de 18 años · Juega con responsabilidad.</footer>
 
 <a class="fab" id="fab" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
@@ -227,11 +286,22 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
 
 <div class="sticky" id="sticky" style="display:none">
  <div><span class="total-label"><span id="cnt">0</span> números elegidos</span><span class="total-amount">$<span id="precio">0</span> MXN</span></div>
+ <button class="go" onclick="document.getElementById('datos').scrollIntoView({behavior:'smooth'})">APARTAR ➜</button>
 </div>
 
 <script>
-let MI_WHATSAPP = "529213073574", FECHA_SORTEO = "", PRECIO = 10, ABIERTA = true;
-let CFG = { premio: "$2,000 EN EFECTIVO" };
+let MI_WHATSAPP = "529213073574", FECHA_SORTEO = "", PRECIO = 12, ABIERTA = true, ESC = [];
+const TOTAL_BOL = 250;
+const DEF = {
+  premio: "$2,000 EN EFECTIVO", precio: 12, estado: "abierta", whatsapp: MI_WHATSAPP,
+  titulo: "¡Gana $2,000 en efectivo con solo $12!",
+  subtitulo: "Cada boleto trae 4 números. El ganador lo decide la Lotería Nacional: nadie puede hacer trampa.",
+  escalones: "80 | $700\n130 | $1,200\n180 | $1,600\n250 | $2,000",
+  metodoSorteo: "Gana quien tenga los ÚLTIMOS 3 DÍGITOS del premio mayor de la Lotería Nacional del día del sorteo. Lo transmitimos EN VIVO por Facebook.",
+  mensajeOrganizador: "Soy de Coatza y organizo estas rifas entre amigos. Todo es transparente: el ganador lo decide la Lotería Nacional y la entrega del premio se publica en video.",
+  facebook: "", faq: "", notaPago: ""
+};
+let CFG = DEF;
 let sel = [], vendidos = new Set();
 const $ = id => document.getElementById(id);
 const esc = s => String(s || "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
@@ -245,7 +315,7 @@ for (let i = 0; i < 1000; i++) {
 // confeti decorativo
 for (let i = 0; i < 18; i++) { const e = document.createElement("i"); e.style.cssText = `left:${Math.random()*100}%;animation-duration:${9+Math.random()*10}s;animation-delay:-${Math.random()*14}s;opacity:${.25+Math.random()*.45}`; $("conf").appendChild(e); }
 
-const FB_DEFAULT = "https://www.facebook.com/RifasEntreAmigosCoatza/";
+const FB_DEFAULT = "https://www.facebook.com/profile.php?id=61595407075224";
 // Acepta enlace completo, "facebook.com/..." o solo el nombre de la página (con o sin @)
 function fbUrl(v) {
   v = String(v || "").trim();
@@ -256,21 +326,40 @@ function fbUrl(v) {
 }
 function aplicarConfig(c) {
   if (!c) return;
-  CFG = c; MI_WHATSAPP = c.whatsapp || MI_WHATSAPP; FECHA_SORTEO = c.fechaSorteo || ""; PRECIO = Number(c.precio) || 10; ABIERTA = c.estado !== "cerrada";
-  $("premio").textContent = c.premio; $("k-premio").textContent = c.premio.split(" EN ")[0];
+  c = { ...DEF, ...c };
+  CFG = c; MI_WHATSAPP = c.whatsapp || MI_WHATSAPP; FECHA_SORTEO = c.fechaSorteo || ""; PRECIO = Number(c.precio) || 12; ABIERTA = c.estado !== "cerrada";
+  ESC = String(c.escalones || "").split("\n").map(l => l.split("|")).filter(p => p.length >= 2 && !isNaN(parseInt(p[0])))
+    .map(p => ({ min: parseInt(p[0]), premio: p.slice(1).join("|").trim() })).sort((a, b) => a.min - b.min);
+  const premioMax = ESC.length ? ESC[ESC.length - 1].premio : c.premio.split(" EN ")[0];
+  $("k-premio").textContent = premioMax;
+  $("fecha").innerHTML = fechaBonita(FECHA_SORTEO) ? `<i class="fa-solid fa-calendar-day" style="color:var(--gold)"></i> Sorteo: ${esc(fechaBonita(FECHA_SORTEO))}${c.sorteoNombre ? " · " + esc(c.sorteoNombre) : ""}` : "";
+  $("org-nombre").textContent = c.organizador ? c.organizador + " · Organizador" : "Rifas Entre Amigos Coatza";
+  $("org-msg").textContent = c.mensajeOrganizador || "";
+  $("org-foto").style.backgroundImage = c.organizadorV ? `url(/api/img/organizador?v=${c.organizadorV})` : "url(assets/logo.webp)";
+  const gan = String(c.ganadores || "").split("\n").filter(l => l.trim()).map(l => { const [n, p, f, v] = l.split("|").map(x => (x || "").trim());
+    return `<div class="gan"><i class="fa-solid fa-trophy"></i><div>${esc(n)} ganó <span class="gold">${esc(p)}</span>${f ? " · " + esc(f) : ""}${/^https?:\/\//.test(v || "") ? ` · <a href="${esc(v)}" target="_blank" rel="noopener">Ver entrega ▶</a>` : ""}</div></div>`; }).join("");
+  $("ganadores").innerHTML = gan ? `<h3 style="margin:16px 0 4px"><i class="fa-solid fa-medal"></i> GANADORES</h3>` + gan : `<div class="gan"><i class="fa-solid fa-star"></i><div>¡Esta es nuestra primera rifa! Aquí publicaremos al ganador con su foto y el video de la entrega.</div></div>`;
+  if (c.ganadorV) { $("gan-img").src = "/api/img/ganador?v=" + c.ganadorV; $("gan-img").style.display = "block"; }
   $("k-precio").textContent = "$" + PRECIO; $("precio-txt").textContent = "$" + PRECIO + " MXN";
   document.querySelectorAll(".pm").forEach(e => e.textContent = "($" + PRECIO * e.dataset.k + ")");
-  $("titulo").textContent = c.titulo; $("subtitulo").textContent = c.subtitulo; $("metodo").textContent = c.metodoSorteo; $("nota-pago").textContent = c.notaPago;
+  $("titulo").textContent = c.titulo; $("subtitulo").textContent = c.subtitulo; $("metodo").innerHTML = String(c.metodoSorteo || "").split("\n").filter(l => l.trim()).map(l => `<p style="margin-bottom:8px">${esc(l)}</p>`).join(""); $("nota-pago").textContent = c.notaPago;
   $("pago-banco").innerHTML = `<strong>Transferencia / depósito:</strong><br>Banco: ${esc(c.banco) || "—"}<br>Titular: ${esc(c.titular) || "—"}<br>CLABE / Tarjeta: ${esc(c.clabe) || "—"}`;
   $("pago-oxxo").innerHTML = `<strong>Depósito en OXXO:</strong> ${esc(c.oxxo) || "—"}`;
   $("faq").innerHTML = String(c.faq || "").split("\n").filter(l => l.includes("|")).map(l => { const [q, ...a] = l.split("|"); return `<details><summary>${esc(q.trim())}</summary><p>${esc(a.join("|").trim())}</p></details>`; }).join("");
+  const url = location.origin + "/", txt = `🍀 ¡Mira esta rifa! Boletos de $${PRECIO} con 4 números y el premio llega hasta ${premioMax} en efectivo. El ganador lo decide la Lotería Nacional 👉 `;
+  $("sh-wa").href = "https://wa.me/?text=" + encodeURIComponent(txt + url);
+  $("sh-fb").href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url);
   const wa = "https://wa.me/" + MI_WHATSAPP, num = MI_WHATSAPP.replace(/^52/, "").replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3");
   $("wa-contacto").href = wa + "?text=" + encodeURIComponent("Hola, tengo una duda sobre la rifa"); $("fab").href = wa; $("wa-txt").textContent = "WhatsApp: " + num;
   $("fb").href = fbUrl(c.facebook);
   if (c.bannerV) $("banner").src = "/api/img/banner?v=" + c.bannerV;
   if (c.logoV) $("logo-nav").style.backgroundImage = `url(/api/img/logo?v=${c.logoV})`;
   $("closed").style.display = ABIERTA ? "none" : "block"; $("btn-apartar").disabled = !ABIERTA;
-  resumen(); cuenta();
+  resumen(); cuenta(); progreso();
+}
+function fechaBonita(f) {
+  if (!f) return ""; const d = new Date(f); if (isNaN(d)) return "";
+  return d.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" }) + ", " + d.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit" });
 }
 $("logo-nav").style.backgroundImage = "url(assets/logo.webp)";
 
@@ -306,9 +395,20 @@ function filtrar() {
 }
 function marcarVendido(n) { vendidos.add(n); const b = btns[n]; if (!b) return; b.classList.remove("sel"); b.classList.add("sold"); progreso(); }
 function progreso() {
-  const v = vendidos.size, p = Math.round(v / 10);
-  $("prog").style.width = Math.max(p, v ? 2 : 0) + "%";
-  $("prog-t").textContent = v ? `🔥 ${v} de 1000 números ya apartados · ¡quedan ${1000 - v}!` : "🎟️ ¡Sé el primero en apartar tus números!";
+  const bol = Math.floor(vendidos.size / 4), pct = Math.min(100, bol / TOTAL_BOL * 100);
+  $("t-fill").style.width = Math.max(pct, bol ? 2 : 0) + "%";
+  const alc = ESC.filter(e => bol >= e.min), sig = ESC.find(e => bol < e.min);
+  const actual = alc.length ? alc[alc.length - 1].premio : null;
+  $("t-now").textContent = actual || (ESC[0] ? ESC[0].premio : CFG.premio.split(" EN ")[0]);
+  $("premio").textContent = actual || (ESC[0] ? ESC[0].premio : CFG.premio.split(" EN ")[0]);
+  $("t-next").textContent = !ESC.length ? "" : !actual
+    ? `Al venderse ${ESC[0].min} boletos arranca con ${ESC[0].premio} · ¡faltan ${ESC[0].min - bol}!`
+    : sig ? `🔥 Faltan ${sig.min - bol} boletos para que el premio suba a ${sig.premio}` : "🏆 ¡Premio máximo alcanzado!";
+  $("bar").querySelectorAll(".mk").forEach(m => m.remove());
+  ESC.forEach(e => { if (e.min <= 0 || e.min > TOTAL_BOL) return; const m = document.createElement("div");
+    m.className = "mk" + (bol >= e.min ? " ok" : "") + (e.min / TOTAL_BOL > .9 ? " last" : ""); m.style.left = (e.min / TOTAL_BOL * 100) + "%";
+    m.innerHTML = `<span class="p">${esc(e.premio)}</span><span class="b">${e.min}</span>`; $("bar").appendChild(m); });
+  $("prog-t").textContent = bol ? `🎟️ ${bol} de ${TOTAL_BOL} boletos vendidos · ¡quedan ${TOTAL_BOL - bol}!` : "🎟️ ¡Sé de los primeros en apartar tus números!";
 }
 async function cargar() {
   try {
@@ -372,7 +472,7 @@ function cuenta() {
   const d = ms / 864e5 | 0, h = ms / 36e5 % 24 | 0, m = ms / 6e4 % 60 | 0, s = ms / 1e3 % 60 | 0;
   el.textContent = `⏳ Faltan ${d}d ${h}h ${m}m ${s}s para el sorteo`;
 }
-aplicarConfig({ premio: "$2,000 EN EFECTIVO", precio: 10, titulo: "¡Participa en nuestro sorteo!", subtitulo: "Elige tus números de la suerte y aparta tus boletos en segundos", whatsapp: MI_WHATSAPP, facebook: "", faq: "", metodoSorteo: "", notaPago: "", estado: "abierta" });
+aplicarConfig(DEF);
 setInterval(cuenta, 1000);
 cargar(); setInterval(() => { if (!document.hidden) cargar(); }, 20000);
 </script></body></html>

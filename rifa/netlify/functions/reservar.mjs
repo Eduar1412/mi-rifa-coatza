@@ -21,7 +21,7 @@ export default async (req) => {
   const cfg = await leerConfig(s);
   if (cfg.estado !== "abierta") return json({ ok: false, error: "La rifa está cerrada por el momento." }, 403);
 
-  const r = await crearReserva(s, { nombre, telefono, estado, numeros }, Number(cfg.precio) || 10);
+  const r = await crearReserva(s, { nombre, telefono, estado, numeros }, Number(cfg.precio) || 12);
   if (!r.ok) return json({ ok: false, error: "Algunos números ya se ocuparon.", ocupados: r.ocupados }, 409);
   return json({ ok: true, id: r.id, total: r.total });
 };
