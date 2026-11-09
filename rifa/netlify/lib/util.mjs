@@ -40,7 +40,7 @@ export const DEFAULT_CONFIG = {
   mensajeOrganizador: "Soy de Coatza y organizo estas rifas entre amigos. Todo es transparente: el ganador lo decide la Lotería Nacional y la entrega del premio se publica en video. Cualquier duda, escríbeme directo.",
   ganadores: "",
   whatsapp: "529213073574",
-  facebook: "https://www.facebook.com/profile.php?id=61595407075224",
+  facebook: "https://www.facebook.com/SorteosEntreAmigosCoatza",
   banco: "",
   titular: "",
   clabe: "",
