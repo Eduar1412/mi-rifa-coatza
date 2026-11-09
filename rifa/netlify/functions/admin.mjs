@@ -4,7 +4,7 @@ import {
 
 export const config = { path: "/api/admin" };
 
-const NUM_KEYS = ["precio", "horasPago"];
+const NUM_KEYS = ["precio", "horasPago", "minimo"];
 
 export default async (req) => {
   if (!isAdmin(req)) return json({ error: "Contraseña incorrecta" }, 401);
@@ -70,7 +70,7 @@ export default async (req) => {
     for (const k of Object.keys(DEFAULT_CONFIG)) {
       if (k.endsWith("V")) continue;
       if (b.config && k in b.config) {
-        nueva[k] = NUM_KEYS.includes(k) ? Math.max(1, Number(b.config[k]) || 12) : String(b.config[k]).slice(0, 2000);
+        nueva[k] = NUM_KEYS.includes(k) ? (k === "minimo" ? Math.max(0, Number(b.config[k]) || 0) : Math.max(1, Number(b.config[k]) || 12)) : String(b.config[k]).slice(0, 2000);
       }
     }
     if (nueva.estado && !["abierta", "cerrada"].includes(nueva.estado)) nueva.estado = "abierta";

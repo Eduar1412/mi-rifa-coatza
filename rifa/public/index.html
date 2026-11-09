@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Sorteos Entre Amigos Coatza | Gana $2,000 con boletos de $12</title>
+<title>Sorteos Entre Amigos Coatza | Gana $1,000 con boletos de $12</title>
 <meta name="description" content="Sorteos Entre Amigos Coatza: elige tus números, aparta tu boleto en segundos y participa por premios en efectivo. De Coatza a todo México.">
 <meta name="theme-color" content="#071a33">
 <link rel="icon" href="assets/favicon.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="🍀 Gana $2,000 en efectivo con un boleto de $12">
+<meta property="og:title" content="🍀 Gana $1,000 en efectivo con un boleto de $12">
 <meta property="og:description" content="Sorteos Entre Amigos Coatza · Cada boleto trae 4 números · El ganador lo decide la Lotería Nacional · Sorteo en vivo por Facebook.">
 <meta property="og:image" content="https://raw.githubusercontent.com/Eduar1412/mi-rifa-coatza/main/rifa/public/assets/og.jpg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
@@ -155,14 +155,14 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
   <div class="lead"><h1 class="gold" id="titulo">¡Participa en nuestro sorteo!</h1><p id="subtitulo">Elige tus números de la suerte y aparta tus boletos en segundos</p></div>
 
   <div class="kpis">
-    <div class="kpi"><b class="gold" id="k-premio">$2,000</b><span>Premio hasta</span></div>
+    <div class="kpi"><b class="gold" id="k-premio">$1,000</b><span id="k-premio-l">Premio</span></div>
     <div class="kpi"><b class="gold" id="k-precio">$12</b><span>Por boleto</span></div>
     <div class="kpi"><b class="gold">4</b><span>Números c/boleto</span></div>
   </div>
 
   <div class="termo" id="termo">
-    <small>PREMIO ACTUAL</small>
-    <div class="now gold" id="t-now">$2,000</div>
+    <small id="t-label">PREMIO EN EFECTIVO</small>
+    <div class="now gold" id="t-now">$1,000</div>
     <div class="next" id="t-next"></div>
     <div class="bar" id="bar"><div class="fill" id="t-fill"></div></div>
     <div class="prog-t" id="prog-t">&nbsp;</div>
@@ -170,7 +170,7 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
       <a class="btn-wa" id="sh-wa" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
       <a class="btn-wa btn-fb" id="sh-fb" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Compartir</a>
     </div>
-    <p class="legal" style="margin-top:8px">Comparte: mientras más boletos se vendan, ¡más grande es el premio para todos!</p>
+    <p class="legal" style="margin-top:8px" id="share-txt"></p>
   </div>
 
   <div class="steps">
@@ -189,7 +189,7 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
  </div>
 
  <div id="tab-comprar" class="tab-content active">
-  <div class="card prize"><small>PREMIO EN EFECTIVO</small><div class="big gold" id="premio">$2,000</div>
+  <div class="card prize"><small>PREMIO EN EFECTIVO</small><div class="big gold" id="premio">$1,000</div>
    <p><strong id="precio-txt">$12 MXN</strong> por boleto · incluye 4 números</p>
    <p class="odds">🎯 Cada boleto = 4 oportunidades de 1000. ¡Mucho más fácil que la Lotería!</p></div>
 
@@ -244,7 +244,7 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
    <div class="tr"><b><i class="fa-solid fa-building-columns"></i> Lo decide la Lotería Nacional</b>Nadie elige al ganador: son los últimos 3 dígitos del premio mayor. Puedes revisarlo tú en <a href="https://www.lotenal.gob.mx/" target="_blank" rel="noopener">lotenal.gob.mx</a>.</div>
    <div class="tr"><b><i class="fa-solid fa-video"></i> Sorteo en vivo</b>Transmitimos el resultado en vivo por Facebook y publicamos el video de la entrega del premio.</div>
    <div class="tr"><b><i class="fa-solid fa-magnifying-glass"></i> Tus boletos, siempre a la vista</b>Consulta con tu WhatsApp tus números y si tu pago ya está confirmado.</div>
-   <div class="tr"><b><i class="fa-solid fa-hand-holding-dollar"></i> Siempre hay ganador</b>Si el número no se vendió, se usa el siguiente sorteo. Si la rifa no arranca, te devolvemos tu dinero.</div>
+   <div class="tr"><b><i class="fa-solid fa-hand-holding-dollar"></i> Siempre hay ganador</b>Si el número no se vendió, gana el vendido más cercano hacia arriba. Y si no se llega al mínimo, te devolvemos tu dinero.</div>
   </div>
   <div id="ganadores"></div>
   <img class="gan-img" id="gan-img" alt="Entrega del premio">
@@ -290,15 +290,15 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:10px 10px 24px;
 </div>
 
 <script>
-let MI_WHATSAPP = "529213073574", FECHA_SORTEO = "", PRECIO = 12, ABIERTA = true, ESC = [];
+let MI_WHATSAPP = "529213073574", FECHA_SORTEO = "", PRECIO = 12, ABIERTA = true, ESC = [], MIN = 100;
 const TOTAL_BOL = 250;
 const DEF = {
-  premio: "$2,000 EN EFECTIVO", precio: 12, estado: "abierta", whatsapp: MI_WHATSAPP,
-  titulo: "¡Gana $2,000 en efectivo con solo $12!",
+  premio: "$1,000 EN EFECTIVO", precio: 12, minimo: 100, estado: "abierta", whatsapp: MI_WHATSAPP,
+  titulo: "¡Gana $1,000 en efectivo con solo $12!",
   subtitulo: "Cada boleto trae 4 números. El ganador lo decide la Lotería Nacional: nadie puede hacer trampa.",
-  escalones: "80 | $700\n130 | $1,200\n180 | $1,600\n250 | $2,000",
+  escalones: "",
   metodoSorteo: "Gana quien tenga los ÚLTIMOS 3 DÍGITOS del premio mayor de la Lotería Nacional del día del sorteo. Lo transmitimos EN VIVO por Facebook.",
-  mensajeOrganizador: "Soy de Coatza y organizo estas rifas entre amigos. Todo es transparente: el ganador lo decide la Lotería Nacional y la entrega del premio se publica en video.",
+  mensajeOrganizador: "Soy de Coatza y organizo estos sorteos entre amigos. Todo es transparente: el ganador lo decide la Lotería Nacional y la entrega del premio se publica en video.",
   facebook: "", faq: "", notaPago: ""
 };
 let CFG = DEF;
@@ -327,11 +327,11 @@ function fbUrl(v) {
 function aplicarConfig(c) {
   if (!c) return;
   c = { ...DEF, ...c };
-  CFG = c; MI_WHATSAPP = c.whatsapp || MI_WHATSAPP; FECHA_SORTEO = c.fechaSorteo || ""; PRECIO = Number(c.precio) || 12; ABIERTA = c.estado !== "cerrada";
+  CFG = c; MI_WHATSAPP = c.whatsapp || MI_WHATSAPP; FECHA_SORTEO = c.fechaSorteo || ""; PRECIO = Number(c.precio) || 12; MIN = Math.max(0, Number(c.minimo) || 0); ABIERTA = c.estado !== "cerrada";
   ESC = String(c.escalones || "").split("\n").map(l => l.split("|")).filter(p => p.length >= 2 && !isNaN(parseInt(p[0])))
     .map(p => ({ min: parseInt(p[0]), premio: p.slice(1).join("|").trim() })).sort((a, b) => a.min - b.min);
   const premioMax = ESC.length ? ESC[ESC.length - 1].premio : c.premio.split(" EN ")[0];
-  $("k-premio").textContent = premioMax;
+  $("k-premio").textContent = premioMax; $("k-premio-l").textContent = ESC.length ? "Premio hasta" : "Premio"; $("t-label").textContent = ESC.length ? "PREMIO ACTUAL" : "PREMIO EN EFECTIVO"; $("share-txt").textContent = ESC.length ? "Comparte: mientras más boletos se vendan, ¡más grande es el premio para todos!" : `Comparte: al llegar a ${MIN} boletos el sorteo queda asegurado. ¡Ayúdanos a llenarlo!`;
   $("fecha").innerHTML = fechaBonita(FECHA_SORTEO) ? `<i class="fa-solid fa-calendar-day" style="color:var(--gold)"></i> Sorteo: ${esc(fechaBonita(FECHA_SORTEO))}${c.sorteoNombre ? " · " + esc(c.sorteoNombre) : ""}` : "";
   $("org-nombre").textContent = c.organizador ? c.organizador + " · Organizador" : "Sorteos Entre Amigos Coatza";
   $("org-msg").textContent = c.mensajeOrganizador || "";
@@ -397,17 +397,23 @@ function marcarVendido(n) { vendidos.add(n); const b = btns[n]; if (!b) return; 
 function progreso() {
   const bol = Math.floor(vendidos.size / 4), pct = Math.min(100, bol / TOTAL_BOL * 100);
   $("t-fill").style.width = Math.max(pct, bol ? 2 : 0) + "%";
-  const alc = ESC.filter(e => bol >= e.min), sig = ESC.find(e => bol < e.min);
-  const actual = alc.length ? alc[alc.length - 1].premio : null;
-  $("t-now").textContent = actual || (ESC[0] ? ESC[0].premio : CFG.premio.split(" EN ")[0]);
-  $("premio").textContent = actual || (ESC[0] ? ESC[0].premio : CFG.premio.split(" EN ")[0]);
-  $("t-next").textContent = !ESC.length ? "" : !actual
-    ? `Al venderse ${ESC[0].min} boletos arranca con ${ESC[0].premio} · ¡faltan ${ESC[0].min - bol}!`
-    : sig ? `🔥 Faltan ${sig.min - bol} boletos para que el premio suba a ${sig.premio}` : "🏆 ¡Premio máximo alcanzado!";
   $("bar").querySelectorAll(".mk").forEach(m => m.remove());
-  ESC.forEach(e => { if (e.min <= 0 || e.min > TOTAL_BOL) return; const m = document.createElement("div");
-    m.className = "mk" + (bol >= e.min ? " ok" : "") + (e.min / TOTAL_BOL > .9 ? " last" : ""); m.style.left = (e.min / TOTAL_BOL * 100) + "%";
-    m.innerHTML = `<span class="p">${esc(e.premio)}</span><span class="b">${e.min}</span>`; $("bar").appendChild(m); });
+  const marca = (pos, arriba, abajo, ok) => { if (pos <= 0 || pos > TOTAL_BOL) return; const m = document.createElement("div");
+    m.className = "mk" + (ok ? " ok" : "") + (pos / TOTAL_BOL > .9 ? " last" : ""); m.style.left = (pos / TOTAL_BOL * 100) + "%";
+    m.innerHTML = `<span class="p">${esc(arriba)}</span><span class="b">${abajo}</span>`; $("bar").appendChild(m); };
+  if (ESC.length) {
+    const alc = ESC.filter(e => bol >= e.min), sig = ESC.find(e => bol < e.min), actual = alc.length ? alc[alc.length - 1].premio : null;
+    $("t-now").textContent = $("premio").textContent = actual || ESC[0].premio;
+    $("t-next").textContent = !actual ? `Al venderse ${ESC[0].min} boletos arranca con ${ESC[0].premio} · ¡faltan ${ESC[0].min - bol}!`
+      : sig ? `🔥 Faltan ${sig.min - bol} boletos para que el premio suba a ${sig.premio}` : "🏆 ¡Premio máximo alcanzado!";
+    ESC.forEach(e => marca(e.min, e.premio, e.min, bol >= e.min));
+  } else {
+    const p = CFG.premio.split(" EN ")[0];
+    $("t-now").textContent = $("premio").textContent = p;
+    $("t-next").textContent = MIN && bol < MIN ? `🎯 Faltan ${MIN - bol} boletos para asegurar el sorteo (mínimo ${MIN})` : `✅ ¡Sorteo asegurado! Quedan ${TOTAL_BOL - bol} boletos`;
+    if (MIN) marca(MIN, bol >= MIN ? "✅ Asegurado" : "Mínimo", MIN, bol >= MIN);
+    marca(TOTAL_BOL, "Lleno", TOTAL_BOL, bol >= TOTAL_BOL);
+  }
   $("prog-t").textContent = bol ? `🎟️ ${bol} de ${TOTAL_BOL} boletos vendidos · ¡quedan ${TOTAL_BOL - bol}!` : "🎟️ ¡Sé de los primeros en apartar tus números!";
 }
 async function cargar() {

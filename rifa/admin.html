@@ -101,7 +101,7 @@ button:hover,.b:hover{filter:brightness(1.1)}button:disabled{opacity:.5;cursor:n
 
   <!-- RESUMEN -->
   <div class="pane on" id="p-inicio">
-    <div class="card"><h2>📈 Avance del premio</h2><p class="sub" id="r-next"></p>
+    <div class="card"><h2>📈 Avance del sorteo</h2><p class="sub" id="r-next"></p>
       <div class="bar" id="bar"><div class="fill" id="fill"></div></div>
       <div class="g3" style="font-size:13px">
         <div><b>Por cobrar:</b> <span id="r-pend">$0</span></div>
@@ -117,7 +117,7 @@ button:hover,.b:hover{filter:brightness(1.1)}button:disabled{opacity:.5;cursor:n
       <div class="card"><h2>✅ Lista antes de vender</h2><p class="sub">Lo que la gente necesita ver para confiar y comprar.</p><div id="checklist"></div></div>
     </div>
     <div class="card"><h2>📣 Publicación para Facebook / WhatsApp</h2><p class="sub">Se arma sola con tus números reales. Cópiala y pégala en tu página, en grupos o en tus estados.</p>
-      <div class="acts" style="margin:0 0 10px"><select id="promo-tipo" onchange="promo()" style="max-width:280px"><option value="avance">Avance: cuánto falta para subir el premio</option><option value="lanzamiento">Lanzamiento del sorteo</option><option value="ultimos">Últimos boletos / último día</option><option value="envivo">Aviso de transmisión en vivo</option><option value="ganador">Anuncio del ganador</option></select>
+      <div class="acts" style="margin:0 0 10px"><select id="promo-tipo" onchange="promo()" style="max-width:280px"><option value="avance">Avance del sorteo (cuántos boletos van)</option><option value="lanzamiento">Lanzamiento del sorteo</option><option value="ultimos">Últimos boletos / último día</option><option value="envivo">Aviso de transmisión en vivo</option><option value="ganador">Anuncio del ganador</option></select>
       <button onclick="copiar($('promo').innerText)">📋 Copiar texto</button></div>
       <div class="promo" id="promo"></div>
     </div>
@@ -157,10 +157,12 @@ button:hover,.b:hover{filter:brightness(1.1)}button:disabled{opacity:.5;cursor:n
       <div><label>Fecha y hora del sorteo</label><input id="c-fechaSorteo" type="datetime-local"><p class="hint">Activa la cuenta regresiva en la página.</p></div>
       <div><label>¿Qué sorteo de la Lotería Nacional?</label><input id="c-sorteoNombre" placeholder="Ej. Sorteo Superior No. 2850"></div>
       <div><label>Horas para pagar después de apartar</label><input id="c-horasPago" type="number" min="1"><p class="hint">Pasado ese tiempo, el apartado se marca como VENCIDO.</p></div>
-      <div><label>Premio (texto)</label><input id="c-premio" placeholder="$2,000 EN EFECTIVO"><p class="hint">Se usa si no pones escalones.</p></div>
+      <div><label>Premio</label><input id="c-premio" placeholder="$1,000 EN EFECTIVO"></div>
+      <div><label>Mínimo de boletos para hacer el sorteo</label><input id="c-minimo" type="number" min="0"><p class="hint">Si no se llega, se pospone o se devuelve el dinero. Pon 0 para no tener mínimo.</p></div>
     </div>
-    <label>Premio que crece — una línea por escalón: boletos vendidos | premio</label><textarea id="c-escalones" placeholder="80 | $700&#10;130 | $1,200&#10;180 | $1,600&#10;250 | $2,000"></textarea>
-    <p class="hint" id="esc-check"></p>
+    <p class="hint" id="esc-check" style="margin-top:8px"></p>
+    <details style="margin-top:10px"><summary style="cursor:pointer;font-weight:700;color:var(--mut);font-size:12.5px">Opcional: premio que crece por escalones (déjalo vacío para premio fijo)</summary><textarea id="c-escalones" style="margin-top:8px" placeholder="80 | $700&#10;130 | $1,200&#10;250 | $2,000"></textarea></details>
+
     <div class="g2"><div><label>Título principal</label><input id="c-titulo"></div><div><label>Subtítulo</label><input id="c-subtitulo"></div></div>
     <label>¿Cómo se elige al ganador? (cada línea es un párrafo)</label><textarea id="c-metodoSorteo" style="min-height:130px"></textarea>
     <label>Preguntas frecuentes — una por línea: Pregunta | Respuesta</label><textarea id="c-faq" style="min-height:200px"></textarea>
@@ -209,9 +211,9 @@ const $ = id => document.getElementById(id);
 const TOTAL = 250;
 let KEY = sessionStorage.getItem("k") || "", DATA = { reservas: [], config: {} }, dirty = false;
 const esc = s => String(s ?? "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
-const money = n => "$" + Math.round(n).toLocaleString("es-MX");
+const money = n => (n < 0 ? "-$" : "$") + Math.abs(Math.round(n)).toLocaleString("es-MX");
 const num = s => Number(String(s || "").replace(/[^\d.]/g, "")) || 0;
-const FIELDS = ["premio", "precio", "horasPago", "titulo", "subtitulo", "fechaSorteo", "sorteoNombre", "estado", "escalones", "metodoSorteo", "faq", "organizador", "mensajeOrganizador", "ganadores", "banco", "titular", "clabe", "oxxo", "whatsapp", "facebook", "notaPago"];
+const FIELDS = ["premio", "precio", "minimo", "horasPago", "titulo", "subtitulo", "fechaSorteo", "sorteoNombre", "estado", "escalones", "metodoSorteo", "faq", "organizador", "mensajeOrganizador", "ganadores", "banco", "titular", "clabe", "oxxo", "whatsapp", "facebook", "notaPago"];
 const URL_SITIO = location.origin;
 
 function toast(t, ok = true) { const e = $("toast"); e.textContent = t; e.className = "toast show" + (ok ? "" : " err"); clearTimeout(e._t); e._t = setTimeout(() => e.className = "toast", 3200); }
@@ -243,8 +245,9 @@ function calc() {
   const bol = R.reduce((a, r) => a + r.numeros.length, 0) / 4, bolPag = R.filter(r => r.pagado).reduce((a, r) => a + r.numeros.length, 0) / 4;
   const alc = E.filter(e => bol >= e.min), sig = E.find(e => bol < e.min);
   const premioTxt = alc.length ? alc[alc.length - 1].premio : (E.length ? "Por arrancar" : String(c.premio || "").split(" EN ")[0]);
+  const min = Math.max(0, Number(c.minimo) || 0);
   const cobrado = R.filter(r => r.pagado).reduce((a, r) => a + r.total, 0), pend = R.filter(r => !r.pagado).reduce((a, r) => a + r.total, 0);
-  return { R, c, E, precio, bol, bolPag, alc, sig, premioTxt, premioNum: num(premioTxt), cobrado, pend, max: E.length ? E[E.length - 1].premio : premioTxt };
+  return { R, c, E, min, precio, bol, bolPag, alc, sig, premioTxt, premioNum: num(premioTxt), cobrado, pend, max: E.length ? E[E.length - 1].premio : premioTxt };
 }
 
 // --- carga ---
@@ -264,13 +267,15 @@ function pintarTodo() { resumen(); pintar(); mapa(); checklist(); promo(); }
 function resumen() {
   const k = calc();
   $("live").textContent = k.c.estado === "cerrada" ? "🔴 Rifa cerrada" : "🟢 Rifa abierta"; $("live").className = "live " + (k.c.estado === "cerrada" ? "off" : "on");
-  $("s-premio").textContent = k.premioTxt; $("s-premio2").textContent = !k.E.length ? "" : !k.alc.length ? `arranca con ${k.E[0].premio} al llegar a ${k.E[0].min} boletos` : k.sig ? `sube a ${k.sig.premio} con ${k.sig.min - k.bol} boletos más` : "¡premio máximo!";
+  $("s-premio").textContent = k.premioTxt; $("s-premio2").textContent = !k.E.length ? (k.min ? (k.bol >= k.min ? "✅ sorteo asegurado" : `faltan ${k.min - k.bol} boletos para el mínimo`) : "premio fijo") : !k.alc.length ? `arranca con ${k.E[0].premio} al llegar a ${k.E[0].min} boletos` : k.sig ? `sube a ${k.sig.premio} con ${k.sig.min - k.bol} boletos más` : "¡premio máximo!";
   $("s-bol").textContent = `${k.bol} / ${TOTAL}`; $("s-bol2").textContent = `${k.bolPag} pagados · ${k.bol - k.bolPag} sin pagar`;
   $("s-money").textContent = money(k.cobrado); $("s-money2").textContent = `${money(k.pend)} por cobrar`;
-  const gan = k.cobrado - k.premioNum; $("s-gan").textContent = money(gan); $("s-gan").style.color = gan >= 0 ? "var(--green)" : "var(--red)";
-  $("r-next").textContent = !k.E.length ? "Premio fijo (sin escalones)." : !k.alc.length ? `Faltan ${k.E[0].min - k.bol} boletos para arrancar con ${k.E[0].premio}. Si no se llega, el sorteo se pospone o se devuelve el dinero.` : k.sig ? `Faltan ${k.sig.min - k.bol} boletos para que el premio suba a ${k.sig.premio}.` : "🏆 Se alcanzó el premio máximo.";
+  const gan = k.cobrado - k.premioNum; $("s-gan").textContent = money(gan); $("s-gan").style.color = gan >= 0 ? "var(--green)" : "var(--amber)";
+  $("s-gan2").textContent = gan >= 0 ? "cobrado − premio" : `faltan ${money(-gan)} cobrados para cubrir el premio`;
+  $("r-next").textContent = !k.E.length ? (k.min && k.bol < k.min ? `Faltan ${k.min - k.bol} boletos para llegar al mínimo de ${k.min}. Con el mínimo juntas ${money(k.min * k.precio)} y te quedan ${money(k.min * k.precio - k.premioNum)}.` : `✅ Sorteo asegurado. Si se venden los ${TOTAL} boletos juntas ${money(TOTAL * k.precio)} y te quedan ${money(TOTAL * k.precio - k.premioNum)}.`) : !k.alc.length ? `Faltan ${k.E[0].min - k.bol} boletos para arrancar con ${k.E[0].premio}. Si no se llega, el sorteo se pospone o se devuelve el dinero.` : k.sig ? `Faltan ${k.sig.min - k.bol} boletos para que el premio suba a ${k.sig.premio}.` : "🏆 Se alcanzó el premio máximo.";
   $("fill").style.width = Math.min(100, k.bol / TOTAL * 100) + "%";
   $("bar").querySelectorAll(".mk").forEach(m => m.remove());
+  if (!k.E.length && k.min) { const m = document.createElement("div"); m.className = "mk" + (k.bol >= k.min ? " ok" : ""); m.style.left = k.min / TOTAL * 100 + "%"; m.innerHTML = `<span class="p">${k.bol >= k.min ? "✅ Asegurado" : "Mínimo"}</span><span class="n">${k.min}</span>`; $("bar").appendChild(m); }
   k.E.forEach(e => { if (e.min <= 0 || e.min > TOTAL) return; const m = document.createElement("div"); m.className = "mk" + (k.bol >= e.min ? " ok" : "") + (e.min / TOTAL > .9 ? " last" : ""); m.style.left = e.min / TOTAL * 100 + "%"; m.innerHTML = `<span class="p">${esc(e.premio)}</span><span class="n">${e.min}</span>`; $("bar").appendChild(m); });
   $("r-pend").textContent = money(k.pend); $("r-comp").textContent = k.R.length; $("r-fecha").textContent = fechaBonita(k.c.fechaSorteo) || "sin fecha";
   const pend = k.R.filter(r => !r.pagado).length, venc = k.R.filter(vencida).length;
@@ -307,14 +312,19 @@ function mapa(ganadorNum) {
 $("map").onclick = e => { const n = e.target.dataset?.n; if (!n) return; const r = DATA.reservas.find(x => x.numeros.includes(n)); const box = $("map-info");
   if (!r) { box.style.display = "none"; return; } box.style.display = "block"; box.innerHTML = `<b>${n}</b> → ${esc(r.nombre)} · ${esc(r.telefono)} · ${r.pagado ? "✅ pagado" : "⏳ sin pagar"}`; };
 
+function dueno(n) { return DATA.reservas.find(x => x.numeros.includes(n)); }
 function ganador() {
   const n = $("w-num").value.replace(/\D/g, "").padStart(3, "0").slice(-3); $("w-num").value = n;
-  const r = DATA.reservas.find(x => x.numeros.includes(n)), box = $("w-res"); mapa(n);
-  if (!r) { box.innerHTML = `<div class="win no">El <b>${n}</b> <b>no se vendió</b>. Según tus reglas, se usa el resultado del siguiente sorteo de la Lotería Nacional.</div>`; return; }
-  const m = `🎉 ¡FELICIDADES ${r.nombre}! 🎉\n\nTu número ${n} es el GANADOR del sorteo de Sorteos Entre Amigos Coatza (${calc().premioTxt}). 🏆\n\nEscríbeme para coordinar la entrega de tu premio. ¡Gracias por participar! 🍀`;
-  box.innerHTML = r.pagado
-    ? `<div class="win ok">🏆 <b>${n}</b> es de <b>${esc(r.nombre)}</b> · ${esc(r.telefono)}${r.estado ? " · " + esc(r.estado) : ""}<br>✅ Pago confirmado · folio ${esc(r.id)}<div class="acts"><a class="b wa" target="_blank" rel="noopener" href="${wa(r.telefono, m)}">Avisar al ganador</a><button class="ghost" onclick="$('promo-tipo').value='ganador';promo('${esc(r.nombre)}','${n}')">Armar publicación</button></div></div>`
-    : `<div class="win bad">⚠️ <b>${n}</b> está apartado por <b>${esc(r.nombre)}</b> · ${esc(r.telefono)}, pero <b>NO está pagado</b>. Revisa tus reglas antes de entregar el premio.</div>`;
+  const box = $("w-res"), pagado = x => { const r = dueno(x); return r && r.pagado ? r : null; };
+  let g = n, r = pagado(n), saltos = 0;
+  while (!r && saltos < 999) { saltos++; g = String((parseInt(g) + 1) % 1000).padStart(3, "0"); r = pagado(g); }
+  mapa(g);
+  if (!r) { box.innerHTML = `<div class="win no">Todavía no hay ningún número pagado.</div>`; return; }
+  const exacto = dueno(n), sinPagar = DATA.reservas.filter(x => !x.pagado).length;
+  const regla = g === n ? "" : `<div style="margin-bottom:6px">El <b>${n}</b> ${exacto ? `estaba apartado por ${esc(exacto.nombre)} pero <b>no pagó</b>, así que no cuenta` : "<b>no se vendió</b>"}. Por la regla del <b>número vendido más cercano hacia arriba</b>, gana el <b>${g}</b>.</div>`;
+  const m = `🎉 ¡FELICIDADES ${r.nombre}! 🎉\n\nTu número ${g} es el GANADOR del sorteo de Sorteos Entre Amigos Coatza (${calc().premioTxt} en efectivo). 🏆\n\nEscríbeme para coordinar la entrega de tu premio. ¡Gracias por participar! 🍀`;
+  box.innerHTML = `<div class="win ok">${regla}🏆 <b>${g}</b> es de <b>${esc(r.nombre)}</b> · ${esc(r.telefono)}${r.estado ? " · " + esc(r.estado) : ""}<br>✅ Pago confirmado · folio ${esc(r.id)}<div class="acts"><a class="b wa" target="_blank" rel="noopener" href="${wa(r.telefono, m)}">Avisar al ganador</a><button class="ghost" onclick="$('promo-tipo').value='ganador';promo('${esc(r.nombre)}','${g}','${n}')">Armar publicación</button></div></div>`
+    + (sinPagar ? `<p class="hint" style="margin-top:6px">ℹ️ Solo participan números pagados. Antes del sorteo, libera los apartados que no pagaron (${sinPagar} ahora).</p>` : "");
 }
 
 function checklist() {
@@ -325,15 +335,16 @@ function checklist() {
   $("checklist").innerHTML = items.map(([ok, t, tab]) => `<div class="check"><i>${ok ? "✅" : "⬜"}</i><span>${ok ? t : `<a href="#" onclick="irA('${tab}');return false">${t}</a>`}</span></div>`).join("");
 }
 
-function promo(nombreGan, numGan) {
+function promo(nombreGan, numGan, numLot) {
   const k = calc(), c = k.c, f = fechaBonita(c.fechaSorteo), lot = c.sorteoNombre ? ` (${c.sorteoNombre})` : "", t = $("promo-tipo").value;
-  const quedan = TOTAL - k.bol, sube = !k.alc.length && k.E.length ? `🔥 ¡Faltan ${k.E[0].min - k.bol} boletos para arrancar con ${k.E[0].premio}! Después sigue subiendo hasta ${k.max}.` : k.sig ? `🔥 ¡Faltan solo ${k.sig.min - k.bol} boletos para que el premio suba a ${k.sig.premio}!` : "🏆 ¡Ya alcanzamos el premio máximo!";
+  const fijo = !k.E.length, P = fijo ? k.premioTxt : null;
+  const quedan = TOTAL - k.bol, sube = fijo ? (k.min && k.bol < k.min ? `🎯 ¡Faltan ${k.min - k.bol} boletos para asegurar el sorteo!` : "✅ ¡El sorteo ya está asegurado!") : !k.alc.length && k.E.length ? `🔥 ¡Faltan ${k.E[0].min - k.bol} boletos para arrancar con ${k.E[0].premio}! Después sigue subiendo hasta ${k.max}.` : k.sig ? `🔥 ¡Faltan solo ${k.sig.min - k.bol} boletos para que el premio suba a ${k.sig.premio}!` : "🏆 ¡Ya alcanzamos el premio máximo!";
   const T = {
-    avance: `🍀 SORTEOS ENTRE AMIGOS COATZA 🍀\n\n💰 ${k.alc.length ? "Premio actual: " + k.premioTxt : "Premio: hasta " + k.max} en efectivo\n${sube}\n\n🎟️ Boleto: $${k.precio} = 4 números\n📊 Van ${k.bol} de ${TOTAL} boletos · quedan ${quedan}\n${f ? "📅 Sorteo: " + f + lot + "\n" : ""}🎯 Gana con los últimos 3 dígitos de la Lotería Nacional\n\n👉 Elige tus números: ${URL_SITIO}\n📲 Dudas por WhatsApp\n\n¡Comparte para que el premio crezca para todos! 🙌`,
-    lanzamiento: `🍀 ¡ARRANCA EL SORTEO! 🍀\n\nGana hasta ${k.max} EN EFECTIVO con un boleto de solo $${k.precio} (trae 4 números).\n\n📈 El premio crece con cada boleto vendido: ¡comparte para que suba!\n🎯 Gana quien tenga los últimos 3 dígitos del premio mayor de la Lotería Nacional${f ? " del " + f + lot : ""}. Nadie puede hacer trampa.\n📺 Transmisión EN VIVO aquí mismo.\n\n👉 Aparta tus números: ${URL_SITIO}`,
-    ultimos: `⏰ ¡ÚLTIMOS BOLETOS! ⏰\n\nQuedan ${quedan} boletos para el sorteo de ${k.alc.length ? k.premioTxt : "hasta " + k.max} en efectivo.\n${f ? "📅 Se sortea el " + f + lot + "\n" : ""}${sube}\n\n🎟️ $${k.precio} = 4 oportunidades\n👉 ${URL_SITIO}`,
+    avance: `🍀 SORTEOS ENTRE AMIGOS COATZA 🍀\n\n💰 ${fijo ? "Premio: " + P : k.alc.length ? "Premio actual: " + k.premioTxt : "Premio: hasta " + k.max} en efectivo\n${sube}\n\n🎟️ Boleto: $${k.precio} = 4 números\n📊 Van ${k.bol} de ${TOTAL} boletos · quedan ${quedan}\n${f ? "📅 Sorteo: " + f + lot + "\n" : ""}🎯 Gana con los últimos 3 dígitos de la Lotería Nacional\n\n👉 Elige tus números: ${URL_SITIO}\n📲 Dudas por WhatsApp\n\n${fijo ? "¡Comparte con tus amigos y familia! 🙌" : "¡Comparte para que el premio crezca para todos! 🙌"}`,
+    lanzamiento: `🍀 ¡ARRANCA EL SORTEO! 🍀\n\nGana ${fijo ? P : "hasta " + k.max} EN EFECTIVO con un boleto de solo $${k.precio} (trae 4 números = 4 oportunidades).\n\n${fijo ? "✅ Siempre hay ganador: si el número no se vendió, gana el vendido más cercano hacia arriba." : "📈 El premio crece con cada boleto vendido: ¡comparte para que suba!"}\n🎯 Gana quien tenga los últimos 3 dígitos del premio mayor de la Lotería Nacional${f ? " del " + f + lot : ""} — nadie puede hacer trampa.\n📺 Transmisión EN VIVO aquí mismo.\n\n👉 Aparta tus números: ${URL_SITIO}`,
+    ultimos: `⏰ ¡ÚLTIMOS BOLETOS! ⏰\n\nQuedan ${quedan} boletos para el sorteo de ${fijo ? P : k.alc.length ? k.premioTxt : "hasta " + k.max} en efectivo.\n${f ? "📅 Se sortea el " + f + lot + "\n" : ""}${sube}\n\n🎟️ $${k.precio} = 4 oportunidades\n👉 ${URL_SITIO}`,
     envivo: `📺 ¡HOY ES EL SORTEO! 📺\n\nTransmitimos EN VIVO por esta página el resultado de la Lotería Nacional${lot}${f ? " · " + f : ""}.\n\n🏆 Premio: ${k.alc.length || !k.E.length ? k.premioTxt : "según boletos vendidos"} en efectivo\n🔎 Revisa tus números en ${URL_SITIO} (pestaña “Consultar mis boletos”)\n\n¡Mucha suerte a todos! 🍀`,
-    ganador: `🎉 ¡TENEMOS GANADOR! 🎉\n\nFelicidades a ${nombreGan || "[nombre del ganador]"} 🏆 con el número ${numGan || "[número]"}, que coincidió con los últimos 3 dígitos de la Lotería Nacional${lot}.\n\nSe lleva ${k.premioTxt} en efectivo 💰\n📹 Pronto subimos el video de la entrega.\n\n¡Gracias a todos por participar! El próximo sorteo viene pronto 🍀\n👉 ${URL_SITIO}`
+    ganador: `🎉 ¡TENEMOS GANADOR! 🎉\n\nFelicidades a ${nombreGan || "[nombre del ganador]"} 🏆 con el número ${numGan || "[número]"}${numLot && numLot !== numGan ? ` (la Lotería Nacional${lot} terminó en ${numLot}, que no se vendió; ganó el vendido más cercano hacia arriba)` : `, que coincidió con los últimos 3 dígitos de la Lotería Nacional${lot}`}.\n\nSe lleva ${k.premioTxt} en efectivo 💰\n📹 Pronto subimos el video de la entrega.\n\n¡Gracias a todos por participar! El próximo sorteo viene pronto 🍀\n👉 ${URL_SITIO}`
   };
   $("promo").textContent = T[t];
 }
@@ -354,13 +365,20 @@ async function manual() {
   catch (e) { toast(e.message, false); }
 }
 function revisarEsc() {
-  const c = { escalones: $("c-escalones").value }, E = escalones(c), precio = Number($("c-precio").value) || 12;
+  const c = { escalones: $("c-escalones").value }, E = escalones(c), precio = Number($("c-precio").value) || 12, min = Number($("c-minimo").value) || 0, premio = num($("c-premio").value);
+  if (!E.length) {
+    const ok = min * precio >= premio;
+    $("esc-check").innerHTML = min ? (ok ? `<span style="color:var(--green);font-weight:700">✔ Con el mínimo de ${min} boletos juntas ${money(min * precio)} y te quedan ${money(min * precio - premio)}.</span> Si vendes los ${TOTAL}: ${money(TOTAL * precio)} → te quedan ${money(TOTAL * precio - premio)}.`
+      : `<span style="color:var(--red);font-weight:700">⚠️ Con ${min} boletos juntas ${money(min * precio)}, menos que el premio (${money(premio)}). Sube el mínimo a ${Math.ceil(premio / precio)} o más.</span>`)
+      : `<span style="color:var(--amber);font-weight:700">Sin mínimo: si vendes menos de ${Math.ceil(premio / precio)} boletos, pierdes dinero.</span>`;
+    return;
+  }
   const malos = E.filter(e => num(e.premio) > e.min * precio);
-  $("esc-check").innerHTML = !E.length ? "Sin escalones: se usa el premio fijo." : malos.length
-    ? `<span style="color:var(--red);font-weight:700">⚠️ Ojo: en ${malos.map(e => e.min + " boletos").join(", ")} el premio es mayor a lo que juntas (${malos.map(e => money(e.min * precio)).join(", ")}). Podrías perder dinero.</span>`
+  $("esc-check").innerHTML = malos.length
+    ? `<span style="color:var(--red);font-weight:700">⚠️ Ojo: en ${malos.map(e => e.min + " boletos").join(", ")} el premio es mayor a lo que juntas. Podrías perder dinero.</span>`
     : `<span style="color:var(--green);font-weight:700">✔ En todos los escalones juntas más de lo que pagas de premio.</span> ` + E.map(e => `${e.min} boletos = ${money(e.min * precio)} → ganas ${money(e.min * precio - num(e.premio))}`).join(" · ");
 }
-document.querySelectorAll("#p-web input,#p-web select,#p-web textarea,#p-pagos input,#p-pagos textarea").forEach(el => el.addEventListener("input", () => { dirty = true; $("dirty").classList.add("on"); if (el.id === "c-escalones" || el.id === "c-precio") revisarEsc(); }));
+document.querySelectorAll("#p-web input,#p-web select,#p-web textarea,#p-pagos input,#p-pagos textarea").forEach(el => el.addEventListener("input", () => { dirty = true; $("dirty").classList.add("on"); if (["c-escalones", "c-precio", "c-minimo", "c-premio"].includes(el.id)) revisarEsc(); }));
 window.addEventListener("beforeunload", e => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
 async function guardar() {
   const cfg = {}; FIELDS.forEach(k => { const el = $("c-" + k); if (el) cfg[k] = el.value.trim(); });
